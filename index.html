@@ -9,7 +9,7 @@
   <!-- Luxury High-Fashion & Modern Editorial Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Prata&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
 
   <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -29,10 +29,10 @@
       --gold2: #e6c660;
       --gold-dark: #96762c;
       --copper: #b5712e;
-      --font-times: 'Italiana', 'Prata', serif;
-      --font-brand: 'Italiana', 'Prata', serif;
-      --font-serif: 'Italiana', 'Prata', serif;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-times: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+      --font-brand: 'Playfair Display', 'Cormorant Garamond', serif;
+      --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -56,9 +56,9 @@
     }
 
     h1, h2, h3, h4, h5, h6, .times-font {
-      font-family: var(--font-times);
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.01em;
     }
 
     em {
@@ -159,8 +159,8 @@
       display: flex; align-items: center; gap: 12px;
     }
     .nav-logo {
-      font-family: var(--font-brand); font-size: 1.8rem; color: var(--gold); letter-spacing: 0.35em;
-      text-transform: uppercase; font-weight: 500; line-height: 1;
+      font-family: 'Playfair Display', serif; font-size: 1.65rem; color: var(--gold); letter-spacing: 0.45em;
+      text-transform: uppercase; font-weight: 700; line-height: 1;
     }
     .nav-tag {
       font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); border-left: 1px solid rgba(200, 168, 75, 0.3); padding-left: 12px;
@@ -1088,12 +1088,12 @@
       cupGroup = new THREE.Group();
 
       const cupBodyMat = new THREE.MeshPhysicalMaterial({
-        color: 0x120703,
-        roughness: 0.08,
-        metalness: 0.15,
+        color: 0x0b1628,
+        roughness: 0.06,
+        metalness: 0.25,
         clearcoat: 1.0,
-        clearcoatRoughness: 0.04,
-        reflectivity: 0.9
+        clearcoatRoughness: 0.03,
+        reflectivity: 1.0
       });
 
       const goldMat = new THREE.MeshStandardMaterial({
@@ -1112,7 +1112,7 @@
       cupGroup.add(topRim);
 
       // 3. Inner Porcelain Wall
-      const innerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.80, 0.55, 1.20, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0x070201, roughness: 0.7, side: THREE.BackSide }));
+      const innerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.80, 0.55, 1.20, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0x06101e, roughness: 0.6, side: THREE.BackSide }));
       cupGroup.add(innerWall);
 
       // 4. Espresso Crema Liquid Surface + Foam Ring
