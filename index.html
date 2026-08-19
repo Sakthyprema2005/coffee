@@ -6,10 +6,10 @@
   <title>OBSIDIAN | Rare Specialty Coffee & Micro-Lots</title>
   <meta name="description" content="Obsidian Specialty Coffee — Luxury micro-lots sourced directly from Ethiopia, Colombia, and Panama." />
 
-  <!-- Ultra-Professional Luxury Typography -->
+  <!-- Luxury High-Fashion & Modern Editorial Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Prata&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -29,10 +29,10 @@
       --gold2: #e6c660;
       --gold-dark: #96762c;
       --copper: #b5712e;
-      --font-times: 'Playfair Display', 'Cinzel', 'Times New Roman', Georgia, serif;
-      --font-brand: 'Cinzel', 'Playfair Display', serif;
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-times: 'Italiana', 'Prata', serif;
+      --font-brand: 'Italiana', 'Prata', serif;
+      --font-serif: 'Italiana', 'Prata', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1054,43 +1054,27 @@
       // 3D Cup Group
       cupGroup = new THREE.Group();
 
-      // Ceramic Cup Body
-      const cupMat = new THREE.MeshStandardMaterial({ color: 0x1c0e06, roughness: 0.25, metalness: 0.2 });
+      // Photorealistic Textured 3D Hero Cup Stage
+      const textureLoader = new THREE.TextureLoader();
+      const cupTexture = textureLoader.load('assets/hero_cup.jpg');
+
+      const cupMat = new THREE.MeshStandardMaterial({
+        map: cupTexture,
+        transparent: true,
+        roughness: 0.2,
+        metalness: 0.15,
+        side: THREE.DoubleSide
+      });
+
+      const cupMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 4.0), cupMat);
+      cupGroup.add(cupMesh);
+
+      // Metallic Gold Halo Frame Ring
       const goldMat = new THREE.MeshStandardMaterial({ color: 0xc8a84b, roughness: 0.08, metalness: 0.95 });
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(1.68, 0.03, 16, 100), goldMat);
+      cupGroup.add(ring);
 
-      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.44, 0.95, 64, 1, true), cupMat);
-      cupGroup.add(cup);
-
-      // Gold Rim
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.585, 0.028, 16, 64), goldMat);
-      rim.position.y = 0.475; rim.rotation.x = Math.PI / 2;
-      cupGroup.add(rim);
-
-      // Coffee Liquid
-      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x140602, roughness: 0.04, metalness: 0.1 });
-      const coffee = new THREE.Mesh(new THREE.CircleGeometry(0.52, 64), coffeeMat);
-      coffee.position.y = 0.40; coffee.rotation.x = -Math.PI / 2;
-      cupGroup.add(coffee);
-
-      // Saucer
-      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(0.92, 0.82, 0.09, 64), cupMat);
-      saucer.position.y = -0.58;
-      cupGroup.add(saucer);
-
-      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(0.91, 0.02, 12, 64), goldMat);
-      saucerRim.position.y = -0.535; saucerRim.rotation.x = Math.PI / 2;
-      cupGroup.add(saucerRim);
-
-      // Handle
-      const curve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(0.58, 0.24, 0),
-        new THREE.Vector3(1.18, 0, 0),
-        new THREE.Vector3(0.58, -0.24, 0)
-      );
-      const handle = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.058, 10, false), cupMat);
-      cupGroup.add(handle);
-
-      cupGroup.position.set(0, -0.1, 0);
+      cupGroup.position.set(0, 0, 0);
       scene.add(cupGroup);
 
       // 3D Orbiting Coffee Beans
