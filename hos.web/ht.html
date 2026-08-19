@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAKTHY PREMA | UI/UX Designer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Syne',sans-serif;
+background:#0c0816;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+/* Background */
+.bg{
+position:absolute;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top left,#6d5efc25 0%,transparent 40%),
+radial-gradient(circle at bottom right,#8b5cf625 0%,transparent 40%),
+#0c0816;
+}
+
+/* Main */
+.hero{
+position:relative;
+z-index:10;
+text-align:center;
+}
+
+/* Circle */
+.circle{
+position:relative;
+width:320px;
+height:320px;
+margin:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+
+animation: circleRotate 10s linear infinite;
+}
+
+.circle::before{
+content:"";
+position:absolute;
+inset:-8px;
+border-radius:50%;
+
+background:conic-gradient(
+from 0deg,
+#6d5efc,
+#8b5cf6,
+#4f46e5,
+#6d5efc
+);
+
+animation:spin 8s linear infinite;
+filter:blur(15px);
+opacity:.8;
+}
+
+/* Ring */
+.ring{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:50%;
+border:1px solid rgba(255,255,255,.12);
+}
+
+/* Name */
+.name{
+position:relative;
+z-index:5;
+font-size:52px;
+font-weight:800;
+letter-spacing:3px;
+text-transform:uppercase;
+
+background:linear-gradient(90deg,#ffffff,#d7d7ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-align:center;
+}
+
+/* Role */
+.role{
+margin-top:25px;
+font-size:14px;
+letter-spacing:4px;
+text-transform:uppercase;
+color:#cfcfe6;
+}
+
+/* Description */
+.desc{
+margin-top:20px;
+max-width:600px;
+line-height:1.8;
+font-size:15px;
+color:#b9b9c8;
+padding:0 20px;
+}
+
+/* Spark */
+.spark{
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 10px #6d5efc,0 0 20px #8b5cf6;
+animation:float 3s infinite ease-in-out;
+}
+
+.s1{top:10%;left:20%;}
+.s2{top:20%;right:15%;animation-delay:1s;}
+.s3{bottom:15%;left:18%;animation-delay:2s;}
+.s4{bottom:10%;right:20%;animation-delay:1.5s;}
+.s5{top:50%;left:5%;animation-delay:.5s;}
+.s6{top:55%;right:5%;animation-delay:2.5s;}
+
+/* Button */
+.btn{
+display:inline-block;
+margin-top:35px;
+padding:14px 34px;
+border-radius:50px;
+
+background:linear-gradient(90deg,#4f46e5,#6d5efc);
+color:white;
+text-decoration:none;
+font-size:14px;
+font-weight:700;
+transition:.4s;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 30px rgba(109,94,252,.35);
+}
+
+/* Animations */
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+@keyframes circleRotate{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);opacity:.5;}
+50%{transform:translateY(-15px);opacity:1;}
+}
+
+/* Responsive */
+@media(max-width:768px){
+.circle{width:250px;height:250px;}
+.name{font-size:36px;}
+.desc{font-size:14px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="hero">
+
+<div class="circle">
+
+<div class="ring"></div>
+
+<div class="spark s1"></div>
+<div class="spark s2"></div>
+<div class="spark s3"></div>
+<div class="spark s4"></div>
+<div class="spark s5"></div>
+<div class="spark s6"></div>
+
+<h1 class="name">SAKTHY PREMA</h1>
+
+</div>
+
+<p class="role">UI / UX DESIGNER</p>
+
+<p class="desc">
+Crafting modern digital experiences with creativity,
+usability and elegant visual design.
+Focused on building beautiful interfaces that people love.
+</p>
+
+<a href="#" class="btn">VIEW PORTFOLIO</a>
+
+</div>
+
+</body>
+</html>

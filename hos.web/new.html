@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SAKTHY PREMA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Syne',sans-serif;
+    overflow:hidden;
+    background:#080611;
+}
+
+/* HERO */
+
+.hero{
+    height:100vh;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+
+    background:
+    radial-gradient(circle at top left,
+    rgba(175,120,255,.18),
+    transparent 35%),
+
+    radial-gradient(circle at bottom right,
+    rgba(255,120,200,.15),
+    transparent 40%),
+
+    linear-gradient(
+    135deg,
+    #05030d,
+    #0b0818,
+    #140d26,
+    #1d1036
+    );
+}
+
+/* GLOW CIRCLE */
+
+.glow-circle{
+    width:650px;
+    height:650px;
+    border-radius:50%;
+    position:relative;
+
+    border:2px solid rgba(220,180,255,.7);
+
+    box-shadow:
+    0 0 30px rgba(180,120,255,.5),
+    0 0 60px rgba(180,120,255,.4),
+    0 0 120px rgba(255,120,200,.2);
+
+    animation:rotate 18s linear infinite;
+}
+
+.glow-circle::before{
+    content:"";
+    position:absolute;
+    inset:-12px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,180,220,.3);
+
+    filter:blur(8px);
+}
+
+.glow-circle::after{
+    content:"";
+    position:absolute;
+    inset:25px;
+
+    border-radius:50%;
+
+    border:1px dashed rgba(200,150,255,.25);
+
+    animation:rotateReverse 10s linear infinite;
+}
+
+/* CONTENT */
+
+.content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    width:100%;
+}
+
+.hello{
+    color:#ffb6da;
+    letter-spacing:8px;
+    font-size:14px;
+}
+
+h1{
+    margin-top:20px;
+
+    font-size:70px;
+    font-weight:700;
+    letter-spacing:8px;
+
+    background:linear-gradient(
+    90deg,
+    #b388ff,
+    #d8b4ff,
+    #ffb6da
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+    0 0 15px rgba(180,120,255,.4),
+    0 0 30px rgba(255,120,200,.3);
+}
+
+.divider{
+    margin:25px 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+
+    color:#ffb6da;
+}
+
+.divider span{
+    width:100px;
+    height:1px;
+    background:#cfa8ff;
+}
+
+h2{
+    color:#d8b4ff;
+    font-size:18px;
+    font-weight:500;
+    letter-spacing:6px;
+}
+
+p{
+    color:#c7c3d7;
+    max-width:500px;
+    margin:25px auto;
+
+    line-height:1.8;
+    font-size:16px;
+}
+
+.btn{
+    display:inline-block;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    border:1px solid #ffb6da;
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.4s;
+}
+
+.btn:hover{
+    background:#ffb6da;
+    color:#111;
+}
+
+/* SPARKS */
+
+.spark{
+    position:absolute;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#ffb6da;
+
+    box-shadow:
+    0 0 15px #ff8fd1,
+    0 0 30px #c084fc,
+    0 0 60px #9333ea;
+
+    animation:float 4s ease-in-out infinite;
+}
+
+.s1{
+    top:18%;
+    left:20%;
+}
+
+.s2{
+    top:30%;
+    right:22%;
+    animation-delay:1s;
+}
+
+.s3{
+    bottom:22%;
+    left:25%;
+    animation-delay:2s;
+}
+
+.s4{
+    bottom:28%;
+    right:25%;
+    animation-delay:3s;
+}
+
+.s5{
+    top:15%;
+    right:35%;
+    animation-delay:4s;
+}
+
+.s6{
+    bottom:15%;
+    left:40%;
+    animation-delay:2.5s;
+}
+
+/* ANIMATION */
+
+@keyframes float{
+    50%{
+        transform:translateY(-25px);
+    }
+}
+
+@keyframes rotate{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes rotateReverse{
+    from{
+        transform:rotate(360deg);
+    }
+    to{
+        transform:rotate(0deg);
+    }
+}
+
+@media(max-width:768px){
+
+    .glow-circle{
+        width:400px;
+        height:400px;
+    }
+
+    h1{
+        font-size:40px;
+        letter-spacing:4px;
+    }
+
+    h2{
+        font-size:14px;
+    }
+
+    p{
+        width:85%;
+        font-size:14px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
+    <div class="spark s6"></div>
+
+    <div class="glow-circle">
+
+        <div class="content">
+
+            <div class="hello">
+                HELLO, I'M
+            </div>
+
+            <h1>SAKTHY PREMA</h1>
+
+            <div class="divider">
+                <span></span>
+                ✦
+                <span></span>
+            </div>
+
+            <h2>UI / UX DESIGNER</h2>
+
+            <p>
+                Creating intuitive, elegant and user-centered
+                digital experiences through thoughtful design,
+                creativity and innovation.
+            </p>
+
+            <a href="#" class="btn">
+                VIEW MY WORK
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>

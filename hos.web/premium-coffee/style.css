@@ -1,0 +1,125 @@
+/* Base styles and custom utilities */
+
+:root {
+    --gold: #c5a059;
+    --gold-dark: #b8860b;
+    --coffee-light: #f2e8e5;
+    --coffee-dark: #23140a;
+}
+
+body {
+    cursor: none; /* Custom cursor */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--coffee-light);
+}
+.dark ::-webkit-scrollbar-track {
+    background: var(--coffee-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-dark);
+}
+
+/* Glassmorphism */
+.glass-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(163, 123, 103, 0.1);
+}
+.dark .glass-card {
+    background: rgba(35, 20, 10, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-nav {
+    background: rgba(253, 248, 246, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dark .glass-nav {
+    background: rgba(35, 20, 10, 0.8);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--gold);
+    color: white;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+/* Custom Cursor */
+.cursor-dot,
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--gold);
+}
+
+.cursor-glow {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--gold);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* Date input white icon fix for dark mode */
+.custom-date::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* Hide scrollbar for gallery but allow scroll */
+.gallery-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Text underline animation */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--gold);
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+    width: 100%;
+}

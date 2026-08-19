@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OBSIDIAN | Rare Specialty Coffee & Micro-Lots</title>
+  <meta name="description" content="Obsidian Specialty Coffee — Luxury micro-lots sourced directly from Ethiopia, Colombia, and Panama." />
+
+  <!-- Ultra-Professional Luxury Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --black: #040302;
+      --void: #080503;
+      --espresso: #0d0703;
+      --brown: #1c0e06;
+      --mocha: #2d1609;
+      --cream: #f4ede0;
+      --cream2: #c4b49e;
+      --gold: #c8a84b;
+      --gold2: #e6c660;
+      --gold-dark: #96762c;
+      --copper: #b5712e;
+      --font-times: 'Playfair Display', 'Cinzel', 'Times New Roman', Georgia, serif;
+      --font-brand: 'Cinzel', 'Playfair Display', serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: none;
+    }
+
+    body, html {
+      width: 100%;
+      background-color: var(--black);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-weight: 300;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, h4, h5, h6, .times-font {
+      font-family: var(--font-times);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+    }
+
+    em {
+      font-family: var(--font-times);
+      font-style: italic;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Film Grain Noise */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9980;
+      opacity: 0.035;
+      animation: noise 0.3s infinite steps(2);
+    }
+    @keyframes noise {
+      0% { transform: translate(0,0); }
+      50% { transform: translate(1%,1%); }
+      100% { transform: translate(-1%,-1%); }
+    }
+
+    /* Custom Cursor */
+    #cur {
+      position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+      background: var(--gold); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out), background 0.25s;
+    }
+    #cur-r {
+      position: fixed; top: 0; left: 0; width: 36px; height: 36px;
+      border: 1px solid rgba(200, 168, 75, 0.45); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), border-color 0.3s, background 0.3s;
+    }
+    body.cur-big #cur {
+      width: 0; height: 0; opacity: 0;
+    }
+    body.cur-big #cur-r {
+      width: 58px; height: 58px;
+      border-color: var(--gold);
+      background: rgba(200, 168, 75, 0.12);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed; inset: 0; width: 100vw; height: 100vh;
+      background: var(--black); z-index: 9990;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .pl-logo {
+      font-family: var(--font-brand); font-size: 3.5rem; color: var(--gold); letter-spacing: 0.38em;
+      opacity: 0; transform: translateY(15px); text-transform: uppercase; font-weight: 500;
+    }
+    .pl-sub {
+      font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.45em; color: var(--cream2);
+      text-transform: uppercase; margin-top: 10px; opacity: 0; font-weight: 300;
+    }
+    .pl-line-wrap {
+      width: 240px; height: 1px; background: rgba(255,255,255,0.1); margin: 30px 0 20px;
+      position: relative; overflow: hidden;
+    }
+    .pl-line {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      background: linear-gradient(90deg, var(--copper), var(--gold));
+      transform-origin: left; transform: scaleX(0);
+    }
+    .pl-percent { font-family: var(--font-sans); font-size: 0.9rem; color: var(--gold); letter-spacing: 0.2em; opacity: 0; }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 32px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000; transition: padding 0.5s var(--ease-out), background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+      border-bottom: 1px solid transparent; opacity: 0;
+    }
+    nav.scrolled {
+      padding: 18px 60px;
+      background: rgba(4, 3, 2, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom-color: rgba(200, 168, 75, 0.15);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-logo {
+      font-family: var(--font-brand); font-size: 1.8rem; color: var(--gold); letter-spacing: 0.35em;
+      text-transform: uppercase; font-weight: 500; line-height: 1;
+    }
+    .nav-tag {
+      font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); border-left: 1px solid rgba(200, 168, 75, 0.3); padding-left: 12px;
+    }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-link {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2);
+      transition: color 0.3s; position: relative; font-weight: 300;
+    }
+    .nav-link:hover { color: var(--gold); }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 1px;
+      background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease-out);
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-cart-btn {
+      position: relative; background: transparent; border: none; color: var(--cream); font-size: 1.1rem;
+      padding: 8px; display: flex; align-items: center; justify-content: center;
+    }
+    .cart-count {
+      position: absolute; top: -2px; right: -4px; width: 18px; height: 18px; background: var(--gold);
+      color: var(--black); font-size: 0.65rem; font-weight: 600; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    }
+    .nav-btn {
+      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+      padding: 12px 28px; background: var(--gold); color: var(--black);
+      border: 1px solid var(--gold); transition: all 0.4s var(--ease-out); font-weight: 500;
+    }
+    .nav-btn:hover { background: transparent; color: var(--gold); }
+
+    /* HERO SECTION */
+    #hero {
+      position: relative; width: 100vw; height: 100vh; min-height: 750px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    }
+    #canvas-container {
+      position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
+    }
+    #canvas-container canvas { display: block; width: 100%; height: 100%; }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 85% 65% at 50% 100%, rgba(4,3,2,0.85) 0%, transparent 70%),
+        radial-gradient(circle at 50% 40%, transparent 30%, rgba(4,3,2,0.4) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 10; text-align: center; display: flex; flex-direction: column; align-items: center;
+      padding: 0 24px; pointer-events: none; max-width: 1000px;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; font-weight: 300; display: flex; align-items: center; gap: 16px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 40px; height: 1px; background: rgba(200, 168, 75, 0.4);
+    }
+    .hero-title {
+      font-family: var(--font-times); font-size: clamp(4rem, 10vw, 10.5rem); line-height: 0.92;
+      margin-bottom: 32px; font-weight: 400; letter-spacing: -0.02em; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .hero-title em {
+      font-family: var(--font-times); font-style: italic; color: var(--gold); font-weight: 400;
+    }
+    .line-wrap { overflow: hidden; display: block; }
+    .hero-sub {
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem); max-width: 520px; color: var(--cream2);
+      margin-bottom: 48px; line-height: 1.9; font-weight: 300; letter-spacing: 0.02em;
+    }
+    .hero-actions { display: flex; gap: 20px; pointer-events: all; }
+
+    .btn-gold {
+      background: var(--gold); color: var(--black); padding: 18px 42px;
+      font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; border: 1px solid var(--gold);
+      font-family: var(--font-sans); transition: all 0.4s var(--ease-out); font-weight: 500;
+      position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-gold::before {
+      content: ''; position: absolute; inset: 0; background: var(--gold2);
+      transform: translateX(-101%); transition: transform 0.55s var(--ease-out);
+    }
+    .btn-gold:hover::before { transform: translateX(0); }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(200,168,75,0.3); }
+    .btn-gold span { position: relative; z-index: 1; }
+
+    .btn-ghost {
+      background: transparent; color: var(--gold); padding: 18px 36px;
+      font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; border: 1px solid rgba(200,168,75,0.4);
+      font-family: var(--font-sans); transition: all 0.4s var(--ease-out); font-weight: 300;
+    }
+    .btn-ghost:hover { border-color: var(--gold); background: rgba(200,168,75,0.1); transform: translateY(-3px); }
+
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 10;
+    }
+    .scroll-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream2); }
+    .scroll-line { width: 1px; height: 42px; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; inset: 0; width: 100%; height: 100%; background: var(--gold);
+      animation: scrollLine 2.2s infinite ease-in-out;
+    }
+    @keyframes scrollLine {
+      0% { transform: translateY(-100%); }
+      50% { transform: translateY(0); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* Marquee Banner */
+    .marquee { background: var(--gold); color: var(--black); padding: 18px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+    .marquee-inner { display: flex; font-family: var(--font-times); font-size: 1.6rem; letter-spacing: 0.08em; font-style: italic; }
+    .marquee-item { padding: 0 45px; display: inline-flex; align-items: center; gap: 40px; }
+    .marquee-dot { font-style: normal; font-size: 0.7em; color: var(--brown); opacity: 0.7; }
+
+    /* SECTIONS COMMON */
+    .section { padding: 140px 60px; position: relative; }
+    .container { max-width: 1360px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; display: block; font-weight: 400;
+    }
+    .sec-title {
+      font-family: var(--font-times); font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1.05; margin-bottom: 36px; font-weight: 400;
+    }
+    .sec-title em { color: var(--gold); font-style: italic; }
+
+    /* PHILOSOPHY */
+    .phil-sec { background: var(--espresso); border-top: 1px solid rgba(255,255,255,0.04); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
+    .phil-body { font-size: 1.15rem; color: var(--cream2); line-height: 1.95; margin-bottom: 54px; max-width: 540px; font-weight: 300; }
+    .stats { display: flex; gap: 50px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px; }
+    .stat-item h4 { font-family: var(--font-times); font-size: 3.5rem; color: var(--gold); margin-bottom: 6px; font-weight: 400; line-height: 1; }
+    .stat-item p { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream2); }
+    .phil-right { position: relative; }
+    .phil-img-wrap {
+      position: relative; overflow: hidden; aspect-ratio: 3/4; border: 1px solid rgba(200, 168, 75, 0.2);
+    }
+    .phil-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease-out); }
+    .phil-img-wrap:hover img { transform: scale(1.06); }
+    .badge {
+      position: absolute; bottom: -28px; left: -28px; width: 140px; height: 140px;
+      background: var(--gold); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      color: var(--black); font-family: var(--font-times); text-align: center; z-index: 2; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .badge .b-num { font-size: 2.8rem; font-weight: 400; line-height: 1; }
+    .badge .b-txt { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; font-family: var(--font-sans); margin-top: 2px; }
+
+    /* COLLECTION PRODUCTS */
+    .coll-sec { background: var(--black); }
+    .coll-header { text-align: center; margin-bottom: 90px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .product {
+      position: relative; background: var(--espresso); border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.5s, transform 0.6s var(--ease-out), box-shadow 0.5s;
+      transform-style: preserve-3d; perspective: 1000px;
+    }
+    .product:hover {
+      border-color: rgba(200, 168, 75, 0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    }
+    .prod-img-wrap {
+      position: relative; width: 100%; height: 420px; display: flex; justify-content: center; align-items: center;
+      overflow: hidden; background: linear-gradient(135deg, #160c05, var(--espresso)); padding: 40px;
+    }
+    .prod-glow {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 80%; height: 50%; background: radial-gradient(ellipse at 50% 100%, rgba(200,168,75,0.25) 0%, transparent 70%);
+      opacity: 0; transition: opacity 0.6s; z-index: 0;
+    }
+    .product:hover .prod-glow { opacity: 1; }
+    .prod-badge {
+      position: absolute; top: 20px; left: 20px; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); background: rgba(4,3,2,0.85); border: 1px solid rgba(200,168,75,0.3); padding: 6px 14px; z-index: 2;
+    }
+    .prod-img {
+      max-height: 90%; max-width: 90%; object-fit: contain; position: relative; z-index: 1;
+      transition: transform 0.8s var(--ease-out), filter 0.5s; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    }
+    .product:hover .prod-img { transform: scale(1.08) translateY(-8px); }
+    .prod-info { padding: 36px 32px 32px; }
+    .prod-origin { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 12px; font-weight: 400; }
+    .prod-name { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 12px; font-weight: 400; line-height: 1.1; }
+    .prod-notes { font-size: 0.85rem; color: var(--cream2); margin-bottom: 28px; line-height: 1.6; letter-spacing: 0.05em; }
+    .prod-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
+    .prod-price { font-family: var(--font-times); font-size: 1.8rem; color: var(--gold); font-weight: 400; }
+    .prod-actions { display: flex; gap: 12px; }
+    .btn-cart-add {
+      background: transparent; border: 1px solid rgba(200, 168, 75, 0.4); color: var(--gold);
+      padding: 10px 18px; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      transition: all 0.3s; font-family: var(--font-sans);
+    }
+    .btn-cart-add:hover { background: var(--gold); color: var(--black); }
+
+    /* PROCESS HORIZONTAL SCROLL */
+    .proc-sec { background: var(--void); height: 100vh; overflow: hidden; position: relative; padding: 0; }
+    .proc-track { display: flex; height: 100%; width: max-content; padding-left: 8vw; padding-right: 8vw; align-items: center; }
+    .proc-intro { width: 38vw; min-width: 420px; padding-right: 80px; }
+    .proc-intro h2 { font-family: var(--font-times); font-size: clamp(3.5rem, 6vw, 6rem); margin-bottom: 24px; line-height: 1; }
+    .proc-intro p { font-size: 1.1rem; color: var(--cream2); line-height: 1.85; font-weight: 300; }
+    .proc-step {
+      width: 380px; padding: 0 44px; position: relative; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.06);
+    }
+    .step-num {
+      font-family: var(--font-times); font-size: 7rem; color: rgba(200, 168, 75, 0.12); font-weight: 400; line-height: 1; margin-bottom: 20px;
+    }
+    .step-tag { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 20px; line-height: 1.15; }
+    .step-desc { font-size: 0.95rem; color: var(--cream2); line-height: 1.8; font-weight: 300; }
+
+    /* SPLIT BANNER */
+    .split-sec { display: flex; width: 100%; background: var(--espresso); border-y: 1px solid rgba(255,255,255,0.05); }
+    .split-half { flex: 1; position: relative; overflow: hidden; min-height: 550px; }
+    .split-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+    .split-half:hover .split-img { transform: scale(1.05); }
+    .split-text { display: flex; flex-direction: column; justify-content: center; padding: 90px 80px; background: var(--mocha); }
+    .split-quote { font-family: var(--font-times); font-size: clamp(2.5rem, 4.5vw, 4.2rem); font-style: italic; line-height: 1.15; margin-bottom: 32px; color: var(--cream); }
+    .split-quote em { color: var(--gold); }
+    .split-attr { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2); }
+
+    /* GALLERY */
+    .gal-sec { background: var(--black); }
+    .gal-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 70px; }
+    .gal-head p { max-width: 420px; color: var(--cream2); line-height: 1.8; }
+    .gal-grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 380px 380px; gap: 24px;
+    }
+    .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+    .gal-item:nth-child(1) { grid-row: span 2; }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out), filter 0.6s; filter: brightness(0.85); }
+    .gal-item:hover img { transform: scale(1.07); filter: brightness(1.05); }
+    .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,3,2,0.85) 0%, transparent 60%); pointer-events: none; }
+    .gal-cap { position: absolute; bottom: 28px; left: 28px; z-index: 2; }
+    .gal-cap h4 { font-family: var(--font-times); font-size: 1.6rem; margin-bottom: 4px; font-weight: 400; }
+    .gal-hover { font-size: 0.85rem; font-family: var(--font-times); font-style: italic; color: var(--gold); opacity: 0; transform: translateY(8px); transition: all 0.4s; }
+    .gal-item:hover .gal-hover { opacity: 1; transform: translateY(0); }
+
+    /* ABOUT STORY */
+    .abt-sec { background: var(--espresso); position: relative; }
+    .abt-images { position: relative; width: 100%; height: 580px; }
+    .img-main { width: 85%; height: 85%; object-fit: cover; position: absolute; top: 0; left: 0; border: 1px solid rgba(200, 168, 75, 0.2); }
+    .img-accent { width: 50%; height: 50%; object-fit: cover; position: absolute; bottom: 0; right: 0; border: 8px solid var(--espresso); z-index: 2; }
+    .abt-content p { color: var(--cream2); line-height: 1.9; margin-bottom: 24px; font-size: 1.08rem; font-weight: 300; }
+    .signature { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
+    .sig-name { font-family: var(--font-times); font-size: 2.8rem; font-style: italic; color: var(--gold); }
+    .sig-role { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2); }
+
+    /* TESTIMONIALS */
+    .test-sec { background: var(--void); }
+    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .test-card {
+      background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06);
+      padding: 44px 36px; transition: all 0.4s; position: relative;
+    }
+    .test-card:hover { transform: translateY(-8px); border-color: rgba(200,168,75,0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+    .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 24px; letter-spacing: 3px; }
+    .test-quote { font-family: var(--font-times); font-size: 1.35rem; font-style: italic; line-height: 1.65; margin-bottom: 32px; color: var(--cream); }
+    .test-auth { display: flex; align-items: center; gap: 16px; }
+    .auth-av {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--brown); border: 1px solid var(--gold);
+      display: flex; justify-content: center; align-items: center; font-family: var(--font-times); color: var(--gold); font-size: 1.2rem;
+    }
+    .auth-info h5 { font-family: var(--font-sans); font-size: 0.95rem; font-weight: 400; }
+    .auth-info p { font-size: 0.68rem; color: var(--cream2); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 3px; }
+
+    /* RESERVATION FORM */
+    .res-sec { background: var(--espresso); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .res-content { max-width: 840px; margin: 0 auto; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: left; margin-top: 60px; }
+    .fg-full { grid-column: span 2; }
+    .form-group { position: relative; }
+    .form-label { display: block; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .form-control {
+      width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 16px 20px;
+      color: var(--cream); font-family: var(--font-sans); font-size: 0.95rem; outline: none; transition: border-color 0.3s;
+    }
+    .form-control:focus { border-color: var(--gold); background: rgba(0,0,0,0.5); }
+    select.form-control { appearance: none; cursor: pointer; color: var(--cream); }
+    select.form-control option { background: var(--black); color: var(--cream); }
+    .res-success {
+      display: none; padding: 40px; background: rgba(200, 168, 75, 0.08); border: 1px solid var(--gold);
+      margin-top: 40px; text-align: center;
+    }
+    .res-success h3 { font-family: var(--font-times); font-size: 2.4rem; color: var(--gold); margin-bottom: 12px; }
+    .res-success p { color: var(--cream2); line-height: 1.7; }
+    .ref-code { display: inline-block; background: var(--gold); color: var(--black); font-weight: 600; padding: 6px 16px; margin-top: 15px; font-family: var(--font-sans); font-size: 0.9rem; }
+
+    /* FOOTER */
+    footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; max-width: 1360px; margin-inline: auto; }
+    .foot-brand h3 { font-family: var(--font-times); font-size: 2.2rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 20px; }
+    .foot-brand p { color: var(--cream2); line-height: 1.8; margin-bottom: 28px; max-width: 340px; font-size: 0.95rem; }
+    .nl-form { display: flex; max-width: 360px; }
+    .nl-input {
+      flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 14px 18px;
+      color: var(--cream); font-family: var(--font-sans); font-size: 0.85rem; outline: none;
+    }
+    .nl-btn {
+      background: var(--gold); border: none; padding: 0 24px; color: var(--black); font-weight: 500;
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.3s;
+    }
+    .nl-btn:hover { background: var(--gold2); }
+    .foot-col h4 { font-family: var(--font-times); font-size: 1.2rem; letter-spacing: 0.1em; margin-bottom: 28px; color: var(--gold); }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .foot-col a { color: var(--cream2); transition: color 0.3s; font-size: 0.9rem; }
+    .foot-col a:hover { color: var(--gold); }
+    .foot-bot {
+      max-width: 1360px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; color: var(--cream2); font-size: 0.8rem;
+    }
+
+    /* CART DRAWER */
+    #cart-drawer {
+      position: fixed; top: 0; right: 0; width: 440px; max-width: 100vw; height: 100vh;
+      background: var(--espresso); border-left: 1px solid rgba(200,168,75,0.3); z-index: 2500;
+      transform: translateX(100%); transition: transform 0.5s var(--ease-out); display: flex; flex-direction: column;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.8);
+    }
+    #cart-drawer.open { transform: translateX(0); }
+    .cart-header {
+      padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-header h3 { font-family: var(--font-times); font-size: 1.8rem; color: var(--gold); }
+    .cart-close-btn { background: transparent; border: none; color: var(--cream); font-size: 1.5rem; }
+    .cart-items { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+    .cart-item { display: flex; gap: 16px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 16px; }
+    .cart-item img { width: 64px; height: 64px; object-fit: contain; background: var(--black); padding: 6px; }
+    .cart-item-info { flex: 1; }
+    .cart-item-info h5 { font-family: var(--font-times); font-size: 1.2rem; }
+    .cart-item-info p { font-size: 0.85rem; color: var(--gold); }
+    .cart-footer { padding: 30px; border-top: 1px solid rgba(255,255,255,0.08); background: var(--black); }
+    .cart-total-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-family: var(--font-times); font-size: 1.4rem; }
+    .cart-checkout-btn { width: 100%; text-align: center; }
+
+    /* MODAL */
+    #modal {
+      position: fixed; inset: 0; width: 100vw; height: 100vh;
+      background: rgba(4,3,2,0.85); backdrop-filter: blur(16px);
+      z-index: 2000; display: flex; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    }
+    #modal.active { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      background: var(--espresso); width: 92%; max-width: 1100px; max-height: 90vh;
+      border: 1px solid rgba(200, 168, 75, 0.3); display: flex; position: relative; overflow: hidden;
+    }
+    .modal-close {
+      position: absolute; top: 24px; right: 24px; width: 40px; height: 40px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%;
+      color: var(--cream); font-size: 1.4rem; display: flex; justify-content: center; align-items: center; z-index: 10;
+    }
+    .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+    .modal-left { flex: 1; background: var(--black); display: flex; justify-content: center; align-items: center; padding: 50px; }
+    .modal-left img { max-width: 100%; max-height: 380px; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); }
+    .modal-right { flex: 1.2; padding: 60px; overflow-y: auto; }
+
+    /* TOAST */
+    #toast {
+      position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: var(--black);
+      padding: 16px 28px; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.05em; z-index: 3000;
+      transform: translateY(100px); opacity: 0; transition: all 0.4s var(--ease-out); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .phil-right { display: none; }
+      .test-grid { grid-template-columns: 1fr 1fr; }
+      .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 4.2rem; }
+      .grid-3, .test-grid { grid-template-columns: 1fr; }
+      .split-sec { flex-direction: column; }
+      .gal-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gal-item:nth-child(1) { grid-row: auto; }
+      .gal-item { height: 320px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .fg-full { grid-column: 1; }
+      .foot-grid { grid-template-columns: 1fr; }
+      .modal-content { flex-direction: column; overflow-y: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cur"></div>
+  <div id="cur-r"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Item added to cart</div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="pl-logo">OBSIDIAN</div>
+    <div class="pl-sub">Single Origin Micro-Lots</div>
+    <div class="pl-line-wrap"><div class="pl-line"></div></div>
+    <div class="pl-percent">0%</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-brand">
+      <a href="#" class="nav-logo">OBSIDIAN</a>
+      <span class="nav-tag">EST. 2019</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#collection" class="nav-link">Collection</a></li>
+      <li><a href="#process" class="nav-link">Process</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#about" class="nav-link">Story</a></li>
+      <li><a href="#reserve" class="nav-link">Reserve</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cart-btn" id="open-cart-btn" aria-label="Cart">
+        🛒 <span class="cart-count" id="cart-badge">0</span>
+      </button>
+      <a href="#reserve" class="nav-btn">Table Tasting</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section with 3D Canvas -->
+  <section id="hero">
+    <div id="canvas-container"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Single Origin Specialists &middot; Est. 2019</div>
+      <h1 class="hero-title">
+        <div class="line-wrap"><span class="h-line">Where Coffee</span></div>
+        <div class="line-wrap"><span class="h-line"><em>Becomes Art</em></span></div>
+      </h1>
+      <p class="hero-sub h-sub">We source the world&rsquo;s rarest beans from high-altitude micro-lots, roasting each harvest with obsessive precision to create a transcendent sensory ritual.</p>
+      <div class="hero-actions h-act">
+        <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
+        <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
+      </div>
+    </div>
+    <div class="scroll-ind">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Marquee Banner -->
+  <div class="marquee">
+    <div class="marquee-inner" id="marquee-track">
+      <div class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Colombia Huila <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Panama Geisha <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Kenya Nyeri AA <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Guatemala Antigua <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Yemen Mattari <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Colombia Huila <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Panama Geisha <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Kenya Nyeri AA <span class="marquee-dot">&#10022;</span></div>
+    </div>
+  </div>
+
+  <!-- Philosophy Section -->
+  <section class="section phil-sec" id="about">
+    <div class="container grid-2">
+      <div>
+        <span class="eyebrow">Our Philosophy</span>
+        <h2 class="sec-title">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
+        <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <h4 class="counter" data-target="47">0</h4>
+            <p>Origins Sourced</p>
+          </div>
+          <div class="stat-item">
+            <h4 class="counter" data-target="12">0</h4>
+            <p>Micro-Lot Farms</p>
+          </div>
+          <div class="stat-item">
+            <h4 class="counter" data-target="94">0</h4>
+            <p>Peak Cup Score</p>
+          </div>
+        </div>
+      </div>
+      <div class="phil-right">
+        <div class="phil-img-wrap">
+          <img src="assets/farm.jpg" alt="Highland Coffee Farm" />
+        </div>
+        <div class="badge">
+          <span class="b-num">47</span>
+          <span class="b-txt">Micro-Lots</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collection Section (Products loaded via Backend API) -->
+  <section class="section coll-sec" id="collection">
+    <div class="container">
+      <div class="coll-header">
+        <span class="eyebrow">Current Harvest</span>
+        <h2 class="sec-title">The <em>Reserve Collection</em></h2>
+      </div>
+      <div class="grid-3" id="products-grid">
+        <!-- Rendered dynamically from backend API -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section (Horizontal Scroll) -->
+  <section class="proc-sec" id="process">
+    <div class="proc-track" id="proc-track">
+      <div class="proc-intro">
+        <span class="eyebrow">The Craft</span>
+        <h2>From <em>Seed</em><br/>to Transcendence</h2>
+        <p>Six uncompromising steps that elevate wild volcanic cherries into an extraordinary sensory experience.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">01</div>
+        <span class="step-tag">Terroir Discovery</span>
+        <h3 class="step-title">High-Altitude Sourcing</h3>
+        <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m, selecting only beans with extraordinary acidity and complex aromatics.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">02</div>
+        <span class="step-tag">Hand Selection</span>
+        <h3 class="step-title">Selective Harvesting</h3>
+        <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">03</div>
+        <span class="step-tag">Fermentation</span>
+        <h3 class="step-title">Anaerobic Ferment</h3>
+        <p class="step-desc">Extended 96-hour anaerobic resting on African raised beds to unlock vivid fruit notes and floral elegance.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">04</div>
+        <span class="step-tag">Artisanal Roasting</span>
+        <h3 class="step-title">Precision Thermal Profile</h3>
+        <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 iterations to preserve delicate origin notes.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">05</div>
+        <span class="step-tag">Resting</span>
+        <h3 class="step-title">Degassing &amp; Maturation</h3>
+        <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed atmosphere to reach peak flavor harmony.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Split Banner -->
+  <section class="split-sec">
+    <div class="split-half">
+      <img src="assets/beans.jpg" alt="Roasted Coffee Beans" class="split-img" />
+    </div>
+    <div class="split-half split-text">
+      <div class="split-quote">&ldquo;Every cup begins with an <em>obsessive search</em> for perfection.&rdquo;</div>
+      <div class="split-attr">Elara Voss &mdash; Head Roaster &amp; Founder</div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section gal-sec" id="gallery">
+    <div class="container">
+      <div class="gal-head">
+        <div>
+          <span class="eyebrow">Visual Moments</span>
+          <h2 class="sec-title">Field to <em>Cup</em></h2>
+        </div>
+        <p>A glimpse into the highlands, our roasting room, and the quiet morning ritual of specialty brew.</p>
+      </div>
+      <div class="gal-grid">
+        <div class="gal-item">
+          <img src="assets/farm.jpg" alt="Ethiopian Highlands" />
+          <div class="gal-overlay"></div>
+          <div class="gal-cap">
+            <h4>Highland Farm</h4>
+            <div class="gal-hover">Kochere Zone, Ethiopia</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <img src="assets/hero_cup.jpg" alt="Espresso Pour" />
+          <div class="gal-overlay"></div>
+          <div class="gal-cap">
+            <h4>The Ritual</h4>
+            <div class="gal-hover">Precision Extraction</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <img src="assets/prod_eth.jpg" alt="Ethiopian Beans" />
+          <div class="gal-overlay"></div>
+          <div class="gal-cap">
+            <h4>Night Garden</h4>
+            <div class="gal-hover">Single Origin Yirgacheffe</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <img src="assets/beans.jpg" alt="Micro-Lot Roast" />
+          <div class="gal-overlay"></div>
+          <div class="gal-cap">
+            <h4>Artisanal Roast</h4>
+            <div class="gal-hover">Cast Iron Micro-Batch</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <img src="assets/prod_pan.jpg" alt="Panama Geisha" />
+          <div class="gal-overlay"></div>
+          <div class="gal-cap">
+            <h4>Silent Peak</h4>
+            <div class="gal-hover">Reserve Panama Geisha</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section test-sec">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 70px;">
+        <span class="eyebrow">Connoisseur Reviews</span>
+        <h2 class="sec-title">Voices of <em>Excellence</em></h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;The Night Garden changed my perception of coffee. The jasmine and blueberry clarity is unlike anything I have cupped in 15 years.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">J</div>
+            <div class="auth-info">
+              <h5>James Thornton</h5>
+              <p>Coffee Sommelier &middot; London</p>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;Silent Peak Panama Geisha is extraordinary. The bergamot note is so delicate it feels like liquid poetry.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">S</div>
+            <div class="auth-info">
+              <h5>Sakura Mizuno</h5>
+              <p>Q-Grader &middot; Tokyo</p>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;We serve OBSIDIAN exclusively at our Michelin-starred dining room. Guests consistently rate the coffee course as unforgettable.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">M</div>
+            <div class="auth-info">
+              <h5>Marco Bellini</h5>
+              <p>Executive Chef &middot; Milan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section (Backend Connected) -->
+  <section class="section res-sec" id="reserve">
+    <div class="container res-content">
+      <span class="eyebrow">Private Cupping &amp; Tasting</span>
+      <h2 class="sec-title">Reserve Your <em>Ritual</em></h2>
+      <p style="color: var(--cream2); max-width: 540px; margin: 0 auto 50px;">Join our head roaster for an exclusive 6-course micro-lot cupping experience. Limited to 6 guests per session.</p>
+
+      <form id="reservation-form" class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="res-name">Full Name *</label>
+          <input type="text" id="res-name" class="form-control" placeholder="Elara Voss" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="res-email">Email Address *</label>
+          <input type="email" id="res-email" class="form-control" placeholder="guest@obsidian.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="res-date">Preferred Date *</label>
+          <input type="date" id="res-date" class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="res-session">Tasting Session *</label>
+          <select id="res-session" class="form-control" required>
+            <option value="" disabled selected>Select session type</option>
+            <option value="Origins Flight (3 Lots)">Origins Flight (3 Micro-Lots)</option>
+            <option value="Reserve Geisha Tasting">Reserve Geisha Masterclass</option>
+            <option value="Private Chef Pairing">Private Chef Pairing Session</option>
+          </select>
+        </div>
+        <div class="form-group fg-full">
+          <label class="form-label" for="res-notes">Special Preferences / Dietary Notes</label>
+          <textarea id="res-notes" class="form-control" rows="3" placeholder="Tell us about your flavor preferences..."></textarea>
+        </div>
+        <div class="fg-full" style="text-align: center; margin-top: 10px;">
+          <button type="submit" class="btn-gold" id="res-submit-btn">
+            <span>Confirm Reservation &rarr;</span>
+          </button>
+        </div>
+      </form>
+
+      <div id="reservation-success" class="res-success">
+        <h3>Reservation Confirmed</h3>
+        <p>We look forward to welcoming you to the OBSIDIAN tasting laboratory.</p>
+        <p>Your confirmation reference ID is:</p>
+        <div class="ref-code" id="res-ref-code">OBS-000000</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <h3>OBSIDIAN</h3>
+        <p>Rare specialty coffee sourced from high-altitude micro-lot farms across Ethiopia, Colombia, and Panama.</p>
+        <form id="newsletter-form" class="nl-form">
+          <input type="email" id="nl-email" class="nl-input" placeholder="Enter your email" required />
+          <button type="submit" class="nl-btn">Join</button>
+        </form>
+      </div>
+      <div class="foot-col">
+        <h4>Collection</h4>
+        <ul>
+          <li><a href="#collection">Night Garden Ethiopia</a></li>
+          <li><a href="#collection">Amber Hours Colombia</a></li>
+          <li><a href="#collection">Silent Peak Panama</a></li>
+          <li><a href="#collection">Archive Lots</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Laboratory</h4>
+        <ul>
+          <li><a href="#process">Our 6-Step Ritual</a></li>
+          <li><a href="#about">Highland Sourcing</a></li>
+          <li><a href="#reserve">Private Cupping</a></li>
+          <li><a href="#gallery">Visual Journal</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Concierge</h4>
+        <ul>
+          <li><a href="#">Wholesale &amp; Michelin Partners</a></li>
+          <li><a href="#">Press &amp; Enquiries</a></li>
+          <li><a href="#">Sustainability Report</a></li>
+          <li><a href="#">Contact Concierge</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div>&copy; 2026 OBSIDIAN Specialty Coffee Co. All rights reserved.</div>
+      <div style="display:flex; gap:20px;">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">Journal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shopping Cart Side Drawer -->
+  <div id="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Coffee Cart</h3>
+      <button class="cart-close-btn" id="close-cart-btn">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items-container">
+      <div style="text-align:center; padding: 40px 0; color: var(--cream2);">Your cart is currently empty.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total-price">$0</span>
+      </div>
+      <button class="btn-gold cart-checkout-btn" id="checkout-btn">
+        <span>Proceed to Checkout &rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="close-modal-btn">&times;</button>
+      <div class="modal-left">
+        <img id="m-img" src="" alt="Product" />
+      </div>
+      <div class="modal-right">
+        <span class="eyebrow" id="m-origin">Origin</span>
+        <h2 id="m-name" class="sec-title" style="margin-bottom: 20px;">Product Name</h2>
+        <p id="m-desc" style="color: var(--cream2); line-height: 1.8; margin-bottom: 30px;">Description...</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
+          <div>
+            <div style="font-size:0.65rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.2em;">Altitude</div>
+            <div id="m-alt" style="font-size:0.95rem;">-</div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.2em;">Processing</div>
+            <div id="m-proc" style="font-size:0.95rem;">-</div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.2em;">Varietal</div>
+            <div id="m-var" style="font-size:0.95rem;">-</div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.2em;">Cupping Score</div>
+            <div id="m-score" style="font-size:0.95rem;">-</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;">
+          <span id="m-price" style="font-family: var(--font-times); font-size: 2.2rem; color: var(--gold);">$0</span>
+          <button class="btn-gold" id="m-add-btn"><span>Add to Cart &rarr;</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // State
+    let cart = [];
+    let products = [];
+    let currentModalProduct = null;
+
+    // Toast Function
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Cursor
+    const cur = document.getElementById('cur');
+    const curR = document.getElementById('cur-r');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.transform = `translate(${mx}px, ${my}px)`;
+    });
+
+    function animCursor() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      curR.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+
+    document.querySelectorAll('a, button, .product, input, select').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cur-big'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cur-big'));
+    });
+
+    // Three.js 3D Hero Scene
+    let scene, camera, renderer, cupGroup, beans = [];
+
+    function initThree() {
+      const container = document.getElementById('canvas-container');
+      if(!container) return;
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x0d0703, 0.035);
+
+      camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 1.2, 6.2);
+
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      // Lights
+      scene.add(new THREE.AmbientLight(0xfff5e0, 0.25));
+      const keyLight = new THREE.PointLight(0xc8a84b, 6.0, 30);
+      keyLight.position.set(3.5, 6, 3.5);
+      scene.add(keyLight);
+
+      const fillLight = new THREE.PointLight(0xb5712e, 3.2, 20);
+      fillLight.position.set(-4, 2, 2);
+      scene.add(fillLight);
+
+      const rimLight = new THREE.PointLight(0xfff5e0, 2.0, 15);
+      rimLight.position.set(0, -2, -3);
+      scene.add(rimLight);
+
+      // 3D Cup Group
+      cupGroup = new THREE.Group();
+
+      // Ceramic Cup Body
+      const cupMat = new THREE.MeshStandardMaterial({ color: 0x1c0e06, roughness: 0.25, metalness: 0.2 });
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xc8a84b, roughness: 0.08, metalness: 0.95 });
+
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.44, 0.95, 64, 1, true), cupMat);
+      cupGroup.add(cup);
+
+      // Gold Rim
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.585, 0.028, 16, 64), goldMat);
+      rim.position.y = 0.475; rim.rotation.x = Math.PI / 2;
+      cupGroup.add(rim);
+
+      // Coffee Liquid
+      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x140602, roughness: 0.04, metalness: 0.1 });
+      const coffee = new THREE.Mesh(new THREE.CircleGeometry(0.52, 64), coffeeMat);
+      coffee.position.y = 0.40; coffee.rotation.x = -Math.PI / 2;
+      cupGroup.add(coffee);
+
+      // Saucer
+      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(0.92, 0.82, 0.09, 64), cupMat);
+      saucer.position.y = -0.58;
+      cupGroup.add(saucer);
+
+      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(0.91, 0.02, 12, 64), goldMat);
+      saucerRim.position.y = -0.535; saucerRim.rotation.x = Math.PI / 2;
+      cupGroup.add(saucerRim);
+
+      // Handle
+      const curve = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(0.58, 0.24, 0),
+        new THREE.Vector3(1.18, 0, 0),
+        new THREE.Vector3(0.58, -0.24, 0)
+      );
+      const handle = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.058, 10, false), cupMat);
+      cupGroup.add(handle);
+
+      cupGroup.position.set(0, -0.1, 0);
+      scene.add(cupGroup);
+
+      // 3D Orbiting Coffee Beans
+      const beanGeo = new THREE.SphereGeometry(0.08, 12, 8);
+      const beanMat = new THREE.MeshStandardMaterial({ color: 0x241208, roughness: 0.7, metalness: 0.1 });
+
+      for(let i = 0; i < 28; i++) {
+        const bean = new THREE.Mesh(beanGeo, beanMat);
+        bean.scale.set(1, 0.65, 1.3);
+        const radius = 2.0 + Math.random() * 2.2;
+        const angle = Math.random() * Math.PI * 2;
+        const height = (Math.random() - 0.5) * 3.5;
+        bean.userData = { angle, radius, height, speed: 0.004 + Math.random() * 0.008 };
+        scene.add(bean);
+        beans.push(bean);
+      }
+
+      // 3D Particles
+      const partGeo = new THREE.BufferGeometry();
+      const partCount = 350;
+      const positions = new Float32Array(partCount * 3);
+      for(let i = 0; i < partCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 16;
+      }
+      partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const partMat = new THREE.PointsMaterial({ color: 0xc8a84b, size: 0.02, transparent: true, opacity: 0.4 });
+      const particles = new THREE.Points(partGeo, partMat);
+      scene.add(particles);
+
+      window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', e => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    const clock = new THREE.Clock();
+    function animateThree() {
+      requestAnimationFrame(animateThree);
+      const elapsedTime = clock.getElapsedTime();
+
+      if(cupGroup) {
+        cupGroup.rotation.y = elapsedTime * 0.2 + mouseX * 0.35;
+        cupGroup.rotation.x = Math.sin(elapsedTime * 0.8) * 0.06 - mouseY * 0.2;
+        cupGroup.position.y = -0.1 + Math.sin(elapsedTime * 1.2) * 0.12;
+      }
+
+      beans.forEach(b => {
+        b.userData.angle += b.userData.speed;
+        b.position.x = Math.cos(b.userData.angle) * b.userData.radius;
+        b.position.z = Math.sin(b.userData.angle) * b.userData.radius;
+        b.position.y = b.userData.height + Math.sin(elapsedTime + b.userData.angle) * 0.2;
+        b.rotation.x += 0.01; b.rotation.y += 0.015;
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    // Preloader Animation
+    let loadProgress = 0;
+    const plInterval = setInterval(() => {
+      loadProgress += Math.floor(Math.random() * 8) + 2;
+      if (loadProgress >= 100) {
+        loadProgress = 100;
+        clearInterval(plInterval);
+        setTimeout(finishPreloader, 300);
+      }
+      document.querySelector('.pl-percent').textContent = loadProgress + '%';
+      document.querySelector('.pl-line').style.transform = `scaleX(${loadProgress / 100})`;
+    }, 40);
+
+    gsap.to('.pl-logo', { opacity: 1, y: 0, duration: 1.2, delay: 0.2 });
+    gsap.to('.pl-sub', { opacity: 1, duration: 1, delay: 0.5 });
+    gsap.to('.pl-percent', { opacity: 1, duration: 1, delay: 0.4 });
+
+    function finishPreloader() {
+      gsap.to('#preloader', {
+        yPercent: -100, duration: 1.4, ease: 'power4.inOut',
+        onComplete: () => {
+          document.getElementById('preloader').style.display = 'none';
+          initGSAPAnimations();
+        }
+      });
+    }
+
+    // Backend Integration
+    async function loadProducts() {
+      try {
+        const res = await fetch('/api/products');
+        const data = await res.json();
+        if(data.success) {
+          products = data.data;
+          renderProducts(products);
+        }
+      } catch(err) {
+        console.error('Failed to fetch products from backend:', err);
+      }
+    }
+
+    function renderProducts(list) {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = list.map(p => `
+        <div class="product" data-id="${p.id}">
+          <div class="prod-badge">${p.badge}</div>
+          <div class="prod-img-wrap">
+            <div class="prod-glow"></div>
+            <img src="${p.image}" alt="${p.name}" class="prod-img" />
+          </div>
+          <div class="prod-info">
+            <div class="prod-origin">${p.origin}</div>
+            <h3 class="prod-name">${p.name}</h3>
+            <p class="prod-notes">${p.flavorNotes.join(' &middot; ')}</p>
+            <div class="prod-bot">
+              <span class="prod-price">$${p.price} <span style="font-size:0.8rem; color:var(--cream2); font-family:var(--font-sans)">/ ${p.unit}</span></span>
+              <div class="prod-actions">
+                <button class="btn-cart-add" onclick="openProductModal(${p.id})">Details</button>
+                <button class="btn-cart-add" onclick="addToCart(${p.id})" style="background:var(--gold); color:var(--black)">+ Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Add 3D Tilt on products
+      document.querySelectorAll('.product').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          gsap.to(card, { rotateY: x * 14, rotateX: -y * 14, duration: 0.5, ease: 'power2.out' });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power2.out' });
+        });
+      });
+    }
+
+    // Modal Logic
+    function openProductModal(id) {
+      const p = products.find(x => x.id === id);
+      if(!p) return;
+      currentModalProduct = p;
+
+      document.getElementById('m-img').src = p.image;
+      document.getElementById('m-origin').textContent = p.origin;
+      document.getElementById('m-name').textContent = p.name;
+      document.getElementById('m-desc').textContent = p.description;
+      document.getElementById('m-alt').textContent = p.specs.altitude;
+      document.getElementById('m-proc').textContent = p.specs.process;
+      document.getElementById('m-var').textContent = p.specs.varietal;
+      document.getElementById('m-score').textContent = p.specs.cuppingScore;
+      document.getElementById('m-price').textContent = `$${p.price} / ${p.unit}`;
+
+      const modal = document.getElementById('modal');
+      modal.classList.add('active');
+    }
+
+    document.getElementById('close-modal-btn').onclick = () => {
+      document.getElementById('modal').classList.remove('active');
+    };
+
+    document.getElementById('m-add-btn').onclick = () => {
+      if(currentModalProduct) {
+        addToCart(currentModalProduct.id);
+        document.getElementById('modal').classList.remove('active');
+      }
+    };
+
+    // Cart Drawer Logic
+    function addToCart(id) {
+      const p = products.find(x => x.id === id);
+      if(!p) return;
+
+      const existing = cart.find(item => item.id === id);
+      if(existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...p, quantity: 1 });
+      }
+
+      updateCartUI();
+      showToast(`Added ${p.name} to your coffee cart.`);
+    }
+
+    function updateCartUI() {
+      const countEl = document.getElementById('cart-badge');
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      countEl.textContent = totalCount;
+
+      const container = document.getElementById('cart-items-container');
+      if(cart.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:40px 0; color:var(--cream2)">Your cart is currently empty.</div>`;
+      } else {
+        container.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="cart-item-info">
+              <h5>${item.name}</h5>
+              <p>$${item.price} &times; ${item.quantity}</p>
+            </div>
+            <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:var(--gold); font-size:1.2rem;">&times;</button>
+          </div>
+        `).join('');
+      }
+
+      const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.getElementById('cart-total-price').textContent = `$${totalAmount}`;
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    }
+
+    document.getElementById('open-cart-btn').onclick = () => {
+      document.getElementById('cart-drawer').classList.add('open');
+    };
+    document.getElementById('close-cart-btn').onclick = () => {
+      document.getElementById('cart-drawer').classList.remove('open');
+    };
+
+    // Checkout via Backend
+    document.getElementById('checkout-btn').onclick = async () => {
+      if(cart.length === 0) {
+        showToast('Your cart is empty.');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: cart })
+        });
+        const data = await res.json();
+        if(data.success) {
+          showToast(`Order Confirmed! Ref: ${data.orderId}`);
+          cart = [];
+          updateCartUI();
+          document.getElementById('cart-drawer').classList.remove('open');
+        }
+      } catch(err) {
+        showToast('Checkout failed. Please try again.');
+      }
+    };
+
+    // Backend Reservation Submission
+    document.getElementById('reservation-form').onsubmit = async e => {
+      e.preventDefault();
+      const name = document.getElementById('res-name').value;
+      const email = document.getElementById('res-email').value;
+      const date = document.getElementById('res-date').value;
+      const session = document.getElementById('res-session').value;
+      const notes = document.getElementById('res-notes').value;
+
+      try {
+        const btn = document.getElementById('res-submit-btn');
+        btn.innerHTML = '<span>Processing...</span>';
+
+        const res = await fetch('/api/reserve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, date, session, notes })
+        });
+
+        const data = await res.json();
+        if(data.success) {
+          document.getElementById('reservation-form').style.display = 'none';
+          const successBox = document.getElementById('reservation-success');
+          document.getElementById('res-ref-code').textContent = data.refCode;
+          successBox.style.display = 'block';
+          showToast('Reservation successfully confirmed!');
+        } else {
+          showToast(data.message || 'Error making reservation.');
+          btn.innerHTML = '<span>Confirm Reservation &rarr;</span>';
+        }
+      } catch(err) {
+        showToast('Network error submitting reservation.');
+      }
+    };
+
+    // Backend Newsletter Submission
+    document.getElementById('newsletter-form').onsubmit = async e => {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value;
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        showToast(data.message);
+        document.getElementById('nl-email').value = '';
+      } catch(err) {
+        showToast('Error subscribing to journal.');
+      }
+    };
+
+    // GSAP ScrollTrigger Animations
+    function initGSAPAnimations() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Nav Scroll
+      window.addEventListener('scroll', () => {
+        if(window.scrollY > 80) document.getElementById('navbar').classList.add('scrolled');
+        else document.getElementById('navbar').classList.remove('scrolled');
+      });
+
+      // Hero Timeline
+      const tl = gsap.timeline();
+      tl.to('nav', { opacity: 1, duration: 1 })
+        .fromTo('.h-line', { yPercent: 100 }, { yPercent: 0, duration: 1.2, stagger: 0.15, ease: 'power4.out' }, '-=0.4')
+        .fromTo('.h-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, '-=0.6')
+        .fromTo('.h-act', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, '-=0.6');
+
+      // Marquee Loop
+      const track = document.getElementById('marquee-track');
+      gsap.to(track, { xPercent: -50, ease: 'none', duration: 25, repeat: -1 });
+
+      // Stats Counter
+      gsap.fromTo('.counter', { innerText: 0 }, {
+        scrollTrigger: { trigger: '.phil-sec', start: 'top 60%' },
+        duration: 2.2, ease: 'power2.out',
+        snap: { innerText: 1 },
+        stagger: 0.2
+      });
+
+      // Process Horizontal Track Scroll
+      const procTrack = document.getElementById('proc-track');
+      gsap.to(procTrack, {
+        x: () => -(procTrack.scrollWidth - window.innerWidth),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.proc-sec',
+          pin: true,
+          scrub: 1.2,
+          start: 'top top',
+          end: () => "+=" + (procTrack.scrollWidth - window.innerWidth)
+        }
+      });
+    }
+
+    // Window Load Init
+    window.onload = () => {
+      initThree();
+      animateThree();
+      loadProducts();
+    };
+  </script>
+</body>
+</html>

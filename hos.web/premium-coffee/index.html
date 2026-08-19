@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Coffee | Premium Café</title>
+    <meta name="description" content="Crafted With Passion, Brewed To Perfection.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#eaddd7',
+                            300: '#e0cec7',
+                            400: '#d2bab0',
+                            500: '#a37b67', // Mocha
+                            600: '#8c604b', // Espresso Brown
+                            700: '#5c3a21', // Dark Roast
+                            800: '#3d2514', // Deep Black Coffee
+                            900: '#23140a',
+                        },
+                        gold: {
+                            400: '#c5a059',
+                            500: '#b8860b',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['"Playfair Display"', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'steam': 'steam 4s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        steam: {
+                            '0%': { transform: 'translateY(0) scaleX(1)', opacity: '0.5' },
+                            '50%': { transform: 'translateY(-20px) scaleX(1.2)', opacity: '0.8' },
+                            '100%': { transform: 'translateY(-40px) scaleX(1)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-body bg-coffee-50 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-100 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-coffee-900 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative w-24 h-24 mb-4">
+            <i class="fa-solid fa-mug-hot text-6xl text-gold-400 animate-pulse"></i>
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                <span class="w-1 h-6 bg-white/20 rounded-full animate-steam" style="animation-delay: 0s;"></span>
+                <span class="w-1 h-8 bg-white/20 rounded-full animate-steam" style="animation-delay: 0.5s;"></span>
+                <span class="w-1 h-6 bg-white/20 rounded-full animate-steam" style="animation-delay: 1s;"></span>
+            </div>
+        </div>
+        <h2 class="font-heading text-3xl text-gold-400 tracking-widest uppercase">Lumina</h2>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow hidden md:block"></div>
+    <div class="cursor-dot hidden md:block"></div>
+
+    <!-- Background Particles Canvas -->
+    <canvas id="particles-canvas" class="fixed inset-0 z-[-1] pointer-events-none opacity-40"></canvas>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center rounded-2xl px-6 py-4 transition-all duration-300" id="nav-container">
+            <a href="#" class="font-heading text-2xl font-bold flex items-center gap-2 group">
+                <i class="fa-solid fa-coffee text-gold-400 group-hover:rotate-12 transition-transform"></i>
+                <span class="tracking-wider">Lumina</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="nav-link relative font-medium text-sm tracking-wide uppercase hover:text-gold-400 transition-colors">Home</a>
+                <a href="#menu" class="nav-link relative font-medium text-sm tracking-wide uppercase hover:text-gold-400 transition-colors">Menu</a>
+                <a href="#about" class="nav-link relative font-medium text-sm tracking-wide uppercase hover:text-gold-400 transition-colors">About</a>
+                <a href="#gallery" class="nav-link relative font-medium text-sm tracking-wide uppercase hover:text-gold-400 transition-colors">Gallery</a>
+                <a href="#reservation" class="nav-link relative font-medium text-sm tracking-wide uppercase hover:text-gold-400 transition-colors">Book</a>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-5">
+                <button id="search-btn" class="hover:text-gold-400 transition-colors text-lg"><i class="fa-solid fa-search"></i></button>
+                <button id="theme-toggle" class="hover:text-gold-400 transition-colors text-lg"><i class="fa-solid fa-moon"></i></button>
+                <button class="relative hover:text-gold-400 transition-colors text-lg group">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                    <span class="absolute -top-2 -right-2 bg-gold-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+                </button>
+                <a href="#reservation" class="btn-primary text-sm font-medium py-2 px-5">Book a Table</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-2xl hover:text-gold-400 focus:outline-none" id="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-coffee-900/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center">
+        <button id="close-menu-btn" class="absolute top-10 right-10 text-3xl text-white hover:text-gold-400"><i class="fa-solid fa-times"></i></button>
+        <div class="flex flex-col space-y-6 text-center">
+            <a href="#home" class="text-3xl font-heading text-white hover:text-gold-400 mobile-link">Home</a>
+            <a href="#menu" class="text-3xl font-heading text-white hover:text-gold-400 mobile-link">Menu</a>
+            <a href="#about" class="text-3xl font-heading text-white hover:text-gold-400 mobile-link">About</a>
+            <a href="#gallery" class="text-3xl font-heading text-white hover:text-gold-400 mobile-link">Gallery</a>
+            <a href="#reservation" class="text-3xl font-heading text-gold-400 mobile-link mt-4">Book a Table</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0 after:content-[''] after:absolute after:inset-0 after:bg-black/50 dark:after:bg-black/70">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-coffee-being-poured-into-a-cup-4053-large.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center text-white pt-20">
+            <span class="block text-gold-400 font-inter tracking-[0.2em] uppercase text-sm mb-4 gs-reveal">Premium Experience</span>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight max-w-5xl mx-auto gs-reveal">
+                Crafted With <span class="text-gold-400 italic">Passion</span>,<br> Brewed To <span class="italic">Perfection.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light gs-reveal">
+                Indulge in the world's finest ethically sourced beans, masterfully roasted to awaken your senses.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 gs-reveal">
+                <a href="#menu" class="btn-primary py-4 px-8 text-lg flex items-center justify-center gap-2 group">
+                    Explore Menu
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#order" class="glass-btn py-4 px-8 text-lg flex items-center justify-center gap-2 text-white border-white/30 hover:bg-white/10 transition-colors">
+                    Order Online
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+            <a href="#features" class="text-white/70 hover:text-white text-2xl transition-colors">
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="features" class="py-24 relative z-10 bg-coffee-50 dark:bg-coffee-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card glass-card p-8 rounded-3xl text-center group">
+                    <div class="w-16 h-16 mx-auto bg-coffee-100 dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 text-gold-500 text-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Freshly Roasted</h3>
+                    <p class="text-coffee-600 dark:text-coffee-300 text-sm">Our beans are roasted daily to ensure the peak flavor profile in every cup.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card glass-card p-8 rounded-3xl text-center group translate-y-0 lg:translate-y-8">
+                    <div class="w-16 h-16 mx-auto bg-coffee-100 dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 text-gold-500 text-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Organic Beans</h3>
+                    <p class="text-coffee-600 dark:text-coffee-300 text-sm">100% ethically sourced organic ingredients from sustainable farms worldwide.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card glass-card p-8 rounded-3xl text-center group">
+                    <div class="w-16 h-16 mx-auto bg-coffee-100 dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 text-gold-500 text-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Expert Baristas</h3>
+                    <p class="text-coffee-600 dark:text-coffee-300 text-sm">Award-winning professionals dedicated to crafting your perfect beverage.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card glass-card p-8 rounded-3xl text-center group translate-y-0 lg:translate-y-8">
+                    <div class="w-16 h-16 mx-auto bg-coffee-100 dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 text-gold-500 text-2xl group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-couch"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Cozy Ambience</h3>
+                    <p class="text-coffee-600 dark:text-coffee-300 text-sm">A meticulously designed luxury space to relax, work, or connect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Coffee -->
+    <section id="menu" class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 section-heading">
+                <span class="text-gold-500 font-inter tracking-widest text-sm uppercase font-semibold">Our Signatures</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold mt-2 mb-4">Featured Coffee</h2>
+                <p class="text-coffee-600 dark:text-coffee-300">Discover our carefully curated selection of premium beverages, crafted to perfection.</p>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="filter-btn active px-6 py-2 rounded-full border border-coffee-200 dark:border-coffee-700 hover:bg-gold-500 hover:text-white hover:border-gold-500 transition-all font-medium text-sm">All</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-coffee-200 dark:border-coffee-700 hover:bg-gold-500 hover:text-white hover:border-gold-500 transition-all font-medium text-sm">Hot Coffee</button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-coffee-200 dark:border-coffee-700 hover:bg-gold-500 hover:text-white hover:border-gold-500 transition-all font-medium text-sm">Cold Brew</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Coffee Item 1 -->
+                <div class="coffee-card glass-card rounded-3xl p-6 group cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-white/20 dark:bg-black/20 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center z-10 text-gray-500 hover:text-red-500 transition-colors">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="relative h-64 mb-6 rounded-2xl overflow-hidden bg-coffee-100 dark:bg-coffee-800 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=1000&auto=format&fit=crop" alt="Cappuccino" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-heading text-2xl font-bold">Classic Cappuccino</h3>
+                        <span class="text-gold-500 font-bold text-xl">$5.50</span>
+                    </div>
+                    <p class="text-coffee-600 dark:text-coffee-300 text-sm mb-4 line-clamp-2">A perfect balance of espresso, steamed milk, and a deep layer of foam.</p>
+                    <div class="flex items-center justify-between">
+                        <button class="w-10 h-10 rounded-full bg-coffee-800 dark:bg-coffee-100 text-white dark:text-coffee-900 hover:bg-gold-500 transition-colors flex items-center justify-center">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center gap-2 font-medium border-b-2 border-gold-500 text-gold-500 pb-1 hover:text-coffee-800 dark:hover:text-white hover:border-coffee-800 dark:hover:border-white transition-colors">
+                    View Full Menu <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-900 pt-20 pb-10 text-white relative overflow-hidden border-t border-white/10">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Brand -->
+                <div>
+                    <a href="#" class="font-heading text-3xl font-bold flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-coffee text-gold-400"></i>
+                        <span>Lumina</span>
+                    </a>
+                    <p class="text-gray-400 mb-6 font-light leading-relaxed">Where every sip is a story. Experience the pinnacle of coffee craftsmanship in a luxuriously comfortable setting.</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2026 Lumina Coffee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
