@@ -124,8 +124,8 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .pl-logo {
-      font-family: var(--font-brand); font-size: 3.5rem; color: var(--gold); letter-spacing: 0.38em;
-      opacity: 0; transform: translateY(15px); text-transform: uppercase; font-weight: 500;
+      font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--gold); letter-spacing: 0.45em;
+      opacity: 0; transform: translateY(15px); text-transform: uppercase; font-weight: 700;
     }
     .pl-sub {
       font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.45em; color: var(--cream2);
@@ -165,10 +165,10 @@
     .nav-tag {
       font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); border-left: 1px solid rgba(200, 168, 75, 0.3); padding-left: 12px;
     }
-    .nav-links { display: flex; gap: 40px; }
+    .nav-links { display: flex; gap: 40px; align-items: center; list-style: none; }
     .nav-link {
-      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2);
-      transition: color 0.3s; position: relative; font-weight: 300;
+      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream2);
+      transition: color 0.3s; position: relative; font-weight: 300; font-family: 'DM Sans', sans-serif;
     }
     .nav-link:hover { color: var(--gold); }
     .nav-link::after {
@@ -204,8 +204,9 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
-        radial-gradient(ellipse 85% 65% at 50% 100%, rgba(4,3,2,0.85) 0%, transparent 70%),
-        radial-gradient(circle at 50% 40%, transparent 30%, rgba(4,3,2,0.4) 100%);
+        radial-gradient(ellipse 100% 55% at 50% 100%, rgba(4,3,2,0.95) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(4,3,2,0.5) 0%, transparent 60%),
+        linear-gradient(to bottom, rgba(4,3,2,0.15) 0%, transparent 30%, transparent 60%, rgba(4,3,2,0.7) 100%);
     }
     .hero-content {
       position: relative; z-index: 10; text-align: center; display: flex; flex-direction: column; align-items: center;
@@ -228,8 +229,9 @@
     }
     .line-wrap { overflow: hidden; display: block; }
     .hero-sub {
-      font-size: clamp(0.9rem, 1.3vw, 1.05rem); max-width: 520px; color: var(--cream2);
-      margin-bottom: 48px; line-height: 1.9; font-weight: 300; letter-spacing: 0.02em;
+      font-size: clamp(1rem, 1.2vw, 1.1rem); max-width: 560px; color: rgba(196,180,158,0.85);
+      margin-bottom: 52px; line-height: 2; font-weight: 300; letter-spacing: 0.03em;
+      font-family: 'DM Sans', sans-serif;
     }
     .hero-actions { display: flex; gap: 20px; pointer-events: all; }
 
@@ -254,21 +256,7 @@
     }
     .btn-ghost:hover { border-color: var(--gold); background: rgba(200,168,75,0.1); transform: translateY(-3px); }
 
-    .scroll-ind {
-      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 10;
-    }
-    .scroll-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream2); }
-    .scroll-line { width: 1px; height: 42px; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
-    .scroll-line::after {
-      content: ''; position: absolute; inset: 0; width: 100%; height: 100%; background: var(--gold);
-      animation: scrollLine 2.2s infinite ease-in-out;
-    }
-    @keyframes scrollLine {
-      0% { transform: translateY(-100%); }
-      50% { transform: translateY(0); }
-      100% { transform: translateY(100%); }
-    }
+
 
     /* Marquee Banner */
     .marquee { background: var(--gold); color: var(--black); padding: 18px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
@@ -294,8 +282,8 @@
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
     .phil-body { font-size: 1.15rem; color: var(--cream2); line-height: 1.95; margin-bottom: 54px; max-width: 540px; font-weight: 300; }
     .stats { display: flex; gap: 50px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px; }
-    .stat-item h4 { font-family: var(--font-times); font-size: 3.5rem; color: var(--gold); margin-bottom: 6px; font-weight: 400; line-height: 1; }
-    .stat-item p { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream2); }
+    .stat-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; color: var(--gold); margin-bottom: 8px; font-weight: 400; line-height: 1; }
+    .stat-item p { font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream2); font-family: 'DM Sans', sans-serif; font-weight: 300; }
     .phil-right { position: relative; }
     .phil-img-wrap {
       position: relative; overflow: hidden; aspect-ratio: 3/4; border: 1px solid rgba(200, 168, 75, 0.2);
@@ -389,10 +377,10 @@
 
     /* GALLERY */
     .gal-sec { background: var(--black); }
-    .gal-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 70px; }
-    .gal-head p { max-width: 420px; color: var(--cream2); line-height: 1.8; }
+    .gal-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+    .gal-head p { max-width: 380px; color: rgba(196,180,158,0.75); line-height: 1.85; font-size: 0.95rem; font-weight: 300; font-family: 'DM Sans', sans-serif; }
     .gal-grid {
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 380px 380px; gap: 24px;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 360px 360px; gap: 20px;
     }
     .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
     .gal-item:nth-child(1) { grid-row: span 2; }
@@ -400,19 +388,19 @@
     .gal-item:hover img { transform: scale(1.07); filter: brightness(1.05); }
     .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,3,2,0.85) 0%, transparent 60%); pointer-events: none; }
     .gal-cap { position: absolute; bottom: 28px; left: 28px; z-index: 2; }
-    .gal-cap h4 { font-family: var(--font-times); font-size: 1.6rem; margin-bottom: 4px; font-weight: 400; }
-    .gal-hover { font-size: 0.85rem; font-family: var(--font-times); font-style: italic; color: var(--gold); opacity: 0; transform: translateY(8px); transition: all 0.4s; }
+    .gal-cap h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 4px; font-weight: 400; letter-spacing: -0.01em; }
+    .gal-hover { font-size: 0.78rem; font-family: 'DM Sans', sans-serif; font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(8px); transition: all 0.4s; }
     .gal-item:hover .gal-hover { opacity: 1; transform: translateY(0); }
 
     /* ABOUT STORY */
     .abt-sec { background: var(--espresso); position: relative; }
-    .abt-images { position: relative; width: 100%; height: 580px; }
-    .img-main { width: 85%; height: 85%; object-fit: cover; position: absolute; top: 0; left: 0; border: 1px solid rgba(200, 168, 75, 0.2); }
-    .img-accent { width: 50%; height: 50%; object-fit: cover; position: absolute; bottom: 0; right: 0; border: 8px solid var(--espresso); z-index: 2; }
-    .abt-content p { color: var(--cream2); line-height: 1.9; margin-bottom: 24px; font-size: 1.08rem; font-weight: 300; }
-    .signature { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
-    .sig-name { font-family: var(--font-times); font-size: 2.8rem; font-style: italic; color: var(--gold); }
-    .sig-role { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2); }
+    .abt-images { position: relative; width: 100%; height: 560px; }
+    .img-main { width: 85%; height: 85%; object-fit: cover; position: absolute; top: 0; left: 0; border: 1px solid rgba(200, 168, 75, 0.15); }
+    .img-accent { width: 48%; height: 50%; object-fit: cover; position: absolute; bottom: 0; right: 0; border: 8px solid var(--espresso); z-index: 2; }
+    .abt-content p { color: rgba(196,180,158,0.8); line-height: 2; margin-bottom: 24px; font-size: 1.05rem; font-weight: 300; font-family: 'DM Sans', sans-serif; }
+    .signature { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; }
+    .sig-name { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-style: italic; color: var(--gold); }
+    .sig-role { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); font-family: 'DM Sans', sans-serif; margin-top: 6px; display: block; }
 
     /* TESTIMONIALS */
     .test-sec { background: var(--void); }
@@ -429,8 +417,8 @@
       width: 44px; height: 44px; border-radius: 50%; background: var(--brown); border: 1px solid var(--gold);
       display: flex; justify-content: center; align-items: center; font-family: var(--font-times); color: var(--gold); font-size: 1.2rem;
     }
-    .auth-info h5 { font-family: var(--font-sans); font-size: 0.95rem; font-weight: 400; }
-    .auth-info p { font-size: 0.68rem; color: var(--cream2); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 3px; }
+    .auth-info h5 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; }
+    .auth-info p { font-size: 0.62rem; color: var(--cream2); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 3px; font-family: 'DM Sans', sans-serif; }
 
     /* RESERVATION FORM */
     .res-sec { background: var(--espresso); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -455,10 +443,10 @@
     .ref-code { display: inline-block; background: var(--gold); color: var(--black); font-weight: 600; padding: 6px 16px; margin-top: 15px; font-family: var(--font-sans); font-size: 0.9rem; }
 
     /* FOOTER */
-    footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.05); }
     .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; max-width: 1360px; margin-inline: auto; }
-    .foot-brand h3 { font-family: var(--font-times); font-size: 2.2rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 20px; }
-    .foot-brand p { color: var(--cream2); line-height: 1.8; margin-bottom: 28px; max-width: 340px; font-size: 0.95rem; }
+    .foot-brand h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 18px; font-weight: 700; }
+    .foot-brand p { color: rgba(196,180,158,0.7); line-height: 1.85; margin-bottom: 28px; max-width: 320px; font-size: 0.9rem; font-weight: 300; }
     .nl-form { display: flex; max-width: 360px; }
     .nl-input {
       flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 14px 18px;
@@ -608,10 +596,6 @@
         <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
         <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
       </div>
-    </div>
-    <div class="scroll-ind">
-      <span class="scroll-label">Scroll</span>
-      <div class="scroll-line"></div>
     </div>
   </section>
 
