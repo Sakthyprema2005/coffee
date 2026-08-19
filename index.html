@@ -354,44 +354,26 @@
     }
     .btn-cart-add:hover { background: var(--gold); color: var(--black); }
 
-    /* PROCESS & CRAFT AUTO-SCROLL SLIDER */
-    .proc-sec { background: var(--void); padding: 130px 60px; position: relative; overflow: hidden; }
-    .proc-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
-    .proc-nav-tabs { display: flex; gap: 12px; margin-bottom: 40px; overflow-x: auto; padding-bottom: 10px; }
-    .proc-tab {
-      background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--cream2);
-      padding: 12px 24px; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; font-family: var(--font-sans);
-      transition: all 0.4s var(--ease-out); flex-shrink: 0;
-    }
-    .proc-tab.active, .proc-tab:hover {
-      background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 500;
-    }
-    .proc-slider-container { position: relative; width: 100%; }
+    /* PROCESS & CRAFT CONTINUOUS AUTOMATIC STREAM */
+    .proc-sec { background: var(--void); padding: 140px 0; position: relative; overflow: hidden; }
+    .proc-head-inner { padding: 0 60px 50px; }
+    .proc-track-wrap { width: 100%; overflow: hidden; display: flex; position: relative; }
     .proc-track {
-      display: flex; gap: 48px; overflow-x: auto; scroll-behavior: smooth;
-      padding-bottom: 30px; scrollbar-width: none;
+      display: flex; gap: 80px; width: max-content; padding: 20px 60px;
+      will-change: transform; transition: animation-play-state 0.3s;
     }
-    .proc-track::-webkit-scrollbar { display: none; }
     .proc-step {
-      flex: 0 0 380px; width: 380px; background: transparent; border: none;
-      padding: 30px 0; position: relative; border-left: 1px solid rgba(200, 168, 75, 0.25);
-      padding-left: 36px; transition: all 0.5s var(--ease-out);
-    }
-    .proc-step:hover {
-      border-left-color: var(--gold); transform: translateY(-4px);
+      width: 420px; flex-shrink: 0; background: transparent !important;
+      border: none !important; box-shadow: none !important; backdrop-filter: none !important;
+      padding: 0 !important; position: relative;
     }
     .step-num {
-      font-family: var(--font-times); font-size: 5rem; color: var(--gold); font-weight: 400; line-height: 1; margin-bottom: 16px; opacity: 0.85;
+      font-family: var(--font-times); font-size: 6rem; color: var(--gold); font-weight: 400;
+      line-height: 1; margin-bottom: 20px; opacity: 0.9; text-shadow: 0 4px 20px rgba(200, 168, 75, 0.2);
     }
-    .step-tag { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
-    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 18px; line-height: 1.15; color: var(--cream); }
-    .step-desc { font-size: 0.95rem; color: var(--cream2); line-height: 1.85; font-weight: 300; }
-    .proc-controls { display: flex; gap: 16px; align-items: center; }
-    .proc-ctrl-btn {
-      width: 48px; height: 48px; border-radius: 50%; background: transparent; border: 1px solid rgba(200, 168, 75, 0.4);
-      color: var(--gold); font-size: 1.2rem; display: flex; justify-content: center; align-items: center; transition: all 0.3s;
-    }
-    .proc-ctrl-btn:hover { background: var(--gold); color: var(--black); }
+    .step-tag { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; font-weight: 400; }
+    .step-title { font-family: var(--font-times); font-size: 2.4rem; margin-bottom: 20px; line-height: 1.15; color: var(--cream); font-weight: 400; }
+    .step-desc { font-size: 1rem; color: var(--cream2); line-height: 1.9; font-weight: 300; max-width: 380px; }
 
     /* SPLIT BANNER */
     .split-sec { display: flex; width: 100%; background: var(--espresso); border-y: 1px solid rgba(255,255,255,0.05); }
@@ -694,69 +676,70 @@
     </div>
   </section>
 
-  <!-- Process & Craft Section (Interactive Manual Slider) -->
+  <!-- Process & Craft Section (Seamless Continuous Moving Stream) -->
   <section class="proc-sec" id="process">
-    <div class="container">
-      <div class="proc-header">
-        <div>
-          <span class="eyebrow">The Craft Ritual</span>
-          <h2 class="sec-title" style="margin-bottom: 0;">From <em>Seed</em> to Transcendence</h2>
-        </div>
-        <div class="proc-controls">
-          <button class="proc-ctrl-btn" id="proc-prev" aria-label="Previous Step">&larr;</button>
-          <button class="proc-ctrl-btn" id="proc-next" aria-label="Next Step">&rarr;</button>
-        </div>
-      </div>
+    <div class="proc-head-inner container">
+      <span class="eyebrow">The Craft Ritual</span>
+      <h2 class="sec-title" style="margin-bottom: 0;">From <em>Seed</em> to Transcendence</h2>
+    </div>
 
-      <!-- Step Navigation Tabs -->
-      <div class="proc-nav-tabs" id="proc-tabs">
-        <button class="proc-tab active" data-step="0">01 &middot; Sourcing</button>
-        <button class="proc-tab" data-step="1">02 &middot; Harvesting</button>
-        <button class="proc-tab" data-step="2">03 &middot; Fermentation</button>
-        <button class="proc-tab" data-step="3">04 &middot; Micro-Roasting</button>
-        <button class="proc-tab" data-step="4">05 &middot; Maturation</button>
-        <button class="proc-tab" data-step="5">06 &middot; Extraction</button>
-      </div>
-
-      <!-- Manual Horizontal Track Slider -->
-      <div class="proc-slider-container">
-        <div class="proc-track" id="proc-track">
-          <div class="proc-step">
-            <div class="step-num">01</div>
-            <span class="step-tag">Terroir Discovery</span>
-            <h3 class="step-title">High-Altitude Sourcing</h3>
-            <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m in Ethiopia, Colombia, and Panama, selecting only beans with extraordinary acidity and complex aromatics.</p>
-          </div>
-          <div class="proc-step">
-            <div class="step-num">02</div>
-            <span class="step-tag">Hand Selection</span>
-            <h3 class="step-title">Selective Harvesting</h3>
-            <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters across volcanic soil slopes.</p>
-          </div>
-          <div class="proc-step">
-            <div class="step-num">03</div>
-            <span class="step-tag">Fermentation</span>
-            <h3 class="step-title">Anaerobic Ferment</h3>
-            <p class="step-desc">Extended 96-hour anaerobic fermentation in sealed stainless vats on raised African beds unlocks vivid berry sweetness and jasmine aromatics.</p>
-          </div>
-          <div class="proc-step">
-            <div class="step-num">04</div>
-            <span class="step-tag">Artisanal Roasting</span>
-            <h3 class="step-title">Thermal Curve</h3>
-            <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 profile iterations to preserve delicate origin notes.</p>
-          </div>
-          <div class="proc-step">
-            <div class="step-num">05</div>
-            <span class="step-tag">Maturation</span>
-            <h3 class="step-title">Degassing &amp; Rest</h3>
-            <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed flushed valve bags to allow flavor aromatics to blossom into full harmony.</p>
-          </div>
-          <div class="proc-step">
-            <div class="step-num">06</div>
-            <span class="step-tag">Extraction</span>
-            <h3 class="step-title">Sensory Extraction</h3>
-            <p class="step-desc">Brewed with custom mineral water chemistry (120ppm) at 93.5&deg;C to achieve crystal-clear sweetness, silky body, and infinite finish.</p>
-          </div>
+    <!-- Continuous Infinite Moving Stream Track -->
+    <div class="proc-track-wrap">
+      <div class="proc-track" id="proc-track">
+        <div class="proc-step">
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m in Ethiopia, Colombia, and Panama, selecting only beans with extraordinary acidity and complex aromatics.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters across volcanic soil slopes.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic fermentation in sealed stainless vats on raised African beds unlocks vivid berry sweetness and jasmine aromatics.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">04</div>
+          <span class="step-tag">Artisanal Roasting</span>
+          <h3 class="step-title">Thermal Curve</h3>
+          <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 profile iterations to preserve delicate origin notes.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">05</div>
+          <span class="step-tag">Maturation</span>
+          <h3 class="step-title">Degassing &amp; Rest</h3>
+          <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed flushed valve bags to allow flavor aromatics to blossom into full harmony.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">06</div>
+          <span class="step-tag">Extraction</span>
+          <h3 class="step-title">Sensory Extraction</h3>
+          <p class="step-desc">Brewed with custom mineral water chemistry (120ppm) at 93.5&deg;C to achieve crystal-clear sweetness, silky body, and infinite finish.</p>
+        </div>
+        <!-- Duplicated for seamless infinite loop -->
+        <div class="proc-step">
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m in Ethiopia, Colombia, and Panama, selecting only beans with extraordinary acidity and complex aromatics.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters across volcanic soil slopes.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic fermentation in sealed stainless vats on raised African beds unlocks vivid berry sweetness and jasmine aromatics.</p>
         </div>
       </div>
     </div>
@@ -1517,82 +1500,20 @@
       });
     }
 
-    // Process Automatic & Manual Slider Controls (Auto-scrolls + Click-to-pause)
-    function initProcessControls() {
+    // Process & Craft Continuous Automatic Moving Stream (Zero boxes, infinite smooth flow)
+    function initProcessStream() {
       const track = document.getElementById('proc-track');
-      const tabs = document.querySelectorAll('.proc-tab');
-      const prevBtn = document.getElementById('proc-prev');
-      const nextBtn = document.getElementById('proc-next');
-
       if (!track) return;
 
-      let currentStep = 0;
-      let autoScrollPaused = false;
-      const cardWidth = 412; // 380px + 32px gap
-
-      function scrollToStep(idx) {
-        currentStep = idx;
-        track.scrollTo({ left: currentStep * cardWidth, behavior: 'smooth' });
-        tabs.forEach((t, i) => {
-          if (i === currentStep) t.classList.add('active');
-          else t.classList.remove('active');
-        });
-      }
-
-      // Auto-scroll Timer (Every 3.2 seconds)
-      setInterval(() => {
-        if (!autoScrollPaused) {
-          currentStep = (currentStep + 1) % tabs.length;
-          scrollToStep(currentStep);
-        }
-      }, 3200);
-
-      function userPause() {
-        autoScrollPaused = true;
-      }
-
-      tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-          userPause();
-          scrollToStep(index);
-        });
+      const anim = gsap.to(track, {
+        xPercent: -50,
+        ease: 'none',
+        duration: 38,
+        repeat: -1
       });
 
-      if (prevBtn) {
-        prevBtn.onclick = () => {
-          userPause();
-          currentStep = (currentStep - 1 + tabs.length) % tabs.length;
-          scrollToStep(currentStep);
-        };
-      }
-
-      if (nextBtn) {
-        nextBtn.onclick = () => {
-          userPause();
-          currentStep = (currentStep + 1) % tabs.length;
-          scrollToStep(currentStep);
-        };
-      }
-
-      // Pause on card interaction / click
-      document.querySelectorAll('.proc-step').forEach((card, index) => {
-        card.addEventListener('click', () => {
-          userPause();
-          scrollToStep(index);
-        });
-        card.addEventListener('mouseenter', () => {
-          userPause();
-        });
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          gsap.to(card, { rotateY: x * 14, rotateX: -y * 14, duration: 0.4, ease: 'power2.out' });
-        });
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'power2.out' });
-        });
-      });
+      track.addEventListener('mouseenter', () => anim.pause());
+      track.addEventListener('mouseleave', () => anim.play());
     }
 
     // Window Load Init
@@ -1600,7 +1521,7 @@
       initThree();
       animateThree();
       loadProducts();
-      initProcessControls();
+      initProcessStream();
     };
   </script>
 </body>
