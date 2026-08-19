@@ -354,13 +354,13 @@
     }
     .btn-cart-add:hover { background: var(--gold); color: var(--black); }
 
-    /* PROCESS & CRAFT MANUAL SLIDER */
+    /* PROCESS & CRAFT AUTO-SCROLL SLIDER */
     .proc-sec { background: var(--void); padding: 130px 60px; position: relative; overflow: hidden; }
-    .proc-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+    .proc-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
     .proc-nav-tabs { display: flex; gap: 12px; margin-bottom: 40px; overflow-x: auto; padding-bottom: 10px; }
     .proc-tab {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--cream2);
-      padding: 12px 24px; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-family: var(--font-sans);
+      background: transparent; border: 1px solid rgba(255,255,255,0.1); color: var(--cream2);
+      padding: 12px 24px; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; font-family: var(--font-sans);
       transition: all 0.4s var(--ease-out); flex-shrink: 0;
     }
     .proc-tab.active, .proc-tab:hover {
@@ -368,26 +368,25 @@
     }
     .proc-slider-container { position: relative; width: 100%; }
     .proc-track {
-      display: flex; gap: 32px; overflow-x: auto; scroll-behavior: smooth;
-      scroll-snap-type: x mandatory; padding-bottom: 30px; scrollbar-width: none;
+      display: flex; gap: 48px; overflow-x: auto; scroll-behavior: smooth;
+      padding-bottom: 30px; scrollbar-width: none;
     }
     .proc-track::-webkit-scrollbar { display: none; }
     .proc-step {
-      flex: 0 0 380px; width: 380px; background: rgba(255,255,255,0.02); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.07); padding: 48px 40px; position: relative;
-      scroll-snap-align: start; transition: all 0.5s var(--ease-out); transform-style: preserve-3d;
+      flex: 0 0 380px; width: 380px; background: transparent; border: none;
+      padding: 30px 0; position: relative; border-left: 1px solid rgba(200, 168, 75, 0.25);
+      padding-left: 36px; transition: all 0.5s var(--ease-out);
     }
     .proc-step:hover {
-      border-color: rgba(200, 168, 75, 0.4); transform: translateY(-8px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border-left-color: var(--gold); transform: translateY(-4px);
     }
     .step-num {
-      font-family: var(--font-times); font-size: 5.5rem; color: rgba(200, 168, 75, 0.15); font-weight: 400; line-height: 1; margin-bottom: 20px;
+      font-family: var(--font-times); font-size: 5rem; color: var(--gold); font-weight: 400; line-height: 1; margin-bottom: 16px; opacity: 0.85;
     }
-    .step-tag { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
-    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 20px; line-height: 1.15; }
+    .step-tag { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 18px; line-height: 1.15; color: var(--cream); }
     .step-desc { font-size: 0.95rem; color: var(--cream2); line-height: 1.85; font-weight: 300; }
-    .proc-controls { display: flex; gap: 16px; }
+    .proc-controls { display: flex; gap: 16px; align-items: center; }
     .proc-ctrl-btn {
       width: 48px; height: 48px; border-radius: 50%; background: transparent; border: 1px solid rgba(200, 168, 75, 0.4);
       color: var(--gold); font-size: 1.2rem; display: flex; justify-content: center; align-items: center; transition: all 0.3s;
@@ -1102,72 +1101,85 @@
       rimLight.position.set(0, -2, -3);
       scene.add(rimLight);
 
-      // 3D Cup Group (FULL 3D MESH MODEL ASSEMBLY - NO 2D TEXTURE PLANES)
+      // 3D Cup Group (HYPER-REALISTIC MESH ASSEMBLY WITH CLEARCOAT & GOLD DETAILS)
       cupGroup = new THREE.Group();
 
-      const cupBodyMat = new THREE.MeshStandardMaterial({
-        color: 0x140804,
-        roughness: 0.15,
-        metalness: 0.3,
-        envMapIntensity: 1.5
+      const cupBodyMat = new THREE.MeshPhysicalMaterial({
+        color: 0x120703,
+        roughness: 0.08,
+        metalness: 0.15,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.04,
+        reflectivity: 0.9
       });
+
       const goldMat = new THREE.MeshStandardMaterial({
-        color: 0xc8a84b,
-        roughness: 0.05,
-        metalness: 0.98
+        color: 0xe6c660,
+        roughness: 0.03,
+        metalness: 0.99
       });
 
       // 1. Ceramic Outer Wall
-      const cupMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.54, 1.15, 64, 1, true), cupBodyMat);
+      const cupMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.60, 1.25, 64, 1, true), cupBodyMat);
       cupGroup.add(cupMesh);
 
-      // 2. Gold Metallic Top Rim
-      const topRim = new THREE.Mesh(new THREE.TorusGeometry(0.765, 0.032, 16, 64), goldMat);
-      topRim.position.y = 0.575; topRim.rotation.x = Math.PI / 2;
+      // 2. Gold Metallic Top Rim Accent
+      const topRim = new THREE.Mesh(new THREE.TorusGeometry(0.855, 0.036, 16, 64), goldMat);
+      topRim.position.y = 0.625; topRim.rotation.x = Math.PI / 2;
       cupGroup.add(topRim);
 
-      // 3. Inner Wall
-      const innerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.71, 0.49, 1.10, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0x090301, roughness: 0.8, side: THREE.BackSide }));
+      // 3. Inner Porcelain Wall
+      const innerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.80, 0.55, 1.20, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0x070201, roughness: 0.7, side: THREE.BackSide }));
       cupGroup.add(innerWall);
 
-      // 4. Espresso Crema Liquid Surface
-      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x1c0a02, roughness: 0.03, metalness: 0.12 });
-      const coffeeLiquid = new THREE.Mesh(new THREE.CircleGeometry(0.70, 64), coffeeMat);
-      coffeeLiquid.position.y = 0.48; coffeeLiquid.rotation.x = -Math.PI / 2;
+      // 4. Espresso Crema Liquid Surface + Foam Ring
+      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x180902, roughness: 0.02, metalness: 0.1 });
+      const coffeeLiquid = new THREE.Mesh(new THREE.CircleGeometry(0.78, 64), coffeeMat);
+      coffeeLiquid.position.y = 0.52; coffeeLiquid.rotation.x = -Math.PI / 2;
       cupGroup.add(coffeeLiquid);
 
+      const cremaRing = new THREE.Mesh(new THREE.TorusGeometry(0.76, 0.025, 12, 64), new THREE.MeshStandardMaterial({ color: 0x8a5422, roughness: 0.6 }));
+      cremaRing.position.y = 0.525; cremaRing.rotation.x = Math.PI / 2;
+      cupGroup.add(cremaRing);
+
       // 5. Saucer Plate
-      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(1.22, 1.05, 0.12, 64), cupBodyMat);
-      saucer.position.y = -0.68;
+      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 1.15, 0.14, 64), cupBodyMat);
+      saucer.position.y = -0.72;
       cupGroup.add(saucer);
 
-      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(1.21, 0.024, 12, 64), goldMat);
-      saucerRim.position.y = -0.62; saucerRim.rotation.x = Math.PI / 2;
+      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(1.34, 0.028, 12, 64), goldMat);
+      saucerRim.position.y = -0.65; saucerRim.rotation.x = Math.PI / 2;
       cupGroup.add(saucerRim);
 
-      // 6. Curved Ceramic Handle
+      // 6. Curved Handle
       const handleCurve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(0.76, 0.32, 0),
-        new THREE.Vector3(1.42, 0, 0),
-        new THREE.Vector3(0.76, -0.32, 0)
+        new THREE.Vector3(0.85, 0.35, 0),
+        new THREE.Vector3(1.55, 0, 0),
+        new THREE.Vector3(0.85, -0.35, 0)
       );
-      const handleMesh = new THREE.Mesh(new THREE.TubeGeometry(handleCurve, 28, 0.068, 12, false), cupBodyMat);
+      const handleMesh = new THREE.Mesh(new THREE.TubeGeometry(handleCurve, 28, 0.075, 12, false), cupBodyMat);
       cupGroup.add(handleMesh);
 
-      // 7. Volumetric Steam Particles Rising
+      // 7. Metallic Gold Espresso Spoon resting on saucer
+      const spoonCurve = new THREE.LineCurve3(new THREE.Vector3(0.4, -0.62, 0.8), new THREE.Vector3(-0.9, -0.60, 0.9));
+      const spoonHandle = new THREE.Mesh(new THREE.TubeGeometry(spoonCurve, 12, 0.025, 8, false), goldMat);
+      cupGroup.add(spoonHandle);
+
+      // 8. Volumetric Steam Particles
       const steamGroup = new THREE.Group();
-      const steamGeo = new THREE.PlaneGeometry(0.2, 0.6);
-      const steamMat = new THREE.MeshBasicMaterial({ color: 0xfff8f0, transparent: true, opacity: 0.04, side: THREE.DoubleSide, depthWrite: false });
-      for(let s = 0; s < 10; s++) {
+      const steamGeo = new THREE.PlaneGeometry(0.25, 0.7);
+      const steamMat = new THREE.MeshBasicMaterial({ color: 0xfff8f0, transparent: true, opacity: 0.045, side: THREE.DoubleSide, depthWrite: false });
+      for(let s = 0; s < 12; s++) {
         const p = new THREE.Mesh(steamGeo, steamMat);
-        p.position.set((Math.random() - 0.5) * 0.4, 0.6 + s * 0.25, (Math.random() - 0.5) * 0.4);
-        p.userData = { initialY: p.position.y, speed: 0.008 + Math.random() * 0.008 };
+        p.position.set((Math.random() - 0.5) * 0.45, 0.65 + s * 0.25, (Math.random() - 0.5) * 0.45);
+        p.userData = { initialY: p.position.y, speed: 0.007 + Math.random() * 0.007 };
         steamGroup.add(p);
       }
       cupGroup.add(steamGroup);
       scene.userData.steamGroup = steamGroup;
 
-      cupGroup.position.set(0, -0.1, 0);
+      cupGroup.position.set(0, -0.05, 0);
+      cupGroup.scale.set(1.15, 1.15, 1.15);
       scene.add(cupGroup);
 
       // 45 Orbiting 3D Coffee Beans
