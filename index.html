@@ -36,13 +36,15 @@
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--void); }
+    ::-webkit-scrollbar-thumb { background: rgba(200,168,75,0.4); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    
+    html { scroll-behavior: auto; } /* Removed smooth for custom transition */
     body, html {
       width: 100%;
       background-color: var(--black);
@@ -147,20 +149,13 @@
       position: fixed; top: 0; left: 0; width: 100%; padding: 32px 60px;
       display: flex; justify-content: space-between; align-items: center;
       z-index: 1000; transition: padding 0.5s var(--ease-out), background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
-      border-bottom: 1px solid transparent; opacity: 0;
+      z-index: 1000; transition: all 0.5s var(--ease-out);
     }
-    nav.scrolled {
-      padding: 18px 60px;
-      background: rgba(4, 3, 2, 0.88);
-      backdrop-filter: blur(16px);
-      border-bottom-color: rgba(200, 168, 75, 0.15);
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 12px;
-    }
+    #navbar.scrolled { padding: 16px 60px; background: rgba(4,3,2,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-brand { display: flex; align-items: baseline; gap: 12px; }
     .nav-logo {
       font-family: 'Playfair Display', serif; font-size: 1.65rem; color: var(--gold); letter-spacing: 0.45em;
-      text-transform: uppercase; font-weight: 700; line-height: 1;
+      text-transform: uppercase; font-weight: 700; line-height: 1; text-decoration: none;
     }
     .nav-tag {
       font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); border-left: 1px solid rgba(200, 168, 75, 0.3); padding-left: 12px;
@@ -168,7 +163,7 @@
     .nav-links { display: flex; gap: 40px; align-items: center; list-style: none; }
     .nav-link {
       font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream2);
-      transition: color 0.3s; position: relative; font-weight: 300; font-family: 'DM Sans', sans-serif;
+      transition: color 0.3s; position: relative; font-weight: 300; font-family: 'DM Sans', sans-serif; text-decoration: none;
     }
     .nav-link:hover { color: var(--gold); }
     .nav-link::after {
@@ -519,7 +514,39 @@
     }
     #toast.show { transform: translateY(0); opacity: 1; }
 
-    /* Page Transition */
+    /* Cart Drawer */
+    #cart-drawer {
+      position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh;
+      background: var(--void); border-left: 1px solid rgba(255,255,255,0.05);
+      z-index: 10000; transform: translateX(100%); transition: transform 0.6s var(--ease-out);
+      display: flex; flex-direction: column;
+    }
+    #cart-drawer.open { transform: translateX(0); }
+    .cd-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+    .cd-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); font-style: italic; }
+    .cd-close { font-size: 1.5rem; color: var(--cream2); cursor: none; }
+    .cd-items { flex: 1; overflow-y: auto; padding: 30px; }
+    .cd-item { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 20px; }
+    .cd-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 5px; }
+    .cd-item-price { color: var(--gold); font-size: 0.9rem; }
+    .cd-footer { padding: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .cd-total { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem; }
+    .cd-checkout { width: 100%; text-align: center; }
+
+    /* Audio Player */
+    #audio-toggle {
+      position: fixed; bottom: 30px; left: 30px; z-index: 990; width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid rgba(200,168,75,0.3); display: flex; justify-content: center; align-items: center;
+      color: var(--gold); font-size: 0.7rem; transition: 0.3s;
+    }
+    #audio-toggle:hover { background: rgba(200,168,75,0.1); border-color: var(--gold); }
+    .audio-waves { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+    .audio-waves span { width: 2px; background: var(--gold); transition: 0.2s; }
+    .audio-waves.playing span { animation: wave 1s infinite alternate; }
+    .audio-waves.playing span:nth-child(1) { animation-delay: 0.1s; }
+    .audio-waves.playing span:nth-child(2) { animation-delay: 0.3s; }
+    .audio-waves.playing span:nth-child(3) { animation-delay: 0.2s; }
+    @keyframes wave { 0% { height: 2px; } 100% { height: 12px; } }
     #page-transition {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: var(--black); z-index: 9999;
@@ -552,6 +579,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); width: 0%; z-index: 10000; pointer-events: none;"></div>
 
   <!-- Page Transition -->
   <div id="page-transition">
@@ -587,12 +617,53 @@
       <li><a href="#reserve" class="nav-link">Reserve</a></li>
     </ul>
     <div class="nav-right">
-      <button class="nav-cart-btn" id="open-cart-btn" aria-label="Cart">
+      <div class="nav-cart-btn mag-btn" id="open-cart-btn" aria-label="Cart">
         🛒 <span class="cart-count" id="cart-badge">0</span>
-      </button>
-      <a href="#reserve" class="nav-btn">Table Tasting</a>
+      </div>
+      <a href="#reserve" class="nav-btn mag-btn">Table Tasting</a>
+      <div class="mobile-menu-btn" id="mobile-menu-btn">
+        <span></span><span></span>
+      </div>
     </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu">
+    <a href="#collection" class="nav-link mob-link">Collection</a>
+    <a href="#process" class="nav-link mob-link">Process</a>
+    <a href="#gallery" class="nav-link mob-link">Gallery</a>
+    <a href="#about" class="nav-link mob-link">Story</a>
+    <a href="#reserve" class="nav-link mob-link">Reserve</a>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer">
+    <div class="cd-header">
+      <h3 class="cd-title">Your Ritual</h3>
+      <div class="cd-close mag-btn" id="close-cart-btn">&times;</div>
+    </div>
+    <div class="cd-items" id="cart-items-container">
+      <div style="text-align:center; color: var(--cream2); margin-top:40px;">Your cart is empty.</div>
+    </div>
+    <div class="cd-footer">
+      <div class="cd-total">
+        <span>Total</span>
+        <span id="cart-total-price" style="color:var(--gold);">$0</span>
+      </div>
+      <a href="#" class="btn-gold cd-checkout mag-btn" id="cd-checkout-btn"><span>Complete Order</span></a>
+    </div>
+  </div>
+
+  <!-- Audio Player -->
+  <div id="audio-toggle" class="mag-btn">
+    <div class="audio-waves" id="audio-waves">
+      <span style="height:4px;"></span><span style="height:8px;"></span><span style="height:6px;"></span>
+    </div>
+  </div>
+  <audio id="bg-audio" loop preload="none">
+    <!-- Using a generic ambient cafe sound -->
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-coffee-shop-ambience-475.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- Hero Section with 3D Canvas -->
   <section id="hero">
@@ -1495,10 +1566,58 @@
         });
       });
 
-      // Nav Scroll
+      // Mobile Menu
+      const mobBtn = document.getElementById('mobile-menu-btn');
+      const mobMenu = document.getElementById('mobile-menu');
+      mobBtn.addEventListener('click', () => {
+        mobMenu.classList.toggle('active');
+      });
+      document.querySelectorAll('.mob-link').forEach(link => {
+        link.addEventListener('click', () => mobMenu.classList.remove('active'));
+      });
+
+      // Cart Drawer Toggle
+      document.getElementById('open-cart-btn').addEventListener('click', () => {
+        document.getElementById('cart-drawer').classList.add('open');
+      });
+      document.getElementById('close-cart-btn').addEventListener('click', () => {
+        document.getElementById('cart-drawer').classList.remove('open');
+      });
+
+      // Audio Toggle
+      const audioBtn = document.getElementById('audio-toggle');
+      const audioWaves = document.getElementById('audio-waves');
+      const bgAudio = document.getElementById('bg-audio');
+      let isPlaying = false;
+      audioBtn.addEventListener('click', () => {
+        if(isPlaying) { bgAudio.pause(); audioWaves.classList.remove('playing'); }
+        else { bgAudio.play(); audioWaves.classList.add('playing'); }
+        isPlaying = !isPlaying;
+      });
+
+      // Magnetic Buttons
+      document.querySelectorAll('.mag-btn, .btn-gold, .btn-ghost').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
+        });
+      });
+
+      // Nav Scroll & Progress Bar
       window.addEventListener('scroll', () => {
         if(window.scrollY > 80) document.getElementById('navbar').classList.add('scrolled');
         else document.getElementById('navbar').classList.remove('scrolled');
+        
+        // Scroll Progress
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scroll-progress').style.width = scrolled + '%';
       });
 
       // Hero Timeline
