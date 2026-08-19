@@ -377,10 +377,9 @@
     .gal-grid {
       display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 360px 360px; gap: 20px;
     }
-    .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+    .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: none; }
     .gal-item:nth-child(1) { grid-row: span 2; }
-    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out), filter 0.6s; filter: brightness(0.85); }
-    .gal-item:hover img { transform: scale(1.07); filter: brightness(1.05); }
+    .gal-item img { width: 100%; height: 115%; object-fit: cover; filter: brightness(0.85) url(#fluid-hover); }
     .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,3,2,0.85) 0%, transparent 60%); pointer-events: none; }
     .gal-cap { position: absolute; bottom: 28px; left: 28px; z-index: 2; }
     .gal-cap h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 4px; font-weight: 400; letter-spacing: -0.01em; }
@@ -436,6 +435,23 @@
     .res-success h3 { font-family: var(--font-times); font-size: 2.4rem; color: var(--gold); margin-bottom: 12px; }
     .res-success p { color: var(--cream2); line-height: 1.7; }
     .ref-code { display: inline-block; background: var(--gold); color: var(--black); font-weight: 600; padding: 6px 16px; margin-top: 15px; font-family: var(--font-sans); font-size: 0.9rem; }
+
+    /* SOURCING MAP */
+    .map-sec { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding-bottom: 0; position: relative; overflow: hidden; }
+    .map-container { position: relative; width: 100%; max-width: 1000px; margin: 60px auto 0; }
+    .map-svg { width: 100%; height: auto; opacity: 0.15; }
+    .map-dot { position: absolute; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; transform: translate(-50%, -50%); cursor: none; }
+    .map-dot::before {
+      content: ''; position: absolute; inset: -8px; border: 1px solid var(--gold); border-radius: 50%;
+      animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .map-label {
+      position: absolute; color: var(--gold); font-family: 'DM Sans', sans-serif; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.2em; white-space: nowrap;
+      opacity: 0; transform: translateY(10px); transition: 0.4s; pointer-events: none;
+    }
+    .map-dot:hover .map-label { opacity: 1; transform: translateY(-25px); }
+    @keyframes pulse-ring { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
 
     /* FOOTER */
     footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -583,6 +599,16 @@
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); width: 0%; z-index: 10000; pointer-events: none;"></div>
 
+  <!-- SVG Fluid Displacement Filter -->
+  <svg width="0" height="0" style="position:absolute;z-index:-1;">
+    <defs>
+      <filter id="fluid-hover">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="displacementMap" />
+      </filter>
+    </defs>
+  </svg>
+
   <!-- Page Transition -->
   <div id="page-transition">
     <div class="pl-logo" id="trans-logo" style="opacity: 0;">OBSIDIAN</div>
@@ -704,7 +730,7 @@
     <div class="container grid-2">
       <div>
         <span class="eyebrow">Our Philosophy</span>
-        <h2 class="sec-title">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
+        <h2 class="sec-title rev-text">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
         <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
         <div class="stats">
           <div class="stat-item">
@@ -738,7 +764,7 @@
     <div class="container">
       <div class="coll-header">
         <span class="eyebrow">Current Harvest</span>
-        <h2 class="sec-title">The <em>Reserve Collection</em></h2>
+        <h2 class="sec-title rev-text">The <em>Reserve Collection</em></h2>
       </div>
       <div class="grid-3" id="products-grid">
         <!-- Rendered dynamically from backend API -->
@@ -832,7 +858,7 @@
       <div class="gal-head">
         <div>
           <span class="eyebrow">Visual Moments</span>
-          <h2 class="sec-title">Field to <em>Cup</em></h2>
+          <h2 class="sec-title rev-text">Field to <em>Cup</em></h2>
         </div>
         <p>A glimpse into the highlands, our roasting room, and the quiet morning ritual of specialty brew.</p>
       </div>
@@ -886,7 +912,7 @@
     <div class="container">
       <div style="text-align:center; margin-bottom: 70px;">
         <span class="eyebrow">Connoisseur Reviews</span>
-        <h2 class="sec-title">Voices of <em>Excellence</em></h2>
+        <h2 class="sec-title rev-text">Voices of <em>Excellence</em></h2>
       </div>
       <div class="test-grid">
         <div class="test-card">
@@ -926,11 +952,35 @@
     </div>
   </section>
 
+  <!-- Sourcing Map Section -->
+  <section class="section map-sec">
+    <div class="container" style="text-align: center; position: relative; z-index: 2;">
+      <span class="eyebrow">Global Terroir</span>
+      <h2 class="sec-title rev-text">Where Magic <em>Grows</em></h2>
+    </div>
+    <div class="map-container">
+      <!-- Simplified abstract world map SVG -->
+      <svg class="map-svg" viewBox="0 0 1000 500" fill="none" stroke="var(--cream2)" stroke-width="1" stroke-linejoin="round">
+        <path d="M150,120 Q200,100 250,150 T300,200 T350,250 M220,180 Q250,250 280,300 M450,80 Q500,120 550,100 T650,150 M500,150 Q520,250 540,350 M700,200 Q750,150 800,220 T900,250 M850,200 Q880,350 820,400" />
+      </svg>
+      <!-- Dots placed approximately at coordinates -->
+      <div class="map-dot mag-btn" style="top: 55%; left: 28%;">
+        <div class="map-label">Panama, Boquete</div>
+      </div>
+      <div class="map-dot mag-btn" style="top: 60%; left: 32%;">
+        <div class="map-label">Colombia, Huila</div>
+      </div>
+      <div class="map-dot mag-btn" style="top: 58%; left: 54%;">
+        <div class="map-label">Ethiopia, Yirgacheffe</div>
+      </div>
+    </div>
+  </section>
+
   <!-- Reservation Section (Backend Connected) -->
   <section class="section res-sec" id="reserve">
     <div class="container res-content">
       <span class="eyebrow">Private Cupping &amp; Tasting</span>
-      <h2 class="sec-title">Reserve Your <em>Ritual</em></h2>
+      <h2 class="sec-title rev-text">Reserve Your <em>Ritual</em></h2>
       <p style="color: var(--cream2); max-width: 540px; margin: 0 auto 50px;">Join our head roaster for an exclusive 6-course micro-lot cupping experience. Limited to 6 guests per session.</p>
 
       <form id="reservation-form" class="form-grid">
@@ -1563,6 +1613,43 @@
               .to('#page-transition', { y: '100%', duration: 0.6, ease: 'power3.inOut' })
               .set('#page-transition', { y: '-100%' }); // Reset for next time
           }
+        });
+      });
+
+      // Word-by-word Reveal Function
+      const splitTextReveal = () => {
+        document.querySelectorAll('.rev-text').forEach(title => {
+          const text = title.innerHTML;
+          // Simple split by space, maintaining HTML like <em>
+          const words = text.split(' ').map(word => `<span style="display:inline-block; overflow:hidden; vertical-align:top;"><span class="rev-word" style="display:inline-block; transform:translateY(100%);">${word}</span></span>`);
+          title.innerHTML = words.join(' ');
+          
+          gsap.to(title.querySelectorAll('.rev-word'), {
+            y: '0%', duration: 1, ease: 'power4.out',
+            stagger: 0.08,
+            scrollTrigger: { trigger: title, start: 'top 85%' }
+          });
+        });
+      };
+      splitTextReveal();
+
+      // Fluid Hover Effect for Gallery
+      document.querySelectorAll('.gal-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          gsap.to('#displacementMap', { attr: { scale: 30 }, duration: 0.6, ease: 'power2.out' });
+          gsap.to(item.querySelector('img'), { scale: 1.05, filter: 'brightness(1.05) url(#fluid-hover)', duration: 0.6, ease: 'power2.out' });
+        });
+        item.addEventListener('mouseleave', () => {
+          gsap.to('#displacementMap', { attr: { scale: 0 }, duration: 0.6, ease: 'power2.out' });
+          gsap.to(item.querySelector('img'), { scale: 1, filter: 'brightness(0.85) url(#fluid-hover)', duration: 0.6, ease: 'power2.out' });
+        });
+      });
+
+      // Parallax Effect for Images
+      gsap.utils.toArray('.gal-item img, .img-main').forEach(img => {
+        gsap.to(img, {
+          yPercent: -15, ease: 'none',
+          scrollTrigger: { trigger: img.parentElement, scrub: true }
         });
       });
 
