@@ -52,7 +52,7 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
     }
 
     h1, h2, h3, h4, h5, h6, .times-font {
@@ -304,7 +304,7 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
     .product {
       position: relative; background: var(--espresso); border: 1px solid rgba(255,255,255,0.06);
-      transition: border-color 0.5s, transform 0.6s var(--ease-out), box-shadow 0.5s;
+      transition: border-color: 0.5s, transform 0.6s var(--ease-out), box-shadow 0.5s;
       transform-style: preserve-3d; perspective: 1000px;
     }
     .product:hover {
@@ -519,6 +519,14 @@
     }
     #toast.show { transform: translateY(0); opacity: 1; }
 
+    /* Page Transition */
+    #page-transition {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--black); z-index: 9999;
+      transform: translateY(-100%); display: flex;
+      justify-content: center; align-items: center;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -544,6 +552,11 @@
   </style>
 </head>
 <body>
+
+  <!-- Page Transition -->
+  <div id="page-transition">
+    <div class="pl-logo" id="trans-logo" style="opacity: 0;">OBSIDIAN</div>
+  </div>
 
   <!-- Custom Cursor -->
   <div id="cur"></div>
@@ -999,7 +1012,6 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
   <script>
     // State
     let cart = [];
@@ -1459,6 +1471,29 @@
     // GSAP ScrollTrigger Animations
     function initGSAPAnimations() {
       gsap.registerPlugin(ScrollTrigger);
+
+      // Page Transition for Nav Links
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            // Start transition
+            const tl = gsap.timeline();
+            tl.to('#page-transition', { y: '0%', duration: 0.6, ease: 'power3.inOut' })
+              .to('#trans-logo', { opacity: 1, duration: 0.3 }, "-=0.2")
+              .call(() => {
+                // Jump to section behind the curtain
+                window.scrollTo(0, targetEl.offsetTop);
+              })
+              .to('#trans-logo', { opacity: 0, duration: 0.3 }, "+=0.2")
+              .to('#page-transition', { y: '100%', duration: 0.6, ease: 'power3.inOut' })
+              .set('#page-transition', { y: '-100%' }); // Reset for next time
+          }
+        });
+      });
 
       // Nav Scroll
       window.addEventListener('scroll', () => {
