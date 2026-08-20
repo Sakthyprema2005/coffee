@@ -116,7 +116,6 @@
       width: 58px; height: 58px;
       border-color: var(--gold);
       background: rgba(200, 168, 75, 0.12);
-      backdrop-filter: blur(2px);
     }
 
     /* Preloader */
@@ -199,9 +198,9 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
-        radial-gradient(ellipse 100% 55% at 50% 100%, rgba(4,3,2,0.95) 0%, transparent 70%),
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(4,3,2,0.5) 0%, transparent 60%),
-        linear-gradient(to bottom, rgba(4,3,2,0.15) 0%, transparent 30%, transparent 60%, rgba(4,3,2,0.7) 100%);
+        radial-gradient(ellipse 100% 55% at 50% 100%, rgba(4,3,2,0.65) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(4,3,2,0.25) 0%, transparent 60%),
+        linear-gradient(to bottom, rgba(4,3,2,0.05) 0%, transparent 30%, transparent 60%, rgba(4,3,2,0.5) 100%);
     }
     .hero-content {
       position: relative; z-index: 10; text-align: center; display: flex; flex-direction: column; align-items: center;
@@ -1178,7 +1177,7 @@
       if(!container) return;
 
       scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x0d0703, 0.035);
+      scene.fog = new THREE.FogExp2(0x0d0703, 0.012);
 
       camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
       camera.position.set(0, 1.2, 6.2);
