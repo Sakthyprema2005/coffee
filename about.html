@@ -691,114 +691,46 @@
   </audio>
 
   <!-- Hero Section with 3D Canvas -->
-  <section id="hero">
-    <div id="canvas-container"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Single Origin Specialists &middot; Est. 2019</div>
-      <h1 class="hero-title">
-        <div class="line-wrap"><span class="h-line">Where Coffee</span></div>
-        <div class="line-wrap"><span class="h-line"><em>Becomes Art</em></span></div>
-      </h1>
-      <p class="hero-sub h-sub">We source the world&rsquo;s rarest beans from high-altitude micro-lots, roasting each harvest with obsessive precision to create a transcendent sensory ritual.</p>
-      <div class="hero-actions h-act">
-        <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
-        <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
+  <section class="section test-sec">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 70px;">
+        <span class="eyebrow">Connoisseur Reviews</span>
+        <h2 class="sec-title rev-text">Voices of <em>Excellence</em></h2>
       </div>
-    </div>
-  </section><section class="section phil-sec" id="about">
-    <div class="container grid-2">
-      <div>
-        <span class="eyebrow">Our Philosophy</span>
-        <h2 class="sec-title rev-text">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
-        <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
-        <div class="stats">
-          <div class="stat-item">
-            <h4 class="counter" data-target="47">0</h4>
-            <p>Origins Sourced</p>
-          </div>
-          <div class="stat-item">
-            <h4 class="counter" data-target="12">0</h4>
-            <p>Micro-Lot Farms</p>
-          </div>
-          <div class="stat-item">
-            <h4 class="counter" data-target="94">0</h4>
-            <p>Peak Cup Score</p>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;The Night Garden changed my perception of coffee. The jasmine and blueberry clarity is unlike anything I have cupped in 15 years.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">J</div>
+            <div class="auth-info">
+              <h5>James Thornton</h5>
+              <p>Coffee Sommelier &middot; London</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="phil-right">
-        <div class="phil-img-wrap">
-          <img src="assets/farm.jpg" alt="Highland Coffee Farm" />
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;Silent Peak Panama Geisha is extraordinary. The bergamot note is so delicate it feels like liquid poetry.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">S</div>
+            <div class="auth-info">
+              <h5>Sakura Mizuno</h5>
+              <p>Q-Grader &middot; Tokyo</p>
+            </div>
+          </div>
         </div>
-        <div class="badge">
-          <span class="b-num">47</span>
-          <span class="b-txt">Micro-Lots</span>
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;We serve OBSIDIAN exclusively at our Michelin-starred dining room. Guests consistently rate the coffee course as unforgettable.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">M</div>
+            <div class="auth-info">
+              <h5>Marco Bellini</h5>
+              <p>Executive Chef &middot; Milan</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section><section class="section map-sec">
-    <div class="container" style="text-align: center; position: relative; z-index: 2;">
-      <span class="eyebrow">Global Terroir</span>
-      <h2 class="sec-title rev-text">Global Coffee <em>Origins</em></h2>
-    </div>
-    <div class="map-container">
-      <img src="assets/map.jpg" class="map-img" alt="Obsidian Coffee Sourcing Map" />
-      <!-- Dots placed precisely on the map image -->
-      <div class="map-dot mag-btn" style="top: 56.5%; left: 24.5%;">
-        <div class="map-label">Panama, Boquete</div>
-      </div>
-      <div class="map-dot mag-btn" style="top: 61.5%; left: 27.5%;">
-        <div class="map-label">Colombia, Huila</div>
-      </div>
-      <div class="map-dot mag-btn" style="top: 59%; left: 54.5%;">
-        <div class="map-label">Ethiopia, Yirgacheffe</div>
-      </div>
-    </div>
-  </section><section class="section res-sec" id="reserve">
-    <div class="container res-content">
-      <span class="eyebrow">Private Cupping &amp; Tasting</span>
-      <h2 class="sec-title rev-text">Reserve Your <em>Ritual</em></h2>
-      <p style="color: var(--cream2); max-width: 540px; margin: 0 auto 50px;">Join our head roaster for an exclusive 6-course micro-lot cupping experience. Limited to 6 guests per session.</p>
-
-      <form id="reservation-form" class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="res-name">Full Name *</label>
-          <input type="text" id="res-name" class="form-control" placeholder="Elara Voss" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="res-email">Email Address *</label>
-          <input type="email" id="res-email" class="form-control" placeholder="guest@obsidian.com" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="res-date">Preferred Date *</label>
-          <input type="date" id="res-date" class="form-control" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="res-session">Tasting Session *</label>
-          <select id="res-session" class="form-control" required>
-            <option value="" disabled selected>Select session type</option>
-            <option value="Origins Flight (3 Lots)">Origins Flight (3 Micro-Lots)</option>
-            <option value="Reserve Geisha Tasting">Reserve Geisha Masterclass</option>
-            <option value="Private Chef Pairing">Private Chef Pairing Session</option>
-          </select>
-        </div>
-        <div class="form-group fg-full">
-          <label class="form-label" for="res-notes">Special Preferences / Dietary Notes</label>
-          <textarea id="res-notes" class="form-control" rows="3" placeholder="Tell us about your flavor preferences..."></textarea>
-        </div>
-        <div class="fg-full" style="text-align: center; margin-top: 10px;">
-          <button type="submit" class="btn-gold" id="res-submit-btn">
-            <span>Confirm Reservation &rarr;</span>
-          </button>
-        </div>
-      </form>
-
-      <div id="reservation-success" class="res-success">
-        <h3>Reservation Confirmed</h3>
-        <p>We look forward to welcoming you to the OBSIDIAN tasting laboratory.</p>
-        <p>Your confirmation reference ID is:</p>
-        <div class="ref-code" id="res-ref-code">OBS-000000</div>
       </div>
     </div>
   </section><footer>

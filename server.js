@@ -212,6 +212,13 @@ app.post('/api/order', (req, res) => {
   }
 });
 
+// Page Routing
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/collection', (req, res) => res.sendFile(path.join(__dirname, 'collection.html')));
+app.get('/process', (req, res) => res.sendFile(path.join(__dirname, 'process.html')));
+app.get('/gallery', (req, res) => res.sendFile(path.join(__dirname, 'gallery.html')));
+app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'about.html')));
+
 // Fallback to index.html for SPA routing
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

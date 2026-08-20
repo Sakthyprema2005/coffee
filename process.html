@@ -691,114 +691,70 @@
   </audio>
 
   <!-- Hero Section with 3D Canvas -->
-  <section id="hero">
-    <div id="canvas-container"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Single Origin Specialists &middot; Est. 2019</div>
-      <h1 class="hero-title">
-        <div class="line-wrap"><span class="h-line">Where Coffee</span></div>
-        <div class="line-wrap"><span class="h-line"><em>Becomes Art</em></span></div>
-      </h1>
-      <p class="hero-sub h-sub">We source the world&rsquo;s rarest beans from high-altitude micro-lots, roasting each harvest with obsessive precision to create a transcendent sensory ritual.</p>
-      <div class="hero-actions h-act">
-        <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
-        <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
-      </div>
+  <section class="proc-sec" id="process">
+    <div class="proc-head-inner container">
+      <span class="eyebrow">The Craft Ritual</span>
+      <h2 class="sec-title" style="margin-bottom: 0;">From <em>Seed</em> to Transcendence</h2>
     </div>
-  </section><section class="section phil-sec" id="about">
-    <div class="container grid-2">
-      <div>
-        <span class="eyebrow">Our Philosophy</span>
-        <h2 class="sec-title rev-text">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
-        <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
-        <div class="stats">
-          <div class="stat-item">
-            <h4 class="counter" data-target="47">0</h4>
-            <p>Origins Sourced</p>
-          </div>
-          <div class="stat-item">
-            <h4 class="counter" data-target="12">0</h4>
-            <p>Micro-Lot Farms</p>
-          </div>
-          <div class="stat-item">
-            <h4 class="counter" data-target="94">0</h4>
-            <p>Peak Cup Score</p>
-          </div>
-        </div>
-      </div>
-      <div class="phil-right">
-        <div class="phil-img-wrap">
-          <img src="assets/farm.jpg" alt="Highland Coffee Farm" />
-        </div>
-        <div class="badge">
-          <span class="b-num">47</span>
-          <span class="b-txt">Micro-Lots</span>
-        </div>
-      </div>
-    </div>
-  </section><section class="section map-sec">
-    <div class="container" style="text-align: center; position: relative; z-index: 2;">
-      <span class="eyebrow">Global Terroir</span>
-      <h2 class="sec-title rev-text">Global Coffee <em>Origins</em></h2>
-    </div>
-    <div class="map-container">
-      <img src="assets/map.jpg" class="map-img" alt="Obsidian Coffee Sourcing Map" />
-      <!-- Dots placed precisely on the map image -->
-      <div class="map-dot mag-btn" style="top: 56.5%; left: 24.5%;">
-        <div class="map-label">Panama, Boquete</div>
-      </div>
-      <div class="map-dot mag-btn" style="top: 61.5%; left: 27.5%;">
-        <div class="map-label">Colombia, Huila</div>
-      </div>
-      <div class="map-dot mag-btn" style="top: 59%; left: 54.5%;">
-        <div class="map-label">Ethiopia, Yirgacheffe</div>
-      </div>
-    </div>
-  </section><section class="section res-sec" id="reserve">
-    <div class="container res-content">
-      <span class="eyebrow">Private Cupping &amp; Tasting</span>
-      <h2 class="sec-title rev-text">Reserve Your <em>Ritual</em></h2>
-      <p style="color: var(--cream2); max-width: 540px; margin: 0 auto 50px;">Join our head roaster for an exclusive 6-course micro-lot cupping experience. Limited to 6 guests per session.</p>
 
-      <form id="reservation-form" class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="res-name">Full Name *</label>
-          <input type="text" id="res-name" class="form-control" placeholder="Elara Voss" required />
+    <!-- Continuous Infinite Moving Stream Track -->
+    <div class="proc-track-wrap">
+      <div class="proc-track" id="proc-track">
+        <div class="proc-step">
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m in Ethiopia, Colombia, and Panama, selecting only beans with extraordinary acidity and complex aromatics.</p>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="res-email">Email Address *</label>
-          <input type="email" id="res-email" class="form-control" placeholder="guest@obsidian.com" required />
+        <div class="proc-step">
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters across volcanic soil slopes.</p>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="res-date">Preferred Date *</label>
-          <input type="date" id="res-date" class="form-control" required />
+        <div class="proc-step">
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic fermentation in sealed stainless vats on raised African beds unlocks vivid berry sweetness and jasmine aromatics.</p>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="res-session">Tasting Session *</label>
-          <select id="res-session" class="form-control" required>
-            <option value="" disabled selected>Select session type</option>
-            <option value="Origins Flight (3 Lots)">Origins Flight (3 Micro-Lots)</option>
-            <option value="Reserve Geisha Tasting">Reserve Geisha Masterclass</option>
-            <option value="Private Chef Pairing">Private Chef Pairing Session</option>
-          </select>
+        <div class="proc-step">
+          <div class="step-num">04</div>
+          <span class="step-tag">Artisanal Roasting</span>
+          <h3 class="step-title">Thermal Curve</h3>
+          <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 profile iterations to preserve delicate origin notes.</p>
         </div>
-        <div class="form-group fg-full">
-          <label class="form-label" for="res-notes">Special Preferences / Dietary Notes</label>
-          <textarea id="res-notes" class="form-control" rows="3" placeholder="Tell us about your flavor preferences..."></textarea>
+        <div class="proc-step">
+          <div class="step-num">05</div>
+          <span class="step-tag">Maturation</span>
+          <h3 class="step-title">Degassing &amp; Rest</h3>
+          <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed flushed valve bags to allow flavor aromatics to blossom into full harmony.</p>
         </div>
-        <div class="fg-full" style="text-align: center; margin-top: 10px;">
-          <button type="submit" class="btn-gold" id="res-submit-btn">
-            <span>Confirm Reservation &rarr;</span>
-          </button>
+        <div class="proc-step">
+          <div class="step-num">06</div>
+          <span class="step-tag">Extraction</span>
+          <h3 class="step-title">Sensory Extraction</h3>
+          <p class="step-desc">Brewed with custom mineral water chemistry (120ppm) at 93.5&deg;C to achieve crystal-clear sweetness, silky body, and infinite finish.</p>
         </div>
-      </form>
-
-      <div id="reservation-success" class="res-success">
-        <h3>Reservation Confirmed</h3>
-        <p>We look forward to welcoming you to the OBSIDIAN tasting laboratory.</p>
-        <p>Your confirmation reference ID is:</p>
-        <div class="ref-code" id="res-ref-code">OBS-000000</div>
+        <!-- Duplicated for seamless infinite loop -->
+        <div class="proc-step">
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m in Ethiopia, Colombia, and Panama, selecting only beans with extraordinary acidity and complex aromatics.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters across volcanic soil slopes.</p>
+        </div>
+        <div class="proc-step">
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic fermentation in sealed stainless vats on raised African beds unlocks vivid berry sweetness and jasmine aromatics.</p>
+        </div>
       </div>
     </div>
   </section><footer>
