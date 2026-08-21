@@ -594,6 +594,7 @@
   </style>
 </head>
 <body>
+  <div id="cart-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:9999; opacity:0; pointer-events:none; transition:opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);"></div>
 
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); width: 0%; z-index: 10000; pointer-events: none;"></div>
@@ -633,6 +634,7 @@
       <a href="/" class="nav-logo">OBSIDIAN</a>
     </div>
     <ul class="nav-links">
+      <li><a href="/collection.html" class="nav-link">Collection</a></li>
       <li><a href="/about.html" class="nav-link">Story</a></li>
       <li><a href="/process.html" class="nav-link">Process</a></li>
       <li><a href="/gallery.html" class="nav-link">Gallery</a></li>
@@ -650,6 +652,7 @@
 
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu">
+    <a href="/collection.html" class="nav-link mob-link">Collection</a>
     <a href="/about.html" class="nav-link mob-link">Story</a>
     <a href="/process.html" class="nav-link mob-link">Process</a>
     <a href="/gallery.html" class="nav-link mob-link">Gallery</a>
@@ -1038,18 +1041,104 @@
       gsap.to('.pl-percent', { opacity: 1, duration: 1, delay: 0.4 });
     }
 
-    // Backend Integration
+    // Static Fallback Products
+    const STATIC_PRODUCTS = [
+      {
+        id: 1,
+        name: 'Night Garden',
+        origin: 'Ethiopia / Yirgacheffe / Kochere',
+        price: 48,
+        unit: '200g',
+        image: 'assets/prod_eth.jpg',
+        flavorNotes: ['Blueberry', 'Jasmine', 'Dark Chocolate'],
+        badge: 'Limited Micro-Lot',
+        rating: 4.9,
+        description: 'A washed Ethiopian lot from the legendary Kochere zone. Extraordinary floral aromatics give way to vivid blueberry sweetness and a dark chocolate finish that lingers for minutes.',
+        specs: {
+          altitude: '1,800 - 2,200 masl',
+          process: 'Washed / Slow Sun Dried',
+          harvest: 'November 2024',
+          roast: 'Light Filter',
+          varietal: 'JARC 74110 & 74112',
+          cuppingScore: '91.5 pts'
+        },
+        flavors: [
+          { name: 'Blueberry', value: 88 },
+          { name: 'Jasmine', value: 72 },
+          { name: 'Dark Chocolate', value: 65 },
+          { name: 'Acidity Brightness', value: 90 }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Amber Hours',
+        origin: 'Colombia / Huila / La Plata',
+        price: 42,
+        unit: '200g',
+        image: 'assets/prod_col.jpg',
+        flavorNotes: ['Caramel', 'Red Apple', 'Brown Sugar'],
+        badge: 'Single Producer',
+        rating: 4.8,
+        description: 'A honey-processed lot from a single family farm in La Plata. Ripe caramel apple transitions to rich brown sugar sweetness with a lingering, impossibly clean finish.',
+        specs: {
+          altitude: '1,650 - 1,850 masl',
+          process: 'Yellow Honey Ferment',
+          harvest: 'October 2024',
+          roast: 'Light-Medium',
+          varietal: 'Castillo & Caturra',
+          cuppingScore: '89.5 pts'
+        },
+        flavors: [
+          { name: 'Caramel', value: 85 },
+          { name: 'Red Apple', value: 70 },
+          { name: 'Brown Sugar', value: 80 },
+          { name: 'Body Weight', value: 75 }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Silent Peak',
+        origin: 'Panama / Boquete / Finca Lerida',
+        price: 120,
+        unit: '100g',
+        image: 'assets/prod_pan.jpg',
+        flavorNotes: ['Peach', 'Earl Grey', 'Bergamot'],
+        badge: 'Reserve Geisha',
+        rating: 5.0,
+        description: 'The Geisha variety from the historic Finca Lerida estate. Transcendent peach blossom, bergamot, and a sweetness so refined it borders on the ethereal. Our rarest lot.',
+        specs: {
+          altitude: '1,600 - 1,700 masl',
+          process: 'Natural Anaerobic 96h',
+          harvest: 'February 2025',
+          roast: 'Ultra Light Filter',
+          varietal: 'Geisha (Panama)',
+          cuppingScore: '94.2 pts'
+        },
+        flavors: [
+          { name: 'Peach Blossom', value: 92 },
+          { name: 'Bergamot', value: 85 },
+          { name: 'Floral Aromatics', value: 95 },
+          { name: 'Complexity', value: 98 }
+        ]
+      }
+    ];
+
+    // Backend Integration with Fallback
     async function loadProducts() {
       try {
         const res = await fetch('/api/products');
+        if (!res.ok) throw new Error('API request failed');
         const data = await res.json();
         if(data.success) {
           products = data.data;
-          renderProducts(products);
+        } else {
+          products = STATIC_PRODUCTS;
         }
       } catch(err) {
-        console.error('Failed to fetch products from backend:', err);
+        console.warn('Backend API not available, loading premium fallback products:', err);
+        products = STATIC_PRODUCTS;
       }
+      renderProducts(products);
     }
 
     function renderProducts(list) {
@@ -1177,12 +1266,25 @@
       updateCartUI();
     }
 
-    document.getElementById('open-cart-btn').onclick = () => {
-      document.getElementById('cart-drawer').classList.add('open');
-    };
-    document.getElementById('close-cart-btn').onclick = () => {
-      document.getElementById('cart-drawer').classList.remove('open');
-    };
+    const _cartOverlay = document.getElementById('cart-overlay');
+    const _cartDrawer = document.getElementById('cart-drawer');
+
+    function openCartDrawer() {
+      _cartDrawer.classList.add('open');
+      _cartDrawer.style.zIndex = '10001';
+      if (_cartOverlay) { _cartOverlay.style.opacity = '1'; _cartOverlay.style.pointerEvents = 'auto'; }
+      updateCartUI();
+    }
+
+    function closeCartDrawer() {
+      _cartDrawer.classList.remove('open');
+      if (_cartOverlay) { _cartOverlay.style.opacity = '0'; _cartOverlay.style.pointerEvents = 'none'; }
+    }
+
+    document.getElementById('open-cart-btn').onclick = openCartDrawer;
+    document.getElementById('close-cart-btn').onclick = closeCartDrawer;
+    if (_cartOverlay) _cartOverlay.addEventListener('click', closeCartDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCartDrawer(); });
 
     // Checkout via Backend
     document.getElementById('checkout-btn').onclick = async () => {
@@ -1442,6 +1544,7 @@
       initThree();
       animateThree();
       loadProducts();
+      updateCartUI(); // Sync cart UI on page load
       initProcessStream();
     };
   </script>

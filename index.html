@@ -653,6 +653,7 @@
   </style>
 </head>
 <body>
+  <div id="cart-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:9999; opacity:0; pointer-events:none; transition:opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);"></div>
 
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); width: 0%; z-index: 10000; pointer-events: none;"></div>
@@ -692,14 +693,13 @@
       <a href="/" class="nav-logo">OBSIDIAN</a>
     </div>
     <ul class="nav-links">
+      <li><a href="/collection.html" class="nav-link">Collection</a></li>
       <li><a href="#about" class="nav-link">Story</a></li>
       <li><a href="#process" class="nav-link">Process</a></li>
       <li><a href="/gallery.html" class="nav-link">Gallery</a></li>
     </ul>
     <div class="nav-right">
-      <div class="nav-cart-btn mag-btn" id="open-cart-btn" aria-label="Cart">
-        🛒 <span class="cart-count" id="cart-badge">0</span>
-      </div>
+      
       <a href="#reserve" class="nav-btn mag-btn">Table Tasting</a>
       <div class="mobile-menu-btn" id="mobile-menu-btn">
         <span></span><span></span>
@@ -709,6 +709,7 @@
 
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu">
+    <a href="/collection.html" class="nav-link mob-link">Collection</a>
     <a href="#about" class="nav-link mob-link">Story</a>
     <a href="#process" class="nav-link mob-link">Process</a>
     <a href="/gallery.html" class="nav-link mob-link">Gallery</a>
@@ -800,7 +801,7 @@
       </h1>
       <p class="hero-sub h-sub">We source the world&rsquo;s rarest beans from high-altitude micro-lots, roasting each harvest with obsessive precision to create a transcendent sensory ritual.</p>
       <div class="hero-actions h-act">
-        <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
+        <a href="/collection.html" class="btn-gold"><span>Explore Collection &rarr;</span></a>
         <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
       </div>
     </div>
@@ -972,18 +973,7 @@
     </div><!-- /proc-track-wrap -->
   </section>
 
-  <!-- ═══ COLLECTION — Reserve Micro-Lots ═══ -->
-  <section class="section coll-sec" id="collection">
-    <div class="container">
-      <div class="coll-header" style="text-align: center; margin-bottom: 60px;">
-        <span class="eyebrow">Current Harvest</span>
-        <h2 class="sec-title rev-text">The <em>Reserve Collection</em></h2>
-      </div>
-      <div class="grid-3" id="products-grid">
-        <!-- Rendered dynamically from backend API -->
-      </div>
-    </div>
-  </section>
+  <!-- Collection section removed from homepage -->
 
   <section class="section map-sec">
     <div class="container" style="text-align: center; position: relative; z-index: 2;">
@@ -1119,10 +1109,10 @@
       <div class="foot-col">
         <h4>Collection</h4>
         <ul>
-          <li><a href="#collection">Night Garden Ethiopia</a></li>
-          <li><a href="#collection">Amber Hours Colombia</a></li>
-          <li><a href="#collection">Silent Peak Panama</a></li>
-          <li><a href="#collection">Archive Lots</a></li>
+          <li><a href="/collection.html">Night Garden Ethiopia</a></li>
+          <li><a href="/collection.html">Amber Hours Colombia</a></li>
+          <li><a href="/collection.html">Silent Peak Panama</a></li>
+          <li><a href="/collection.html">Archive Lots</a></li>
         </ul>
       </div>
       <div class="foot-col">
@@ -1507,7 +1497,7 @@
     gsap.ticker.lagSmoothing(0);
 
     // State
-    let cart = [];
+    let cart = JSON.parse(localStorage.getItem('obsidian_cart')) || [];
     let products = [];
     let currentModalProduct = null;
 
@@ -1860,8 +1850,12 @@
       showToast(`✦ ${p.name} added to your cart!`);
 
       // Auto-open Cart Drawer for instant feedback
-      const drawer = document.getElementById('cart-drawer');
-      if (drawer) drawer.classList.add('open');
+      if (typeof openCartDrawer === 'function') {
+        openCartDrawer();
+      } else {
+        const drawer = document.getElementById('cart-drawer');
+        if (drawer) drawer.classList.add('open');
+      }
 
       // Cart Badge Pulse animation
       if (typeof gsap !== 'undefined') {
@@ -1908,6 +1902,7 @@
     }
 
     function updateCartUI() {
+      localStorage.setItem('obsidian_cart', JSON.stringify(cart));
       const countEl = document.getElementById('cart-badge');
       const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       countEl.textContent = totalCount;
@@ -2083,12 +2078,13 @@
     };
 
     // Open Checkout Modal
-    document.getElementById('checkout-btn').onclick = () => {
+      document.getElementById('checkout-btn').onclick = () => {
       if(cart.length === 0) {
         showToast('Your cart is empty.');
         return;
       }
-      document.getElementById('cart-drawer').classList.remove('open');
+      if (typeof closeCartDrawer === 'function') closeCartDrawer();
+      else document.getElementById('cart-drawer').classList.remove('open');
       goToStep(1);
       document.getElementById('checkout-modal').classList.add('active');
     };
@@ -2339,13 +2335,30 @@
         link.addEventListener('click', () => mobMenu.classList.remove('active'));
       });
 
-      // Cart Drawer Toggle
-      document.getElementById('open-cart-btn').addEventListener('click', () => {
-        document.getElementById('cart-drawer').classList.add('open');
-      });
-      document.getElementById('close-cart-btn').addEventListener('click', () => {
-        document.getElementById('cart-drawer').classList.remove('open');
-      });
+      // Cart Drawer Toggle with overlay
+      const cartOverlay = document.getElementById('cart-overlay');
+      const cartDrawer = document.getElementById('cart-drawer');
+
+      function openCartDrawer() {
+        cartDrawer.classList.add('open');
+        cartDrawer.style.zIndex = '10001';
+        if (cartOverlay) { cartOverlay.style.opacity = '1'; cartOverlay.style.pointerEvents = 'auto'; }
+        updateCartUI();
+      }
+
+      function closeCartDrawer() {
+        cartDrawer.classList.remove('open');
+        if (cartOverlay) { cartOverlay.style.opacity = '0'; cartOverlay.style.pointerEvents = 'none'; }
+      }
+
+      document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+      document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+      if (cartOverlay) cartOverlay.addEventListener('click', closeCartDrawer);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCartDrawer(); } });
+
+      // Sync the inline onclick handlers
+      window._openCartDrawer = openCartDrawer;
+      window._closeCartDrawer = closeCartDrawer;
 
       // Audio Toggle
       const audioBtn = document.getElementById('audio-toggle');
@@ -2423,7 +2436,7 @@
     window.onload = () => {
       initThree();
       animateThree();
-      loadProducts();
+      // loadProducts(); // Removed as product cards are no longer on homepage
       initProcessStream();
     };
   </script>
