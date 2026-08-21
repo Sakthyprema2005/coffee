@@ -6,16 +6,15 @@
   <title>OBSIDIAN | Rare Specialty Coffee & Micro-Lots</title>
   <meta name="description" content="Obsidian Specialty Coffee — Luxury micro-lots sourced directly from Ethiopia, Colombia, and Panama." />
 
-  <!-- Luxury High-Fashion & Modern Editorial Fonts -->
+  <!-- Ultra-Professional Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
   <style>
     :root {
@@ -30,22 +29,20 @@
       --gold2: #e6c660;
       --gold-dark: #96762c;
       --copper: #b5712e;
-      --font-times: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-      --font-brand: 'Playfair Display', 'Cormorant Garamond', serif;
-      --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-times: 'Playfair Display', 'Cinzel', 'Times New Roman', Georgia, serif;
+      --font-brand: 'Cinzel', 'Playfair Display', serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--void); }
-    ::-webkit-scrollbar-thumb { background: rgba(200,168,75,0.4); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-    
-    html { scroll-behavior: auto; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: none;
+    }
+
     body, html {
       width: 100%;
       background-color: var(--black);
@@ -55,12 +52,13 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
     }
 
     h1, h2, h3, h4, h5, h6, .times-font {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-times);
       font-weight: 400;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.015em;
     }
 
     em {
@@ -116,6 +114,7 @@
       width: 58px; height: 58px;
       border-color: var(--gold);
       background: rgba(200, 168, 75, 0.12);
+      backdrop-filter: blur(2px);
     }
 
     /* Preloader */
@@ -125,8 +124,8 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .pl-logo {
-      font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--gold); letter-spacing: 0.45em;
-      opacity: 0; transform: translateY(15px); text-transform: uppercase; font-weight: 700;
+      font-family: var(--font-brand); font-size: 3.5rem; color: var(--gold); letter-spacing: 0.38em;
+      opacity: 0; transform: translateY(15px); text-transform: uppercase; font-weight: 500;
     }
     .pl-sub {
       font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.45em; color: var(--cream2);
@@ -148,21 +147,28 @@
       position: fixed; top: 0; left: 0; width: 100%; padding: 32px 60px;
       display: flex; justify-content: space-between; align-items: center;
       z-index: 1000; transition: padding 0.5s var(--ease-out), background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
-      z-index: 1000; transition: all 0.5s var(--ease-out);
+      border-bottom: 1px solid transparent; opacity: 0;
     }
-    #navbar.scrolled { padding: 16px 60px; background: rgba(4,3,2,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .nav-brand { display: flex; align-items: baseline; gap: 12px; }
+    nav.scrolled {
+      padding: 18px 60px;
+      background: rgba(4, 3, 2, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom-color: rgba(200, 168, 75, 0.15);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+    }
     .nav-logo {
-      font-family: 'Playfair Display', serif; font-size: 1.65rem; color: var(--gold); letter-spacing: 0.45em;
-      text-transform: uppercase; font-weight: 700; line-height: 1; text-decoration: none;
+      font-family: var(--font-brand); font-size: 1.8rem; color: var(--gold); letter-spacing: 0.35em;
+      text-transform: uppercase; font-weight: 500; line-height: 1;
     }
     .nav-tag {
       font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); border-left: 1px solid rgba(200, 168, 75, 0.3); padding-left: 12px;
     }
-    .nav-links { display: flex; gap: 40px; align-items: center; list-style: none; }
+    .nav-links { display: flex; gap: 40px; }
     .nav-link {
-      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream2);
-      transition: color 0.3s; position: relative; font-weight: 300; font-family: 'DM Sans', sans-serif; text-decoration: none;
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2);
+      transition: color 0.3s; position: relative; font-weight: 300;
     }
     .nav-link:hover { color: var(--gold); }
     .nav-link::after {
@@ -198,34 +204,31 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1; pointer-events: none;
       background:
-        radial-gradient(ellipse 100% 55% at 50% 100%, rgba(4,3,2,0.65) 0%, transparent 70%),
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(4,3,2,0.25) 0%, transparent 60%),
-        linear-gradient(to bottom, rgba(4,3,2,0.05) 0%, transparent 30%, transparent 60%, rgba(4,3,2,0.5) 100%);
+        radial-gradient(ellipse 85% 65% at 50% 100%, rgba(4,3,2,0.85) 0%, transparent 70%),
+        radial-gradient(circle at 50% 40%, transparent 30%, rgba(4,3,2,0.4) 100%);
     }
     .hero-content {
       position: relative; z-index: 10; text-align: center; display: flex; flex-direction: column; align-items: center;
       padding: 0 24px; pointer-events: none; max-width: 1000px;
     }
     .hero-eyebrow {
-      font-size: 0.62rem; letter-spacing: 0.6em; text-transform: uppercase; color: var(--cream2);
-      margin-bottom: 28px; font-weight: 300; display: flex; align-items: center; gap: 20px;
-      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; font-weight: 300; display: flex; align-items: center; gap: 16px;
     }
     .hero-eyebrow::before, .hero-eyebrow::after {
-      content: ''; width: 50px; height: 1px; background: rgba(200, 168, 75, 0.35);
+      content: ''; width: 40px; height: 1px; background: rgba(200, 168, 75, 0.4);
     }
     .hero-title {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(4.5rem, 9.5vw, 11rem); line-height: 0.9;
-      margin-bottom: 36px; font-weight: 300; letter-spacing: -0.03em; text-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      font-family: var(--font-times); font-size: clamp(4rem, 10vw, 10.5rem); line-height: 0.92;
+      margin-bottom: 32px; font-weight: 400; letter-spacing: -0.02em; text-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .hero-title em {
-      font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-weight: 400;
+      font-family: var(--font-times); font-style: italic; color: var(--gold); font-weight: 400;
     }
     .line-wrap { overflow: hidden; display: block; }
     .hero-sub {
-      font-size: clamp(1rem, 1.2vw, 1.1rem); max-width: 560px; color: rgba(196,180,158,0.85);
-      margin-bottom: 52px; line-height: 2; font-weight: 300; letter-spacing: 0.03em;
-      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem); max-width: 520px; color: var(--cream2);
+      margin-bottom: 48px; line-height: 1.9; font-weight: 300; letter-spacing: 0.02em;
     }
     .hero-actions { display: flex; gap: 20px; pointer-events: all; }
 
@@ -250,11 +253,25 @@
     }
     .btn-ghost:hover { border-color: var(--gold); background: rgba(200,168,75,0.1); transform: translateY(-3px); }
 
-
+    .scroll-ind {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 10;
+    }
+    .scroll-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream2); }
+    .scroll-line { width: 1px; height: 42px; background: rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; inset: 0; width: 100%; height: 100%; background: var(--gold);
+      animation: scrollLine 2.2s infinite ease-in-out;
+    }
+    @keyframes scrollLine {
+      0% { transform: translateY(-100%); }
+      50% { transform: translateY(0); }
+      100% { transform: translateY(100%); }
+    }
 
     /* Marquee Banner */
     .marquee { background: var(--gold); color: var(--black); padding: 18px 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
-    .marquee-inner { display: flex; font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; letter-spacing: 0.1em; font-style: italic; font-weight: 400; }
+    .marquee-inner { display: flex; font-family: var(--font-times); font-size: 1.6rem; letter-spacing: 0.08em; font-style: italic; }
     .marquee-item { padding: 0 45px; display: inline-flex; align-items: center; gap: 40px; }
     .marquee-dot { font-style: normal; font-size: 0.7em; color: var(--brown); opacity: 0.7; }
 
@@ -262,22 +279,21 @@
     .section { padding: 140px 60px; position: relative; }
     .container { max-width: 1360px; margin: 0 auto; }
     .eyebrow {
-      font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 20px; display: inline-flex; align-items: center; gap: 14px; font-weight: 400;
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; display: block; font-weight: 400;
     }
-    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); opacity: 0.5; }
     .sec-title {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 5.2rem); line-height: 1.08; margin-bottom: 32px; font-weight: 400; letter-spacing: -0.02em;
+      font-family: var(--font-times); font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1.05; margin-bottom: 36px; font-weight: 400;
     }
-    .sec-title em { color: var(--gold); font-style: italic; font-weight: 300; }
+    .sec-title em { color: var(--gold); font-style: italic; }
 
     /* PHILOSOPHY */
     .phil-sec { background: var(--espresso); border-top: 1px solid rgba(255,255,255,0.04); }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; }
     .phil-body { font-size: 1.15rem; color: var(--cream2); line-height: 1.95; margin-bottom: 54px; max-width: 540px; font-weight: 300; }
     .stats { display: flex; gap: 50px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px; }
-    .stat-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; color: var(--gold); margin-bottom: 8px; font-weight: 400; line-height: 1; }
-    .stat-item p { font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream2); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+    .stat-item h4 { font-family: var(--font-times); font-size: 3.5rem; color: var(--gold); margin-bottom: 6px; font-weight: 400; line-height: 1; }
+    .stat-item p { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream2); }
     .phil-right { position: relative; }
     .phil-img-wrap {
       position: relative; overflow: hidden; aspect-ratio: 3/4; border: 1px solid rgba(200, 168, 75, 0.2);
@@ -324,12 +340,12 @@
       transition: transform 0.8s var(--ease-out), filter 0.5s; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
     }
     .product:hover .prod-img { transform: scale(1.08) translateY(-8px); }
-    .prod-info { padding: 32px 28px 28px; }
-    .prod-origin { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--copper); margin-bottom: 10px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
-    .prod-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 10px; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
-    .prod-notes { font-size: 0.82rem; color: var(--cream2); margin-bottom: 24px; line-height: 1.65; letter-spacing: 0.03em; font-weight: 300; }
-    .prod-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 20px; }
-    .prod-price { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: var(--gold); font-weight: 400; letter-spacing: -0.01em; }
+    .prod-info { padding: 36px 32px 32px; }
+    .prod-origin { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 12px; font-weight: 400; }
+    .prod-name { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 12px; font-weight: 400; line-height: 1.1; }
+    .prod-notes { font-size: 0.85rem; color: var(--cream2); margin-bottom: 28px; line-height: 1.6; letter-spacing: 0.05em; }
+    .prod-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
+    .prod-price { font-family: var(--font-times); font-size: 1.8rem; color: var(--gold); font-weight: 400; }
     .prod-actions { display: flex; gap: 12px; }
     .btn-cart-add {
       background: transparent; border: 1px solid rgba(200, 168, 75, 0.4); color: var(--gold);
@@ -338,26 +354,21 @@
     }
     .btn-cart-add:hover { background: var(--gold); color: var(--black); }
 
-    /* PROCESS & CRAFT CONTINUOUS AUTOMATIC STREAM */
-    .proc-sec { background: var(--void); padding: 140px 0; position: relative; overflow: hidden; }
-    .proc-head-inner { padding: 0 60px 50px; }
-    .proc-track-wrap { width: 100%; overflow: hidden; display: flex; position: relative; }
-    .proc-track {
-      display: flex; gap: 80px; width: max-content; padding: 20px 60px;
-      will-change: transform; transition: animation-play-state 0.3s;
-    }
+    /* PROCESS HORIZONTAL SCROLL */
+    .proc-sec { background: var(--void); height: 100vh; overflow: hidden; position: relative; padding: 0; }
+    .proc-track { display: flex; height: 100%; width: max-content; padding-left: 8vw; padding-right: 8vw; align-items: center; }
+    .proc-intro { width: 38vw; min-width: 420px; padding-right: 80px; }
+    .proc-intro h2 { font-family: var(--font-times); font-size: clamp(3.5rem, 6vw, 6rem); margin-bottom: 24px; line-height: 1; }
+    .proc-intro p { font-size: 1.1rem; color: var(--cream2); line-height: 1.85; font-weight: 300; }
     .proc-step {
-      width: 420px; flex-shrink: 0; background: transparent !important;
-      border: none !important; box-shadow: none !important; backdrop-filter: none !important;
-      padding: 0 !important; position: relative;
+      width: 380px; padding: 0 44px; position: relative; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.06);
     }
     .step-num {
-      font-family: var(--font-times); font-size: 6rem; color: var(--gold); font-weight: 400;
-      line-height: 1; margin-bottom: 20px; opacity: 0.9; text-shadow: 0 4px 20px rgba(200, 168, 75, 0.2);
+      font-family: var(--font-times); font-size: 7rem; color: rgba(200, 168, 75, 0.12); font-weight: 400; line-height: 1; margin-bottom: 20px;
     }
-    .step-tag { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; font-weight: 400; }
-    .step-title { font-family: var(--font-times); font-size: 2.4rem; margin-bottom: 20px; line-height: 1.15; color: var(--cream); font-weight: 400; }
-    .step-desc { font-size: 1rem; color: var(--cream2); line-height: 1.9; font-weight: 300; max-width: 380px; }
+    .step-tag { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
+    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 20px; line-height: 1.15; }
+    .step-desc { font-size: 0.95rem; color: var(--cream2); line-height: 1.8; font-weight: 300; }
 
     /* SPLIT BANNER */
     .split-sec { display: flex; width: 100%; background: var(--espresso); border-y: 1px solid rgba(255,255,255,0.05); }
@@ -365,35 +376,36 @@
     .split-img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
     .split-half:hover .split-img { transform: scale(1.05); }
     .split-text { display: flex; flex-direction: column; justify-content: center; padding: 90px 80px; background: var(--mocha); }
-    .split-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4vw, 4rem); font-style: italic; line-height: 1.18; margin-bottom: 32px; color: var(--cream); font-weight: 300; }
+    .split-quote { font-family: var(--font-times); font-size: clamp(2.5rem, 4.5vw, 4.2rem); font-style: italic; line-height: 1.15; margin-bottom: 32px; color: var(--cream); }
     .split-quote em { color: var(--gold); }
     .split-attr { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2); }
 
     /* GALLERY */
     .gal-sec { background: var(--black); }
-    .gal-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
-    .gal-head p { max-width: 380px; color: rgba(196,180,158,0.75); line-height: 1.85; font-size: 0.95rem; font-weight: 300; font-family: 'DM Sans', sans-serif; }
+    .gal-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 70px; }
+    .gal-head p { max-width: 420px; color: var(--cream2); line-height: 1.8; }
     .gal-grid {
-      display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 360px 360px; gap: 20px;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 380px 380px; gap: 24px;
     }
-    .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: none; }
+    .gal-item { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
     .gal-item:nth-child(1) { grid-row: span 2; }
-    .gal-item img { width: 100%; height: 115%; object-fit: cover; filter: brightness(0.85); }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-out), filter 0.6s; filter: brightness(0.85); }
+    .gal-item:hover img { transform: scale(1.07); filter: brightness(1.05); }
     .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,3,2,0.85) 0%, transparent 60%); pointer-events: none; }
     .gal-cap { position: absolute; bottom: 28px; left: 28px; z-index: 2; }
-    .gal-cap h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 4px; font-weight: 400; letter-spacing: -0.01em; }
-    .gal-hover { font-size: 0.78rem; font-family: 'DM Sans', sans-serif; font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(8px); transition: all 0.4s; }
+    .gal-cap h4 { font-family: var(--font-times); font-size: 1.6rem; margin-bottom: 4px; font-weight: 400; }
+    .gal-hover { font-size: 0.85rem; font-family: var(--font-times); font-style: italic; color: var(--gold); opacity: 0; transform: translateY(8px); transition: all 0.4s; }
     .gal-item:hover .gal-hover { opacity: 1; transform: translateY(0); }
 
     /* ABOUT STORY */
     .abt-sec { background: var(--espresso); position: relative; }
-    .abt-images { position: relative; width: 100%; height: 560px; }
-    .img-main { width: 85%; height: 85%; object-fit: cover; position: absolute; top: 0; left: 0; border: 1px solid rgba(200, 168, 75, 0.15); }
-    .img-accent { width: 48%; height: 50%; object-fit: cover; position: absolute; bottom: 0; right: 0; border: 8px solid var(--espresso); z-index: 2; }
-    .abt-content p { color: rgba(196,180,158,0.8); line-height: 2; margin-bottom: 24px; font-size: 1.05rem; font-weight: 300; font-family: 'DM Sans', sans-serif; }
-    .signature { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; }
-    .sig-name { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-style: italic; color: var(--gold); }
-    .sig-role { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream2); font-family: 'DM Sans', sans-serif; margin-top: 6px; display: block; }
+    .abt-images { position: relative; width: 100%; height: 580px; }
+    .img-main { width: 85%; height: 85%; object-fit: cover; position: absolute; top: 0; left: 0; border: 1px solid rgba(200, 168, 75, 0.2); }
+    .img-accent { width: 50%; height: 50%; object-fit: cover; position: absolute; bottom: 0; right: 0; border: 8px solid var(--espresso); z-index: 2; }
+    .abt-content p { color: var(--cream2); line-height: 1.9; margin-bottom: 24px; font-size: 1.08rem; font-weight: 300; }
+    .signature { margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
+    .sig-name { font-family: var(--font-times); font-size: 2.8rem; font-style: italic; color: var(--gold); }
+    .sig-role { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream2); }
 
     /* TESTIMONIALS */
     .test-sec { background: var(--void); }
@@ -404,14 +416,14 @@
     }
     .test-card:hover { transform: translateY(-8px); border-color: rgba(200,168,75,0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
     .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 24px; letter-spacing: 3px; }
-    .test-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; line-height: 1.7; margin-bottom: 32px; color: var(--cream); font-weight: 400; }
+    .test-quote { font-family: var(--font-times); font-size: 1.35rem; font-style: italic; line-height: 1.65; margin-bottom: 32px; color: var(--cream); }
     .test-auth { display: flex; align-items: center; gap: 16px; }
     .auth-av {
       width: 44px; height: 44px; border-radius: 50%; background: var(--brown); border: 1px solid var(--gold);
       display: flex; justify-content: center; align-items: center; font-family: var(--font-times); color: var(--gold); font-size: 1.2rem;
     }
-    .auth-info h5 { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; }
-    .auth-info p { font-size: 0.62rem; color: var(--cream2); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 3px; font-family: 'DM Sans', sans-serif; }
+    .auth-info h5 { font-family: var(--font-sans); font-size: 0.95rem; font-weight: 400; }
+    .auth-info p { font-size: 0.68rem; color: var(--cream2); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 3px; }
 
     /* RESERVATION FORM */
     .res-sec { background: var(--espresso); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
@@ -435,28 +447,11 @@
     .res-success p { color: var(--cream2); line-height: 1.7; }
     .ref-code { display: inline-block; background: var(--gold); color: var(--black); font-weight: 600; padding: 6px 16px; margin-top: 15px; font-family: var(--font-sans); font-size: 0.9rem; }
 
-    /* SOURCING MAP */
-    .map-sec { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding-bottom: 0; position: relative; overflow: hidden; }
-    .map-container { position: relative; width: 100%; max-width: 1000px; margin: 60px auto 0; }
-    .map-img { width: 100%; height: auto; opacity: 0.35; border: 1px solid rgba(255,255,255,0.05); }
-    .map-dot { position: absolute; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; transform: translate(-50%, -50%); cursor: none; }
-    .map-dot::before {
-      content: ''; position: absolute; inset: -8px; border: 1px solid var(--gold); border-radius: 50%;
-      animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-    .map-label {
-      position: absolute; color: var(--gold); font-family: 'DM Sans', sans-serif; font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 0.2em; white-space: nowrap;
-      opacity: 0; transform: translateY(10px); transition: 0.4s; pointer-events: none;
-    }
-    .map-dot:hover .map-label { opacity: 1; transform: translateY(-25px); }
-    @keyframes pulse-ring { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
-
     /* FOOTER */
-    footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+    footer { background: var(--void); padding: 110px 60px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
     .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; max-width: 1360px; margin-inline: auto; }
-    .foot-brand h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 18px; font-weight: 700; }
-    .foot-brand p { color: rgba(196,180,158,0.7); line-height: 1.85; margin-bottom: 28px; max-width: 320px; font-size: 0.9rem; font-weight: 300; }
+    .foot-brand h3 { font-family: var(--font-times); font-size: 2.2rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 20px; }
+    .foot-brand p { color: var(--cream2); line-height: 1.8; margin-bottom: 28px; max-width: 340px; font-size: 0.95rem; }
     .nl-form { display: flex; max-width: 360px; }
     .nl-input {
       flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 14px 18px;
@@ -529,105 +524,6 @@
     }
     #toast.show { transform: translateY(0); opacity: 1; }
 
-    /* Cart Drawer */
-    #cart-drawer {
-      position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100vh;
-      background: var(--void); border-left: 1px solid rgba(255,255,255,0.05);
-      z-index: 10000; transform: translateX(100%); transition: transform 0.6s var(--ease-out);
-      display: flex; flex-direction: column;
-    }
-    #cart-drawer.open { transform: translateX(0); }
-    .cd-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-    .cd-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); font-style: italic; }
-    .cd-close { font-size: 1.5rem; color: var(--cream2); cursor: none; }
-    .cd-items { flex: 1; overflow-y: auto; padding: 30px; }
-    .cd-item { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 20px; }
-    .cd-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 5px; }
-    .cd-item-price { color: var(--gold); font-size: 0.9rem; }
-    .cd-footer { padding: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
-    .cd-total { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem; }
-    .cd-checkout { width: 100%; text-align: center; }
-
-    /* Cart Quantity Control */
-    .cart-qty-ctrl {
-      display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
-      border: 1px solid rgba(200, 168, 75, 0.3); padding: 2px 8px; border-radius: 4px;
-    }
-    .cart-qty-btn {
-      background: none; border: none; color: var(--gold); font-size: 1rem; padding: 0 4px; cursor: pointer;
-    }
-    .cart-qty-num { font-size: 0.85rem; color: var(--cream); min-width: 16px; text-align: center; }
-
-    /* CHECKOUT & RECEIPT MODALS */
-    .checkout-modal-overlay {
-      position: fixed; inset: 0; width: 100vw; height: 100vh;
-      background: rgba(4,3,2,0.92); backdrop-filter: blur(18px);
-      z-index: 12000; display: flex; justify-content: center; align-items: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out);
-    }
-    .checkout-modal-overlay.active { opacity: 1; pointer-events: auto; }
-    
-    .checkout-card {
-      background: var(--espresso); border: 1px solid var(--gold); width: 92%; max-width: 680px;
-      max-height: 90vh; overflow-y: auto; padding: 40px; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.8);
-    }
-    .checkout-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-style: italic; margin-bottom: 8px; }
-    .checkout-card p.sub { font-size: 0.85rem; color: var(--cream2); margin-bottom: 24px; }
-    
-    .checkout-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-    .checkout-form-full { grid-column: span 2; }
-    .checkout-input {
-      width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.5); border: 1px solid rgba(200,168,75,0.25);
-      color: var(--cream); font-family: var(--font-sans); font-size: 0.9rem; outline: none; transition: border-color 0.3s;
-    }
-    .checkout-input:focus { border-color: var(--gold); }
-    
-    .payment-options { display: flex; gap: 12px; margin-bottom: 24px; }
-    .payment-option-label {
-      flex: 1; padding: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center;
-      font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: 0.3s;
-    }
-    .payment-option-label.selected { border-color: var(--gold); background: rgba(200,168,75,0.1); color: var(--gold); }
-
-    /* Multi-Step Checkout Indicators & Options */
-    .chk-step { display: flex; align-items: center; gap: 8px; cursor: pointer; opacity: 0.4; transition: 0.3s; }
-    .chk-step.active { opacity: 1; }
-    .chk-step-num {
-      width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--cream2);
-      display: flex; justify-content: center; align-items: center; font-size: 0.75rem; font-weight: 600;
-    }
-    .chk-step.active .chk-step-num { border-color: var(--gold); background: var(--gold); color: var(--black); }
-    .chk-step-txt { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); }
-
-    .chk-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream2); display: block; margin-bottom: 6px; }
-
-    .shipping-option {
-      display: flex; align-items: center; gap: 14px; padding: 14px 18px;
-      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; transition: 0.3s;
-    }
-    .shipping-option.selected { border-color: var(--gold); background: rgba(200,168,75,0.08); }
-
-    /* Audio Player */
-    #audio-toggle {
-      position: fixed; bottom: 30px; left: 30px; z-index: 990; width: 44px; height: 44px;
-      border-radius: 50%; border: 1px solid rgba(200,168,75,0.3); display: flex; justify-content: center; align-items: center;
-      color: var(--gold); font-size: 0.7rem; transition: 0.3s;
-    }
-    #audio-toggle:hover { background: rgba(200,168,75,0.1); border-color: var(--gold); }
-    .audio-waves { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
-    .audio-waves span { width: 2px; background: var(--gold); transition: 0.2s; }
-    .audio-waves.playing span { animation: wave 1s infinite alternate; }
-    .audio-waves.playing span:nth-child(1) { animation-delay: 0.1s; }
-    .audio-waves.playing span:nth-child(2) { animation-delay: 0.3s; }
-    .audio-waves.playing span:nth-child(3) { animation-delay: 0.2s; }
-    @keyframes wave { 0% { height: 2px; } 100% { height: 12px; } }
-    #page-transition {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: var(--black); z-index: 9999;
-      transform: translateY(-100%); display: flex;
-      justify-content: center; align-items: center;
-    }
-
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -653,25 +549,6 @@
   </style>
 </head>
 <body>
-  <div id="cart-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:9999; opacity:0; pointer-events:none; transition:opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);"></div>
-
-  <!-- Scroll Progress Bar -->
-  <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); width: 0%; z-index: 10000; pointer-events: none;"></div>
-
-  <!-- SVG Fluid Displacement Filter -->
-  <svg width="0" height="0" style="position:absolute;z-index:-1;">
-    <defs>
-      <filter id="fluid-hover">
-        <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="3" result="noise" />
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="displacementMap" />
-      </filter>
-    </defs>
-  </svg>
-
-  <!-- Page Transition -->
-  <div id="page-transition">
-    <div class="pl-logo" id="trans-logo" style="opacity: 0;">OBSIDIAN</div>
-  </div>
 
   <!-- Custom Cursor -->
   <div id="cur"></div>
@@ -683,6 +560,7 @@
   <!-- Preloader -->
   <div id="preloader">
     <div class="pl-logo">OBSIDIAN</div>
+    <div class="pl-sub">Single Origin Micro-Lots</div>
     <div class="pl-line-wrap"><div class="pl-line"></div></div>
     <div class="pl-percent">0%</div>
   </div>
@@ -690,318 +568,168 @@
   <!-- Navigation -->
   <nav id="navbar">
     <div class="nav-brand">
-      <a href="/" class="nav-logo">OBSIDIAN</a>
+      <a href="#" class="nav-logo">OBSIDIAN</a>
+      <span class="nav-tag">EST. 2019</span>
     </div>
     <ul class="nav-links">
-      <li><a href="/collection.html" class="nav-link">Collection</a></li>
-      <li><a href="#about" class="nav-link">Story</a></li>
+      <li><a href="#collection" class="nav-link">Collection</a></li>
       <li><a href="#process" class="nav-link">Process</a></li>
-      <li><a href="/gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#about" class="nav-link">Story</a></li>
+      <li><a href="#reserve" class="nav-link">Reserve</a></li>
     </ul>
     <div class="nav-right">
-      
-      <a href="#reserve" class="nav-btn mag-btn">Table Tasting</a>
-      <div class="mobile-menu-btn" id="mobile-menu-btn">
-        <span></span><span></span>
-      </div>
+      <button class="nav-cart-btn" id="open-cart-btn" aria-label="Cart">
+        🛒 <span class="cart-count" id="cart-badge">0</span>
+      </button>
+      <a href="#reserve" class="nav-btn">Table Tasting</a>
     </div>
   </nav>
-
-  <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu">
-    <a href="/collection.html" class="nav-link mob-link">Collection</a>
-    <a href="#about" class="nav-link mob-link">Story</a>
-    <a href="#process" class="nav-link mob-link">Process</a>
-    <a href="/gallery.html" class="nav-link mob-link">Gallery</a>
-    <a href="#reserve" class="nav-link mob-link">Table Tasting</a>
-  </div>
-
-  <!-- Advanced Luxury Cart Drawer -->
-  <div id="cart-drawer">
-    <div class="cd-header">
-      <div>
-        <h3 class="cd-title">Your Cart</h3>
-        <p style="font-size:0.7rem; color:var(--cream2); letter-spacing:0.1em; text-transform:uppercase; margin-top:2px;">Single Origin Micro-Lots</p>
-      </div>
-      <div class="cd-close mag-btn" id="close-cart-btn">&times;</div>
-    </div>
-
-    <!-- Promo Bar Banner -->
-    <div id="cart-promo-banner" style="background: rgba(200,168,75,0.08); border-bottom: 1px solid rgba(200,168,75,0.2); padding: 10px 24px; font-size: 0.75rem; color: var(--gold); display: flex; align-items: center; justify-content: space-between;">
-      <span>✦ Complimentary Express Courier on orders over $50</span>
-    </div>
-
-    <div class="cd-items" id="cart-items-container">
-      <div style="text-align:center; color: var(--cream2); padding: 60px 0;">Your coffee cart is currently empty.</div>
-    </div>
-
-    <div class="cd-footer">
-      <!-- Promo Code Input Group -->
-      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
-        <input type="text" id="promo-input" placeholder="Promo Code (e.g. OBSIDIAN15)" style="flex: 1; padding: 10px 14px; background: rgba(0,0,0,0.5); border: 1px solid rgba(200,168,75,0.3); color: var(--cream); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; outline: none; border-radius: 4px;" />
-        <button id="apply-promo-btn" type="button" style="background: var(--gold); color: var(--black); border: none; padding: 0 16px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 4px; transition: 0.3s;">Apply</button>
-      </div>
-      <div id="promo-discount-row" style="display: none; justify-content: space-between; font-size: 0.82rem; color: #4cd964; margin-bottom: 10px;">
-        <span>Promo Discount (<span id="promo-code-tag">15% OFF</span>)</span>
-        <span id="promo-discount-amount">-$0.00</span>
-      </div>
-
-      <!-- Financial Summary Breakdown -->
-      <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem;">
-        <div style="display: flex; justify-content: space-between; color: var(--cream2);">
-          <span>Subtotal</span>
-          <span id="cart-subtotal-price" style="color: var(--cream);">$0.00</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; color: var(--cream2);">
-          <span>Estimated Tax (8%)</span>
-          <span id="cart-tax-price" style="color: var(--cream);">$0.00</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; color: var(--cream2);">
-          <span>Express Air Courier</span>
-          <span id="cart-shipping-price" style="color: var(--gold);">Complimentary</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-family: 'Cormorant Garamond', serif; border-top: 1px solid rgba(200,168,75,0.3); padding-top: 10px; margin-top: 4px;">
-          <span>Grand Total</span>
-          <span id="cart-total-price" style="color: var(--gold); font-weight: 600;">$0.00</span>
-        </div>
-      </div>
-
-      <button class="btn-gold cd-checkout mag-btn" id="checkout-btn" style="width: 100%; padding: 15px; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;">
-        <span>Proceed to Checkout &rarr;</span>
-      </button>
-
-      <!-- Trust Badges -->
-      <div style="display: flex; justify-content: center; gap: 14px; margin-top: 12px; opacity: 0.65; font-size: 0.68rem; color: var(--cream2);">
-        <span>🔒 256-Bit SSL Encrypted</span>
-        <span>•</span>
-        <span>☕ Fresh Roast Guarantee</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Audio Player -->
-  <div id="audio-toggle" class="mag-btn">
-    <div class="audio-waves" id="audio-waves">
-      <span style="height:4px;"></span><span style="height:8px;"></span><span style="height:6px;"></span>
-    </div>
-  </div>
-  <audio id="bg-audio" loop preload="none">
-    <!-- Using a generic ambient cafe sound -->
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-coffee-shop-ambience-475.mp3" type="audio/mpeg">
-  </audio>
 
   <!-- Hero Section with 3D Canvas -->
   <section id="hero">
     <div id="canvas-container"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <div class="hero-eyebrow">Single Origin Specialists &middot; Est. 2019</div>
       <h1 class="hero-title">
         <div class="line-wrap"><span class="h-line">Where Coffee</span></div>
         <div class="line-wrap"><span class="h-line"><em>Becomes Art</em></span></div>
       </h1>
       <p class="hero-sub h-sub">We source the world&rsquo;s rarest beans from high-altitude micro-lots, roasting each harvest with obsessive precision to create a transcendent sensory ritual.</p>
       <div class="hero-actions h-act">
-        <a href="/collection.html" class="btn-gold"><span>Explore Collection &rarr;</span></a>
+        <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
         <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
       </div>
     </div>
+    <div class="scroll-ind">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
   </section>
 
-  <!-- Gold Marquee Strip -->
+  <!-- Marquee Banner -->
   <div class="marquee">
     <div class="marquee-inner" id="marquee-track">
-      <span class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Colombia Huila <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Panama Geisha <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Kenya AA <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Guatemala Antigua <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Yemen Mocha <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Bolivia Caranavi <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Colombia Huila <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Panama Geisha <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Kenya AA <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Guatemala Antigua <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Yemen Mocha <span class="marquee-dot">✦</span></span>
-      <span class="marquee-item">Bolivia Caranavi <span class="marquee-dot">✦</span></span>
+      <div class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Colombia Huila <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Panama Geisha <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Kenya Nyeri AA <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Guatemala Antigua <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Yemen Mattari <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Ethiopia Yirgacheffe <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Colombia Huila <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Panama Geisha <span class="marquee-dot">&#10022;</span></div>
+      <div class="marquee-item">Kenya Nyeri AA <span class="marquee-dot">&#10022;</span></div>
     </div>
   </div>
 
-<section class="section phil-sec" id="about">
   <!-- Philosophy Section -->
-  <div class="container grid-2">
-    <div>
-      <span class="eyebrow">Our Philosophy</span>
-      <h2 class="sec-title rev-text">Coffee is not a commodity &mdash; <br> it is an <em>obsession</em></h2>
-      <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro‑lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
-      <div class="stats">
-        <div class="stat-item">
-          <h4 class="counter" data-target="47">0</h4>
-          <p>Origins Sourced</p>
+  <section class="section phil-sec" id="about">
+    <div class="container grid-2">
+      <div>
+        <span class="eyebrow">Our Philosophy</span>
+        <h2 class="sec-title">Coffee is not a commodity &mdash;<br/>it is an <em>obsession</em></h2>
+        <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
+        <div class="stats">
+          <div class="stat-item">
+            <h4 class="counter" data-target="47">0</h4>
+            <p>Origins Sourced</p>
+          </div>
+          <div class="stat-item">
+            <h4 class="counter" data-target="12">0</h4>
+            <p>Micro-Lot Farms</p>
+          </div>
+          <div class="stat-item">
+            <h4 class="counter" data-target="94">0</h4>
+            <p>Peak Cup Score</p>
+          </div>
         </div>
-        <div class="stat-item">
-          <h4 class="counter" data-target="12">0</h4>
-          <p>Micro‑Lot Farms</p>
+      </div>
+      <div class="phil-right">
+        <div class="phil-img-wrap">
+          <img src="assets/farm.jpg" alt="Highland Coffee Farm" />
         </div>
-        <div class="stat-item">
-          <h4 class="counter" data-target="94">0</h4>
-          <p>Peak Cup Score</p>
+        <div class="badge">
+          <span class="b-num">47</span>
+          <span class="b-txt">Micro-Lots</span>
         </div>
       </div>
     </div>
-    <div class="phil-right">
-      <div class="phil-img-wrap">
-        <img src="assets/farm.jpg" alt="Highland Coffee Farm" />
+  </section>
+
+  <!-- Collection Section (Products loaded via Backend API) -->
+  <section class="section coll-sec" id="collection">
+    <div class="container">
+      <div class="coll-header">
+        <span class="eyebrow">Current Harvest</span>
+        <h2 class="sec-title">The <em>Reserve Collection</em></h2>
       </div>
-      <div class="badge">
-        <span class="b-num">47</span>
-        <span class="b-txt">Micro‑Lots</span>
+      <div class="grid-3" id="products-grid">
+        <!-- Rendered dynamically from backend API -->
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-  <!-- ═══ PROCESS / CRAFT — Numbered Auto-Scroll Stream ═══ -->
+  <!-- Process Section (Horizontal Scroll) -->
   <section class="proc-sec" id="process">
-    <div class="proc-head-inner">
-      <span class="eyebrow">From Seed to Soul</span>
-      <h2 class="sec-title rev-text">Our <em>6-Step</em> Ritual</h2>
-    </div>
-    <div class="proc-track-wrap">
-      <div class="proc-track" id="proc-track">
-
-        <!-- Step 01 -->
-        <div class="proc-step">
-          <div class="step-num">01</div>
-          <span class="step-tag">Origin &amp; Terroir</span>
-          <h3 class="step-title">Finding the Perfect Farm</h3>
-          <p class="step-desc">We travel to volcanic highlands and cloud-forest micro-lots, hand-selecting farms where altitude, rainfall, and soil converge into something extraordinary.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Step 02 -->
-        <div class="proc-step">
-          <div class="step-num">02</div>
-          <span class="step-tag">Selective Harvest</span>
-          <h3 class="step-title">Hand-Picked at Peak Ripeness</h3>
-          <p class="step-desc">Only fully ripe cherries are selected — a single pass yields one perfect cherry per branch, ensuring homogeneous sugar content and exceptional sweetness.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Step 03 -->
-        <div class="proc-step">
-          <div class="step-num">03</div>
-          <span class="step-tag">Processing Method</span>
-          <h3 class="step-title">Washed, Honey &amp; Natural</h3>
-          <p class="step-desc">Each micro-lot is processed using the method that best reveals its terroir — whether washed clarity, honey sweetness, or the fruit-forward depth of natural drying.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Step 04 -->
-        <div class="proc-step">
-          <div class="step-num">04</div>
-          <span class="step-tag">Quality Control</span>
-          <h3 class="step-title">Green Bean Sorting</h3>
-          <p class="step-desc">Every batch is hand-sorted and optically scanned to remove any defects. Only beans scoring 85+ on the SCA scale proceed to the roastery.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Step 05 -->
-        <div class="proc-step">
-          <div class="step-num">05</div>
-          <span class="step-tag">Artisan Roasting</span>
-          <h3 class="step-title">Small-Batch Precision Roasting</h3>
-          <p class="step-desc">Our head roaster applies decade-refined profiles — controlled Maillard reactions and precise first-crack timing — to unlock every layer of complexity locked within the bean.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Step 06 -->
-        <div class="proc-step">
-          <div class="step-num">06</div>
-          <span class="step-tag">Cup &amp; Dispatch</span>
-          <h3 class="step-title">The Final Ritual</h3>
-          <p class="step-desc">Each roast is cupped blind, scored, and dispatched within 48 hours in nitrogen-flushed, light-blocking pouches — arriving at your door at peak flavour.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-        <!-- Duplicate set for seamless loop -->
-        <div class="proc-step">
-          <div class="step-num">01</div>
-          <span class="step-tag">Origin &amp; Terroir</span>
-          <h3 class="step-title">Finding the Perfect Farm</h3>
-          <p class="step-desc">We travel to volcanic highlands and cloud-forest micro-lots, hand-selecting farms where altitude, rainfall, and soil converge into something extraordinary.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-        <div class="proc-step">
-          <div class="step-num">02</div>
-          <span class="step-tag">Selective Harvest</span>
-          <h3 class="step-title">Hand-Picked at Peak Ripeness</h3>
-          <p class="step-desc">Only fully ripe cherries are selected — a single pass yields one perfect cherry per branch, ensuring homogeneous sugar content and exceptional sweetness.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-        <div class="proc-step">
-          <div class="step-num">03</div>
-          <span class="step-tag">Processing Method</span>
-          <h3 class="step-title">Washed, Honey &amp; Natural</h3>
-          <p class="step-desc">Each micro-lot is processed using the method that best reveals its terroir — whether washed clarity, honey sweetness, or the fruit-forward depth of natural drying.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-        <div class="proc-step">
-          <div class="step-num">04</div>
-          <span class="step-tag">Quality Control</span>
-          <h3 class="step-title">Green Bean Sorting</h3>
-          <p class="step-desc">Every batch is hand-sorted and optically scanned to remove any defects. Only beans scoring 85+ on the SCA scale proceed to the roastery.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-        <div class="proc-step">
-          <div class="step-num">05</div>
-          <span class="step-tag">Artisan Roasting</span>
-          <h3 class="step-title">Small-Batch Precision Roasting</h3>
-          <p class="step-desc">Our head roaster applies decade-refined profiles — controlled Maillard reactions and precise first-crack timing — to unlock every layer of complexity locked within the bean.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-        <div class="proc-step">
-          <div class="step-num">06</div>
-          <span class="step-tag">Cup &amp; Dispatch</span>
-          <h3 class="step-title">The Final Ritual</h3>
-          <p class="step-desc">Each roast is cupped blind, scored, and dispatched within 48 hours in nitrogen-flushed, light-blocking pouches — arriving at your door at peak flavour.</p>
-          <div style="margin-top:32px; width:80px; height:1px; background:var(--gold); opacity:0.4;"></div>
-        </div>
-
-      </div><!-- /proc-track -->
-    </div><!-- /proc-track-wrap -->
-  </section>
-
-  <!-- Collection section removed from homepage -->
-
-  <section class="section map-sec">
-    <div class="container" style="text-align: center; position: relative; z-index: 2;">
-      <span class="eyebrow">Global Terroir</span>
-      <h2 class="sec-title rev-text">Global Coffee <em>Origins</em></h2>
-    </div>
-    <div class="map-container">
-      <img src="assets/map.jpg" class="map-img" alt="Obsidian Coffee Sourcing Map" />
-      <!-- Dots placed precisely on the map image -->
-      <div class="map-dot mag-btn" style="top: 56.5%; left: 24.5%;">
-        <div class="map-label">Panama, Boquete</div>
+    <div class="proc-track" id="proc-track">
+      <div class="proc-intro">
+        <span class="eyebrow">The Craft</span>
+        <h2>From <em>Seed</em><br/>to Transcendence</h2>
+        <p>Six uncompromising steps that elevate wild volcanic cherries into an extraordinary sensory experience.</p>
       </div>
-      <div class="map-dot mag-btn" style="top: 61.5%; left: 27.5%;">
-        <div class="map-label">Colombia, Huila</div>
+      <div class="proc-step">
+        <div class="step-num">01</div>
+        <span class="step-tag">Terroir Discovery</span>
+        <h3 class="step-title">High-Altitude Sourcing</h3>
+        <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m, selecting only beans with extraordinary acidity and complex aromatics.</p>
       </div>
-      <div class="map-dot mag-btn" style="top: 59%; left: 54.5%;">
-        <div class="map-label">Ethiopia, Yirgacheffe</div>
+      <div class="proc-step">
+        <div class="step-num">02</div>
+        <span class="step-tag">Hand Selection</span>
+        <h3 class="step-title">Selective Harvesting</h3>
+        <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">03</div>
+        <span class="step-tag">Fermentation</span>
+        <h3 class="step-title">Anaerobic Ferment</h3>
+        <p class="step-desc">Extended 96-hour anaerobic resting on African raised beds to unlock vivid fruit notes and floral elegance.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">04</div>
+        <span class="step-tag">Artisanal Roasting</span>
+        <h3 class="step-title">Precision Thermal Profile</h3>
+        <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 iterations to preserve delicate origin notes.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">05</div>
+        <span class="step-tag">Resting</span>
+        <h3 class="step-title">Degassing &amp; Maturation</h3>
+        <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed atmosphere to reach peak flavor harmony.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ GALLERY — Field to Cup ═══ -->
+  <!-- Image Split Banner -->
+  <section class="split-sec">
+    <div class="split-half">
+      <img src="assets/beans.jpg" alt="Roasted Coffee Beans" class="split-img" />
+    </div>
+    <div class="split-half split-text">
+      <div class="split-quote">&ldquo;Every cup begins with an <em>obsessive search</em> for perfection.&rdquo;</div>
+      <div class="split-attr">Elara Voss &mdash; Head Roaster &amp; Founder</div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
   <section class="section gal-sec" id="gallery">
     <div class="container">
       <div class="gal-head">
         <div>
           <span class="eyebrow">Visual Moments</span>
-          <h2 class="sec-title rev-text">Field to <em>Cup</em></h2>
+          <h2 class="sec-title">Field to <em>Cup</em></h2>
         </div>
         <p>A glimpse into the highlands, our roasting room, and the quiet morning ritual of specialty brew.</p>
       </div>
@@ -1050,10 +778,56 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="section test-sec">
+    <div class="container">
+      <div style="text-align:center; margin-bottom: 70px;">
+        <span class="eyebrow">Connoisseur Reviews</span>
+        <h2 class="sec-title">Voices of <em>Excellence</em></h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;The Night Garden changed my perception of coffee. The jasmine and blueberry clarity is unlike anything I have cupped in 15 years.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">J</div>
+            <div class="auth-info">
+              <h5>James Thornton</h5>
+              <p>Coffee Sommelier &middot; London</p>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;Silent Peak Panama Geisha is extraordinary. The bergamot note is so delicate it feels like liquid poetry.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">S</div>
+            <div class="auth-info">
+              <h5>Sakura Mizuno</h5>
+              <p>Q-Grader &middot; Tokyo</p>
+            </div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="test-quote">&ldquo;We serve OBSIDIAN exclusively at our Michelin-starred dining room. Guests consistently rate the coffee course as unforgettable.&rdquo;</p>
+          <div class="test-auth">
+            <div class="auth-av">M</div>
+            <div class="auth-info">
+              <h5>Marco Bellini</h5>
+              <p>Executive Chef &middot; Milan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section (Backend Connected) -->
   <section class="section res-sec" id="reserve">
     <div class="container res-content">
       <span class="eyebrow">Private Cupping &amp; Tasting</span>
-      <h2 class="sec-title rev-text">Reserve Your <em>Ritual</em></h2>
+      <h2 class="sec-title">Reserve Your <em>Ritual</em></h2>
       <p style="color: var(--cream2); max-width: 540px; margin: 0 auto 50px;">Join our head roaster for an exclusive 6-course micro-lot cupping experience. Limited to 6 guests per session.</p>
 
       <form id="reservation-form" class="form-grid">
@@ -1096,7 +870,10 @@
         <div class="ref-code" id="res-ref-code">OBS-000000</div>
       </div>
     </div>
-  </section><footer>
+  </section>
+
+  <!-- Footer -->
+  <footer>
     <div class="foot-grid">
       <div class="foot-brand">
         <h3>OBSIDIAN</h3>
@@ -1109,10 +886,10 @@
       <div class="foot-col">
         <h4>Collection</h4>
         <ul>
-          <li><a href="/collection.html">Night Garden Ethiopia</a></li>
-          <li><a href="/collection.html">Amber Hours Colombia</a></li>
-          <li><a href="/collection.html">Silent Peak Panama</a></li>
-          <li><a href="/collection.html">Archive Lots</a></li>
+          <li><a href="#collection">Night Garden Ethiopia</a></li>
+          <li><a href="#collection">Amber Hours Colombia</a></li>
+          <li><a href="#collection">Silent Peak Panama</a></li>
+          <li><a href="#collection">Archive Lots</a></li>
         </ul>
       </div>
       <div class="foot-col">
@@ -1143,6 +920,26 @@
       </div>
     </div>
   </footer>
+
+  <!-- Shopping Cart Side Drawer -->
+  <div id="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Coffee Cart</h3>
+      <button class="cart-close-btn" id="close-cart-btn">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items-container">
+      <div style="text-align:center; padding: 40px 0; color: var(--cream2);">Your cart is currently empty.</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total-price">$0</span>
+      </div>
+      <button class="btn-gold cart-checkout-btn" id="checkout-btn">
+        <span>Proceed to Checkout &rarr;</span>
+      </button>
+    </div>
+  </div>
 
   <!-- Product Modal -->
   <div id="modal">
@@ -1183,321 +980,10 @@
     </div>
   </div>
 
-  <!-- Multi-Step Luxury Checkout Modal -->
-  <div id="checkout-modal" class="checkout-modal-overlay">
-    <div class="checkout-card" style="max-width:960px; width:92%; display:grid; grid-template-columns:1.3fr 1fr; gap:0; padding:0; overflow:hidden; max-height:90vh;">
-
-      <!-- Left: Form Column -->
-      <div style="padding:40px 36px; overflow-y:auto; max-height:90vh;">
-        <div class="modal-close" id="close-checkout-btn">&times;</div>
-        <div style="margin-bottom:6px;">
-          <span style="font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--gold); font-style:italic;">Checkout</span>
-        </div>
-        <p style="font-size:0.75rem; color:var(--cream2); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:28px;">OBSIDIAN Private Reserve Dispatch</p>
-
-        <!-- Step Progress Indicator -->
-        <div style="display:flex; gap:0; margin-bottom:30px; border-bottom:1px solid rgba(255,255,255,0.07); padding-bottom:20px;">
-          <div class="chk-step active" id="step-indicator-1">
-            <span class="chk-step-num">1</span>
-            <span class="chk-step-txt">Contact</span>
-          </div>
-          <div style="flex:1; height:1px; background:rgba(255,255,255,0.1); align-self:center; margin:0 6px;"></div>
-          <div class="chk-step" id="step-indicator-2">
-            <span class="chk-step-num">2</span>
-            <span class="chk-step-txt">Shipping</span>
-          </div>
-          <div style="flex:1; height:1px; background:rgba(255,255,255,0.1); align-self:center; margin:0 6px;"></div>
-          <div class="chk-step" id="step-indicator-3">
-            <span class="chk-step-num">3</span>
-            <span class="chk-step-txt">Payment</span>
-          </div>
-          <div style="flex:1; height:1px; background:rgba(255,255,255,0.1); align-self:center; margin:0 6px;"></div>
-          <div class="chk-step" id="step-indicator-4">
-            <span class="chk-step-num">4</span>
-            <span class="chk-step-txt">Review</span>
-          </div>
-        </div>
-
-        <form id="checkout-form">
-
-          <!-- STEP 1: Contact Info -->
-          <div class="chk-step-panel" id="chk-panel-1">
-            <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--gold); margin-bottom:18px;">Contact Information</h4>
-            <div class="checkout-form-grid">
-              <div>
-                <label class="chk-label">First Name *</label>
-                <input type="text" id="chk-fname" class="checkout-input" placeholder="Elara" />
-              </div>
-              <div>
-                <label class="chk-label">Last Name *</label>
-                <input type="text" id="chk-lname" class="checkout-input" placeholder="Voss" />
-              </div>
-              <div class="checkout-form-full">
-                <label class="chk-label">Email Address *</label>
-                <input type="email" id="chk-email" class="checkout-input" placeholder="elara@obsidian.coffee" />
-              </div>
-              <div class="checkout-form-full">
-                <label class="chk-label">Phone (for Courier SMS updates) *</label>
-                <input type="tel" id="chk-phone" class="checkout-input" placeholder="+1 (555) 234-5678" />
-              </div>
-            </div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--cream2);margin-top:4px;cursor:pointer;">
-              <input type="checkbox" checked style="accent-color:var(--gold);" /> Receive roast tasting notes &amp; dispatch alerts via email
-            </label>
-            <button type="button" class="btn-gold mag-btn" onclick="nextStep(2)" style="width:100%; margin-top:22px; padding:14px; letter-spacing:0.08em;">
-              <span>Continue to Shipping &rarr;</span>
-            </button>
-          </div>
-
-          <!-- STEP 2: Shipping Address & Method -->
-          <div class="chk-step-panel" id="chk-panel-2" style="display:none;">
-            <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--gold); margin-bottom:18px;">Shipping Address &amp; Method</h4>
-            <div class="checkout-form-grid">
-              <div class="checkout-form-full">
-                <label class="chk-label">Street Address *</label>
-                <input type="text" id="chk-address" class="checkout-input" placeholder="100 Volcanic Peak Ridge, Suite 400" />
-              </div>
-              <div>
-                <label class="chk-label">City *</label>
-                <input type="text" id="chk-city" class="checkout-input" placeholder="San Francisco" />
-              </div>
-              <div>
-                <label class="chk-label">State / Province</label>
-                <input type="text" id="chk-state" class="checkout-input" placeholder="CA" />
-              </div>
-              <div>
-                <label class="chk-label">ZIP / Postal Code</label>
-                <input type="text" id="chk-zip" class="checkout-input" placeholder="94102" />
-              </div>
-              <div>
-                <label class="chk-label">Country</label>
-                <select id="chk-country" class="checkout-input" style="background:rgba(0,0,0,0.8);">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>United Kingdom</option>
-                  <option>Japan</option>
-                  <option>India</option>
-                </select>
-              </div>
-            </div>
-
-            <h5 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--cream2); margin:18px 0 10px;">Courier Method</h5>
-            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:22px;">
-              <label class="shipping-option selected" id="ship-opt-express" onclick="selectShipping('express')">
-                <input type="radio" name="shipping_method" checked style="accent-color:var(--gold);" />
-                <div style="flex:1;">
-                  <div style="font-size:0.85rem; font-weight:500; color:var(--cream);">Complimentary Express Air Courier</div>
-                  <div style="font-size:0.72rem; color:var(--cream2); margin-top:2px;">Est. Delivery: 2–3 Business Days</div>
-                </div>
-                <span style="color:var(--gold); font-size:0.85rem; font-weight:600;">Free</span>
-              </label>
-              <label class="shipping-option" id="ship-opt-overnight" onclick="selectShipping('overnight')">
-                <input type="radio" name="shipping_method" style="accent-color:var(--gold);" />
-                <div style="flex:1;">
-                  <div style="font-size:0.85rem; font-weight:500; color:var(--cream);">Overnight Sommelier Flight</div>
-                  <div style="font-size:0.72rem; color:var(--cream2); margin-top:2px;">Delivered Next Morning before 10:30 AM</div>
-                </div>
-                <span style="color:var(--gold); font-size:0.85rem; font-weight:600;">+$25</span>
-              </label>
-            </div>
-
-            <div style="display:flex; gap:10px;">
-              <button type="button" class="btn-ghost mag-btn" onclick="nextStep(1)" style="flex:0.4; padding:13px; font-size:0.8rem;">Back</button>
-              <button type="button" class="btn-gold mag-btn" onclick="nextStep(3)" style="flex:1; padding:13px; letter-spacing:0.08em;">
-                <span>Continue to Payment &rarr;</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 3: Payment Method -->
-          <div class="chk-step-panel" id="chk-panel-3" style="display:none;">
-            <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--gold); margin-bottom:18px;">Secure Payment Method</h4>
-            <div class="payment-options" style="margin-bottom:18px;">
-              <div class="payment-option-label selected" id="opt-card" onclick="selectPayment('card')">💳 Card</div>
-              <div class="payment-option-label" id="opt-applepay" onclick="selectPayment('applepay')"> Apple/Google Pay</div>
-              <div class="payment-option-label" id="opt-cod" onclick="selectPayment('cod')">🤝 Tasting Pass</div>
-            </div>
-
-            <div id="card-fields-box" class="checkout-form-grid" style="background:rgba(0,0,0,0.35); padding:16px; border:1px solid rgba(255,255,255,0.07); border-radius:4px; margin-bottom:20px;">
-              <div class="checkout-form-full">
-                <label class="chk-label">Card Number *</label>
-                <input type="text" id="chk-card-num" class="checkout-input" placeholder="4532 •••• •••• 8941" />
-              </div>
-              <div>
-                <label class="chk-label">Expiry *</label>
-                <input type="text" id="chk-card-exp" class="checkout-input" placeholder="08 / 28" />
-              </div>
-              <div>
-                <label class="chk-label">CVV *</label>
-                <input type="text" id="chk-card-cvv" class="checkout-input" placeholder="382" />
-              </div>
-            </div>
-
-            <div style="display:flex; gap:10px;">
-              <button type="button" class="btn-ghost mag-btn" onclick="nextStep(2)" style="flex:0.4; padding:13px; font-size:0.8rem;">Back</button>
-              <button type="button" class="btn-gold mag-btn" onclick="nextStep(4)" style="flex:1; padding:13px; letter-spacing:0.08em;">
-                <span>Review Order &rarr;</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 4: Review & Place Order -->
-          <div class="chk-step-panel" id="chk-panel-4" style="display:none;">
-            <h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--gold); margin-bottom:18px;">Final Order Review</h4>
-            <div style="background:rgba(0,0,0,0.4); border:1px solid rgba(200,168,75,0.2); border-radius:4px; padding:18px; margin-bottom:20px; display:flex; flex-direction:column; gap:10px; font-size:0.84rem;">
-              <div style="display:flex; justify-content:space-between;">
-                <span style="color:var(--cream2);">Recipient</span>
-                <span id="rev-name-txt" style="color:var(--cream); font-weight:500;">—</span>
-              </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span style="color:var(--cream2);">Ship To</span>
-                <span id="rev-address-txt" style="color:var(--cream); text-align:right; max-width:60%;">—</span>
-              </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span style="color:var(--cream2);">Courier</span>
-                <span id="rev-ship-txt" style="color:var(--gold);">Express (Free)</span>
-              </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span style="color:var(--cream2);">Payment</span>
-                <span id="rev-pay-txt" style="color:var(--cream);">Credit Card</span>
-              </div>
-            </div>
-            <div style="display:flex; gap:10px;">
-              <button type="button" class="btn-ghost mag-btn" onclick="nextStep(3)" style="flex:0.4; padding:13px; font-size:0.8rem;">Back</button>
-              <button type="submit" class="btn-gold mag-btn" id="chk-submit-btn" style="flex:1; padding:14px; letter-spacing:0.08em; display:flex; justify-content:center; align-items:center;">
-                <span>Place Order &amp; Pay &rarr;</span>
-              </button>
-            </div>
-          </div>
-
-        </form>
-      </div>
-
-      <!-- Right: Sticky Order Summary -->
-      <div style="background:var(--black); padding:40px 30px; border-left:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; gap:0; overflow-y:auto; max-height:90vh;">
-        <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--gold); font-style:italic; margin-bottom:20px;">Order Summary</h4>
-        <div id="chk-side-items-list" style="display:flex; flex-direction:column; gap:14px; margin-bottom:22px; flex:1;">
-          <!-- Dynamically filled -->
-        </div>
-        <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; display:flex; flex-direction:column; gap:7px; font-size:0.82rem;">
-          <div style="display:flex; justify-content:space-between; color:var(--cream2);">
-            <span>Subtotal</span><span id="chk-subtotal-val" style="color:var(--cream);">$0.00</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; color:var(--cream2);">
-            <span>Est. Tax (8%)</span><span id="chk-tax-val" style="color:var(--cream);">$0.00</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; color:var(--cream2);">
-            <span>Shipping</span><span id="chk-ship-val" style="color:var(--gold);">Free</span>
-          </div>
-          <div id="chk-discount-row" style="display:none; justify-content:space-between; color:#4cd964;">
-            <span>Discount</span><span id="chk-discount-val">-$0.00</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:1.35rem; font-family:'Cormorant Garamond',serif; border-top:1px solid rgba(200,168,75,0.3); padding-top:12px; margin-top:4px;">
-            <span>Total</span>
-            <span id="chk-grand-val" style="color:var(--gold); font-weight:600;">$0.00</span>
-          </div>
-        </div>
-        <!-- Security Trust Badges -->
-        <div style="margin-top:auto; padding-top:24px; border-top:1px solid rgba(255,255,255,0.06); text-align:center;">
-          <div style="font-size:0.68rem; color:var(--cream2); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px;">Guaranteed Security &amp; Freshness</div>
-          <div style="display:flex; justify-content:center; gap:14px; font-size:0.78rem; color:var(--gold);">
-            <span>🛡️ 256-Bit SSL</span>
-            <span>✦</span>
-            <span>✈️ Fresh Flight</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Order Receipt Confirmation Modal -->
-  <div id="order-receipt-modal" class="checkout-modal-overlay">
-    <div class="checkout-card" style="text-align:center; max-width:540px;">
-      <div class="modal-close" id="close-receipt-btn">&times;</div>
-      <div style="width:60px;height:60px;border:1px solid var(--gold);border-radius:50%;display:flex;justify-content:center;align-items:center;margin:0 auto 18px;font-size:1.4rem;color:var(--gold);background:rgba(200,168,75,0.1);">✓</div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-style:italic;margin-bottom:4px;">Order Confirmed</h3>
-      <p style="font-size:0.8rem;color:var(--cream2);margin-bottom:22px;">Your micro-lot coffee is reserved &amp; scheduled for small-batch roasting and express dispatch.</p>
-
-      <div style="background:rgba(0,0,0,0.5);border:1px solid rgba(200,168,75,0.3);padding:22px;text-align:left;margin-bottom:20px;border-radius:4px;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:10px;">
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--cream2);">Order Number</span>
-          <span id="rec-code" style="color:var(--gold);font-weight:600;letter-spacing:0.12em;">ORD-000000</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:10px;">
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--cream2);">Recipient</span>
-          <span id="rec-name" style="color:var(--cream);">Guest</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:10px;">
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--cream2);">Estimated Delivery</span>
-          <span style="color:var(--gold);">2–3 Business Days</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;">
-          <span style="font-size:0.88rem;font-weight:500;">Total Paid</span>
-          <span id="rec-total" style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;">$0.00</span>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:10px;">
-        <button class="btn-ghost mag-btn" id="open-tracking-btn" style="flex:1;padding:13px;font-size:0.8rem;"><span>Track Order 📦</span></button>
-        <button class="btn-gold mag-btn" id="receipt-done-btn" style="flex:1;padding:13px;font-size:0.8rem;"><span>Return to Roastery</span></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Live Order Tracking Modal -->
-  <div id="tracking-modal" class="checkout-modal-overlay">
-    <div class="checkout-card" style="max-width:520px;padding:36px;text-align:center;">
-      <div class="modal-close" id="close-tracking-btn">&times;</div>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);font-style:italic;margin-bottom:4px;">Order Tracking</h3>
-      <p style="font-size:0.8rem;color:var(--cream2);margin-bottom:22px;">Live dispatch status for <span id="track-order-id" style="color:var(--gold);">ORD-000000</span></p>
-
-      <div style="display:flex;flex-direction:column;gap:0;text-align:left;background:rgba(0,0,0,0.5);border:1px solid rgba(200,168,75,0.2);border-radius:4px;overflow:hidden;margin-bottom:22px;">
-        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--black);display:flex;justify-content:center;align-items:center;font-weight:700;font-size:0.8rem;flex-shrink:0;">✓</div>
-          <div><div style="font-size:0.88rem;font-weight:500;color:var(--cream);">Order Received &amp; Reserved</div><div style="font-size:0.7rem;color:var(--gold);margin-top:2px;">Completed</div></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
-          <div style="width:28px;height:28px;border-radius:50%;background:rgba(200,168,75,0.15);border:1px solid var(--gold);color:var(--gold);display:flex;justify-content:center;align-items:center;font-weight:700;font-size:0.8rem;flex-shrink:0;">2</div>
-          <div><div style="font-size:0.88rem;font-weight:500;color:var(--cream);">Precision Small-Batch Roasting</div><div style="font-size:0.7rem;color:var(--gold);margin-top:2px;">In Progress — Scheduled 06:00 AM</div></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);opacity:0.45;">
-          <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);color:var(--cream2);display:flex;justify-content:center;align-items:center;font-size:0.8rem;flex-shrink:0;">3</div>
-          <div><div style="font-size:0.88rem;color:var(--cream2);">Nitrogen Flush &amp; Vacuum Seal</div><div style="font-size:0.7rem;color:var(--cream2);margin-top:2px;">Pending</div></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 20px;opacity:0.45;">
-          <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);color:var(--cream2);display:flex;justify-content:center;align-items:center;font-size:0.8rem;flex-shrink:0;">4</div>
-          <div><div style="font-size:0.88rem;color:var(--cream2);">Express Air Dispatch</div><div style="font-size:0.7rem;color:var(--cream2);margin-top:2px;">Est. Delivery in 2 Days</div></div>
-        </div>
-      </div>
-
-      <button class="btn-gold mag-btn" id="close-tracking-done-btn" style="width:100%;padding:13px;font-size:0.85rem;"><span>Close Tracking</span></button>
-    </div>
-  </div>
-
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Lenis Smooth Scroll
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 0.85,
-      touchMultiplier: 1.5,
-    });
-
-    function lenisRaf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(lenisRaf);
-    }
-    requestAnimationFrame(lenisRaf);
-
-    // Tie Lenis to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-
     // State
-    let cart = JSON.parse(localStorage.getItem('obsidian_cart')) || [];
+    let cart = [];
     let products = [];
     let currentModalProduct = null;
 
@@ -1540,7 +1026,7 @@
       if(!container) return;
 
       scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x0d0703, 0.012);
+      scene.fog = new THREE.FogExp2(0x0d0703, 0.035);
 
       camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
       camera.position.set(0, 1.2, 6.2);
@@ -1565,98 +1051,59 @@
       rimLight.position.set(0, -2, -3);
       scene.add(rimLight);
 
-      // 3D Cup Group (HYPER-REALISTIC MESH ASSEMBLY WITH CLEARCOAT & GOLD DETAILS)
+      // 3D Cup Group
       cupGroup = new THREE.Group();
 
-      const cupBodyMat = new THREE.MeshPhysicalMaterial({
-        color: 0x120703,
-        roughness: 0.06,
-        metalness: 0.18,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.03,
-        reflectivity: 0.95
-      });
+      // Ceramic Cup Body
+      const cupMat = new THREE.MeshStandardMaterial({ color: 0x1c0e06, roughness: 0.25, metalness: 0.2 });
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xc8a84b, roughness: 0.08, metalness: 0.95 });
 
-      const goldMat = new THREE.MeshStandardMaterial({
-        color: 0xe6c660,
-        roughness: 0.03,
-        metalness: 0.99
-      });
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.44, 0.95, 64, 1, true), cupMat);
+      cupGroup.add(cup);
 
-      // 1. Ceramic Outer Wall
-      const cupMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.60, 1.25, 64, 1, true), cupBodyMat);
-      cupGroup.add(cupMesh);
+      // Gold Rim
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.585, 0.028, 16, 64), goldMat);
+      rim.position.y = 0.475; rim.rotation.x = Math.PI / 2;
+      cupGroup.add(rim);
 
-      // 2. Gold Metallic Top Rim Accent
-      const topRim = new THREE.Mesh(new THREE.TorusGeometry(0.855, 0.036, 16, 64), goldMat);
-      topRim.position.y = 0.625; topRim.rotation.x = Math.PI / 2;
-      cupGroup.add(topRim);
+      // Coffee Liquid
+      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x140602, roughness: 0.04, metalness: 0.1 });
+      const coffee = new THREE.Mesh(new THREE.CircleGeometry(0.52, 64), coffeeMat);
+      coffee.position.y = 0.40; coffee.rotation.x = -Math.PI / 2;
+      cupGroup.add(coffee);
 
-      // 3. Inner Porcelain Wall
-      const innerWall = new THREE.Mesh(new THREE.CylinderGeometry(0.80, 0.55, 1.20, 64, 1, true), new THREE.MeshStandardMaterial({ color: 0x070201, roughness: 0.65, side: THREE.BackSide }));
-      cupGroup.add(innerWall);
-
-      // 4. Espresso Crema Liquid Surface + Foam Ring
-      const coffeeMat = new THREE.MeshStandardMaterial({ color: 0x180902, roughness: 0.02, metalness: 0.1 });
-      const coffeeLiquid = new THREE.Mesh(new THREE.CircleGeometry(0.78, 64), coffeeMat);
-      coffeeLiquid.position.y = 0.52; coffeeLiquid.rotation.x = -Math.PI / 2;
-      cupGroup.add(coffeeLiquid);
-
-      const cremaRing = new THREE.Mesh(new THREE.TorusGeometry(0.76, 0.025, 12, 64), new THREE.MeshStandardMaterial({ color: 0x8a5422, roughness: 0.6 }));
-      cremaRing.position.y = 0.525; cremaRing.rotation.x = Math.PI / 2;
-      cupGroup.add(cremaRing);
-
-      // 5. Saucer Plate
-      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 1.15, 0.14, 64), cupBodyMat);
-      saucer.position.y = -0.72;
+      // Saucer
+      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(0.92, 0.82, 0.09, 64), cupMat);
+      saucer.position.y = -0.58;
       cupGroup.add(saucer);
 
-      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(1.34, 0.028, 12, 64), goldMat);
-      saucerRim.position.y = -0.65; saucerRim.rotation.x = Math.PI / 2;
+      const saucerRim = new THREE.Mesh(new THREE.TorusGeometry(0.91, 0.02, 12, 64), goldMat);
+      saucerRim.position.y = -0.535; saucerRim.rotation.x = Math.PI / 2;
       cupGroup.add(saucerRim);
 
-      // 6. Curved Handle
-      const handleCurve = new THREE.QuadraticBezierCurve3(
-        new THREE.Vector3(0.85, 0.35, 0),
-        new THREE.Vector3(1.55, 0, 0),
-        new THREE.Vector3(0.85, -0.35, 0)
+      // Handle
+      const curve = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(0.58, 0.24, 0),
+        new THREE.Vector3(1.18, 0, 0),
+        new THREE.Vector3(0.58, -0.24, 0)
       );
-      const handleMesh = new THREE.Mesh(new THREE.TubeGeometry(handleCurve, 28, 0.075, 12, false), cupBodyMat);
-      cupGroup.add(handleMesh);
+      const handle = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.058, 10, false), cupMat);
+      cupGroup.add(handle);
 
-      // 7. Metallic Gold Espresso Spoon resting on saucer
-      const spoonCurve = new THREE.LineCurve3(new THREE.Vector3(0.4, -0.62, 0.8), new THREE.Vector3(-0.9, -0.60, 0.9));
-      const spoonHandle = new THREE.Mesh(new THREE.TubeGeometry(spoonCurve, 12, 0.025, 8, false), goldMat);
-      cupGroup.add(spoonHandle);
-
-      // 8. Volumetric Steam Particles
-      const steamGroup = new THREE.Group();
-      const steamGeo = new THREE.PlaneGeometry(0.25, 0.7);
-      const steamMat = new THREE.MeshBasicMaterial({ color: 0xfff8f0, transparent: true, opacity: 0.045, side: THREE.DoubleSide, depthWrite: false });
-      for(let s = 0; s < 12; s++) {
-        const p = new THREE.Mesh(steamGeo, steamMat);
-        p.position.set((Math.random() - 0.5) * 0.45, 0.65 + s * 0.25, (Math.random() - 0.5) * 0.45);
-        p.userData = { initialY: p.position.y, speed: 0.007 + Math.random() * 0.007 };
-        steamGroup.add(p);
-      }
-      cupGroup.add(steamGroup);
-      scene.userData.steamGroup = steamGroup;
-
-      cupGroup.position.set(0, -0.05, 0);
-      cupGroup.scale.set(1.15, 1.15, 1.15);
+      cupGroup.position.set(0, -0.1, 0);
       scene.add(cupGroup);
 
-      // 45 Orbiting 3D Coffee Beans
-      const beanGeo = new THREE.SphereGeometry(0.09, 14, 10);
-      const beanMat = new THREE.MeshStandardMaterial({ color: 0x2a1408, roughness: 0.65, metalness: 0.15 });
+      // 3D Orbiting Coffee Beans
+      const beanGeo = new THREE.SphereGeometry(0.08, 12, 8);
+      const beanMat = new THREE.MeshStandardMaterial({ color: 0x241208, roughness: 0.7, metalness: 0.1 });
 
-      for(let i = 0; i < 45; i++) {
+      for(let i = 0; i < 28; i++) {
         const bean = new THREE.Mesh(beanGeo, beanMat);
-        bean.scale.set(1, 0.62, 1.35);
-        const radius = 1.9 + Math.random() * 2.8;
+        bean.scale.set(1, 0.65, 1.3);
+        const radius = 2.0 + Math.random() * 2.2;
         const angle = Math.random() * Math.PI * 2;
-        const height = (Math.random() - 0.5) * 4.2;
-        bean.userData = { angle, radius, height, speed: 0.003 + Math.random() * 0.008 };
+        const height = (Math.random() - 0.5) * 3.5;
+        bean.userData = { angle, radius, height, speed: 0.004 + Math.random() * 0.008 };
         scene.add(bean);
         beans.push(bean);
       }
@@ -1710,44 +1157,31 @@
       renderer.render(scene, camera);
     }
 
+    // Preloader Animation
+    let loadProgress = 0;
+    const plInterval = setInterval(() => {
+      loadProgress += Math.floor(Math.random() * 8) + 2;
+      if (loadProgress >= 100) {
+        loadProgress = 100;
+        clearInterval(plInterval);
+        setTimeout(finishPreloader, 300);
+      }
+      document.querySelector('.pl-percent').textContent = loadProgress + '%';
+      document.querySelector('.pl-line').style.transform = `scaleX(${loadProgress / 100})`;
+    }, 40);
+
+    gsap.to('.pl-logo', { opacity: 1, y: 0, duration: 1.2, delay: 0.2 });
+    gsap.to('.pl-sub', { opacity: 1, duration: 1, delay: 0.5 });
+    gsap.to('.pl-percent', { opacity: 1, duration: 1, delay: 0.4 });
+
     function finishPreloader() {
       gsap.to('#preloader', {
         yPercent: -100, duration: 1.4, ease: 'power4.inOut',
         onComplete: () => {
           document.getElementById('preloader').style.display = 'none';
-          sessionStorage.setItem('obsidian_loaded', 'true');
           initGSAPAnimations();
         }
       });
-    }
-
-    // Preloader Animation with Session Storage Skip
-    if (sessionStorage.getItem('obsidian_loaded')) {
-      document.getElementById('preloader').style.display = 'none';
-      gsap.set('#page-transition', { y: '0%' });
-      gsap.to('#page-transition', {
-        y: '100%', duration: 1.0, ease: 'power3.inOut',
-        onComplete: () => {
-          gsap.set('#page-transition', { y: '-100%' });
-          initGSAPAnimations();
-        }
-      });
-    } else {
-      let loadProgress = 0;
-      const plInterval = setInterval(() => {
-        loadProgress += Math.floor(Math.random() * 8) + 2;
-        if (loadProgress >= 100) {
-          loadProgress = 100;
-          clearInterval(plInterval);
-          setTimeout(finishPreloader, 300);
-        }
-        document.querySelector('.pl-percent').textContent = loadProgress + '%';
-        document.querySelector('.pl-line').style.transform = `scaleX(${loadProgress / 100})`;
-      }, 40);
-
-      gsap.to('.pl-logo', { opacity: 1, y: 0, duration: 1.2, delay: 0.2 });
-      gsap.to('.pl-sub', { opacity: 1, duration: 1, delay: 0.5 });
-      gsap.to('.pl-percent', { opacity: 1, duration: 1, delay: 0.4 });
     }
 
     // Backend Integration
@@ -1766,7 +1200,6 @@
 
     function renderProducts(list) {
       const grid = document.getElementById('products-grid');
-      if (!grid) return;
       grid.innerHTML = list.map(p => `
         <div class="product" data-id="${p.id}">
           <div class="prod-badge">${p.badge}</div>
@@ -1847,147 +1280,32 @@
       }
 
       updateCartUI();
-      showToast(`✦ ${p.name} added to your cart!`);
-
-      // Auto-open Cart Drawer for instant feedback
-      if (typeof openCartDrawer === 'function') {
-        openCartDrawer();
-      } else {
-        const drawer = document.getElementById('cart-drawer');
-        if (drawer) drawer.classList.add('open');
-      }
-
-      // Cart Badge Pulse animation
-      if (typeof gsap !== 'undefined') {
-        gsap.fromTo('#cart-badge', { scale: 1.8 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' });
-      }
-    }
-
-    // Financial Calculation State
-    let activePromoDiscount = 0; // percentage e.g. 0.15 for 15%
-    let activePromoCode = '';
-    let selectedShippingMethod = 'express'; // 'express' or 'overnight'
-    let selectedPayment = 'card';
-
-    // Promo Code Application
-    document.getElementById('apply-promo-btn').onclick = () => {
-      const code = document.getElementById('promo-input').value.trim().toUpperCase();
-      if (!code) {
-        showToast('Please enter a valid promo code.');
-        return;
-      }
-      if (code === 'OBSIDIAN15') {
-        activePromoDiscount = 0.15;
-        activePromoCode = 'OBSIDIAN15 (15% OFF)';
-        showToast('✦ Promo Code OBSIDIAN15 Applied! 15% Discount.');
-      } else if (code === 'RESERVE20') {
-        activePromoDiscount = 0.20;
-        activePromoCode = 'RESERVE20 (20% OFF)';
-        showToast('✦ Promo Code RESERVE20 Applied! 20% Discount.');
-      } else {
-        showToast('Invalid Promo Code. Try OBSIDIAN15 or RESERVE20');
-        return;
-      }
-      updateCartUI();
-    };
-
-    function changeQty(id, delta) {
-      const item = cart.find(x => x.id === id);
-      if (!item) return;
-      item.quantity += delta;
-      if (item.quantity <= 0) {
-        cart = cart.filter(x => x.id !== id);
-      }
-      updateCartUI();
+      showToast(`Added ${p.name} to your coffee cart.`);
     }
 
     function updateCartUI() {
-      localStorage.setItem('obsidian_cart', JSON.stringify(cart));
       const countEl = document.getElementById('cart-badge');
       const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       countEl.textContent = totalCount;
 
       const container = document.getElementById('cart-items-container');
       if(cart.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:60px 0; color:var(--cream2)">Your coffee cart is currently empty.</div>`;
+        container.innerHTML = `<div style="text-align:center; padding:40px 0; color:var(--cream2)">Your cart is currently empty.</div>`;
       } else {
         container.innerHTML = cart.map(item => `
-          <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:16px;">
-            <img src="${item.image}" alt="${item.name}" style="width:52px; height:52px; object-fit:cover; border-radius:4px; border: 1px solid rgba(200,168,75,0.2);" />
-            <div style="flex:1; padding-left:14px;">
-              <div class="cd-item-name" style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; line-height:1.2;">${item.name}</div>
-              <div style="font-size: 0.72rem; color: var(--cream2); margin-top:2px;">Size: ${item.unit}</div>
-              <div class="cd-item-price" style="color:var(--gold); font-size:0.85rem; margin-top:4px;">$${item.price} each</div>
-              <div class="cart-qty-ctrl">
-                <button class="cart-qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                <span class="cart-qty-num">${item.quantity}</span>
-                <button class="cart-qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-              </div>
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}" />
+            <div class="cart-item-info">
+              <h5>${item.name}</h5>
+              <p>$${item.price} &times; ${item.quantity}</p>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:0.95rem; font-weight:600; color:var(--cream);">$${item.price * item.quantity}</div>
-              <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:rgba(255,255,255,0.4); font-size:1.2rem; cursor:pointer; padding:4px 0 0;" title="Remove">&times;</button>
-            </div>
+            <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:var(--gold); font-size:1.2rem;">&times;</button>
           </div>
         `).join('');
       }
 
-      // Calculations
-      const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const discountVal = rawSubtotal * activePromoDiscount;
-      const subtotalAfterDiscount = rawSubtotal - discountVal;
-      const taxVal = subtotalAfterDiscount * 0.08; // 8% tax
-      const shippingVal = (selectedShippingMethod === 'overnight') ? 25 : (subtotalAfterDiscount >= 50 || rawSubtotal === 0 ? 0 : 12);
-      const grandTotal = subtotalAfterDiscount + taxVal + shippingVal;
-
-      // Update Cart Drawer UI
-      document.getElementById('cart-subtotal-price').textContent = `$${rawSubtotal.toFixed(2)}`;
-      document.getElementById('cart-tax-price').textContent = `$${taxVal.toFixed(2)}`;
-      document.getElementById('cart-shipping-price').textContent = shippingVal === 0 ? 'Complimentary' : `$${shippingVal.toFixed(2)}`;
-      document.getElementById('cart-total-price').textContent = `$${grandTotal.toFixed(2)}`;
-
-      if (activePromoDiscount > 0) {
-        document.getElementById('promo-discount-row').style.display = 'flex';
-        document.getElementById('promo-code-tag').textContent = activePromoCode;
-        document.getElementById('promo-discount-amount').textContent = `-$${discountVal.toFixed(2)}`;
-      } else {
-        document.getElementById('promo-discount-row').style.display = 'none';
-      }
-
-      // Update Checkout Summary Sidebar
-      updateCheckoutSidebar(rawSubtotal, discountVal, taxVal, shippingVal, grandTotal);
-    }
-
-    function updateCheckoutSidebar(subtotal, discount, tax, shipping, total) {
-      const listEl = document.getElementById('chk-side-items-list');
-      if (!listEl) return;
-
-      if (cart.length === 0) {
-        listEl.innerHTML = `<div style="font-size:0.8rem; color:var(--cream2);">No items in cart.</div>`;
-      } else {
-        listEl.innerHTML = cart.map(item => `
-          <div style="display:flex; align-items:center; gap:12px;">
-            <img src="${item.image}" alt="${item.name}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;" />
-            <div style="flex:1;">
-              <div style="font-size:0.85rem; font-family:'Cormorant Garamond',serif; color:var(--cream);">${item.name}</div>
-              <div style="font-size:0.75rem; color:var(--cream2);">Qty: ${item.quantity} &times; $${item.price}</div>
-            </div>
-            <div style="font-size:0.85rem; color:var(--gold); font-weight:500;">$${item.price * item.quantity}</div>
-          </div>
-        `).join('');
-      }
-
-      document.getElementById('chk-subtotal-val').textContent = `$${subtotal.toFixed(2)}`;
-      document.getElementById('chk-tax-val').textContent = `$${tax.toFixed(2)}`;
-      document.getElementById('chk-ship-val').textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
-      document.getElementById('chk-grand-val').textContent = `$${total.toFixed(2)}`;
-
-      if (discount > 0) {
-        document.getElementById('chk-discount-row').style.display = 'flex';
-        document.getElementById('chk-discount-val').textContent = `-$${discount.toFixed(2)}`;
-      } else {
-        document.getElementById('chk-discount-row').style.display = 'none';
-      }
+      const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.getElementById('cart-total-price').textContent = `$${totalAmount}`;
     }
 
     function removeFromCart(id) {
@@ -2002,398 +1320,92 @@
       document.getElementById('cart-drawer').classList.remove('open');
     };
 
-    // MULTI-STEP CHECKOUT LOGIC
-    let currentCheckoutStep = 1;
-
-    window.goToStep = function(stepNum) {
-      if (cart.length === 0) return;
-      currentCheckoutStep = stepNum;
-      
-      // Update Step Indicators
-      document.querySelectorAll('.chk-step').forEach((el, idx) => {
-        if (idx + 1 <= stepNum) el.classList.add('active');
-        else el.classList.remove('active');
-      });
-
-      // Update Step Panels
-      document.querySelectorAll('.chk-step-panel').forEach((panel, idx) => {
-        if (idx + 1 === stepNum) panel.style.display = 'block';
-        else panel.style.display = 'none';
-      });
-
-      // Step 4 Review Population
-      if (stepNum === 4) {
-        const fname = document.getElementById('chk-fname').value || 'Guest';
-        const lname = document.getElementById('chk-lname').value || '';
-        const address = document.getElementById('chk-address').value || 'No address specified';
-        const city = document.getElementById('chk-city').value || '';
-
-        document.getElementById('rev-name-txt').textContent = `${fname} ${lname}`;
-        document.getElementById('rev-address-txt').textContent = `${address}, ${city}`;
-        document.getElementById('rev-ship-txt').textContent = selectedShippingMethod === 'overnight' ? 'Overnight Sommelier Flight ($25)' : 'Express Courier (Complimentary)';
-        document.getElementById('rev-pay-txt').textContent = selectedPayment === 'card' ? 'Credit/Debit Card' : (selectedPayment === 'applepay' ? 'Apple/Google Pay' : 'Reserve Tasting Pass');
-      }
-    };
-
-    window.nextStep = function(stepNum) {
-      // Basic Validation
-      if (stepNum === 2) {
-        const fname = document.getElementById('chk-fname').value.trim();
-        const email = document.getElementById('chk-email').value.trim();
-        if (!fname || !email) {
-          showToast('Please enter your First Name and Email.');
-          return;
-        }
-      }
-      if (stepNum === 3) {
-        const address = document.getElementById('chk-address').value.trim();
-        const city = document.getElementById('chk-city').value.trim();
-        if (!address || !city) {
-          showToast('Please enter your Shipping Address and City.');
-          return;
-        }
-      }
-      goToStep(stepNum);
-    };
-
-    window.selectShipping = function(method) {
-      selectedShippingMethod = method;
-      document.querySelectorAll('.shipping-option').forEach(opt => opt.classList.remove('selected'));
-      const activeOpt = document.getElementById(`ship-opt-${method}`);
-      if (activeOpt) activeOpt.classList.add('selected');
-      updateCartUI();
-    };
-
-    window.selectPayment = function(method) {
-      selectedPayment = method;
-      document.querySelectorAll('.payment-option-label').forEach(el => el.classList.remove('selected'));
-      const activeEl = document.getElementById(`opt-${method}`);
-      if(activeEl) activeEl.classList.add('selected');
-
-      const cardBox = document.getElementById('card-fields-box');
-      if (cardBox) {
-        if (method === 'card') cardBox.style.display = 'grid';
-        else cardBox.style.display = 'none';
-      }
-    };
-
-    // Open Checkout Modal
-      document.getElementById('checkout-btn').onclick = () => {
+    // Checkout via Backend
+    document.getElementById('checkout-btn').onclick = async () => {
       if(cart.length === 0) {
         showToast('Your cart is empty.');
         return;
       }
-      if (typeof closeCartDrawer === 'function') closeCartDrawer();
-      else document.getElementById('cart-drawer').classList.remove('open');
-      goToStep(1);
-      document.getElementById('checkout-modal').classList.add('active');
-    };
 
-    // Submit Checkout Form
-    const chkForm = document.getElementById('checkout-form');
-    if (chkForm) {
-      chkForm.onsubmit = async e => {
-        e.preventDefault();
-        const fname = document.getElementById('chk-fname').value;
-        const lname = document.getElementById('chk-lname').value;
-        const email = document.getElementById('chk-email').value;
-        const phone = document.getElementById('chk-phone').value;
-        const address = document.getElementById('chk-address').value;
-        const city = document.getElementById('chk-city').value;
-
-        const btn = document.getElementById('chk-submit-btn');
-        btn.innerHTML = '<span>Processing Order...</span>';
-
-        try {
-          const res = await fetch('/api/order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              items: cart,
-              customer: { name: `${fname} ${lname}`, email, phone, city, address, paymentMethod: selectedPayment, shippingMethod: selectedShippingMethod }
-            })
-          });
-          const data = await res.json();
-          if(data.success) {
-            const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const discountVal = rawSubtotal * activePromoDiscount;
-            const subtotalAfterDiscount = rawSubtotal - discountVal;
-            const taxVal = subtotalAfterDiscount * 0.08;
-            const shippingVal = (selectedShippingMethod === 'overnight') ? 25 : (subtotalAfterDiscount >= 50 || rawSubtotal === 0 ? 0 : 12);
-            const grandTotal = subtotalAfterDiscount + taxVal + shippingVal;
-
-            cart = [];
-            updateCartUI();
-
-            document.getElementById('checkout-modal').classList.remove('active');
-            btn.innerHTML = '<span>Place Order &amp; Pay &rarr;</span>';
-
-            // Show Receipt Modal
-            document.getElementById('rec-code').textContent = data.orderId;
-            document.getElementById('rec-name').textContent = `${fname} ${lname}`;
-            document.getElementById('rec-total').textContent = `$${grandTotal.toFixed(2)}`;
-            document.getElementById('order-receipt-modal').classList.add('active');
-
-            // Store Order ID for Tracking
-            if (document.getElementById('track-order-id')) {
-              document.getElementById('track-order-id').textContent = data.orderId;
-            }
-
-            showToast('✦ Order placed successfully!');
-          } else {
-            showToast(data.message || 'Order failed.');
-            btn.innerHTML = '<span>Place Order &amp; Pay &rarr;</span>';
-          }
-        } catch(err) {
-          showToast('Network error processing order.');
-          btn.innerHTML = '<span>Place Order &amp; Pay &rarr;</span>';
+      try {
+        const res = await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: cart })
+        });
+        const data = await res.json();
+        if(data.success) {
+          showToast(`Order Confirmed! Ref: ${data.orderId}`);
+          cart = [];
+          updateCartUI();
+          document.getElementById('cart-drawer').classList.remove('open');
         }
-      };
-    }
-
-    // Modal Close Buttons
-    document.getElementById('close-checkout-btn').onclick = () => {
-      document.getElementById('checkout-modal').classList.remove('active');
+      } catch(err) {
+        showToast('Checkout failed. Please try again.');
+      }
     };
-    document.getElementById('close-receipt-btn').onclick = () => {
-      document.getElementById('order-receipt-modal').classList.remove('active');
-    };
-    document.getElementById('receipt-done-btn').onclick = () => {
-      document.getElementById('order-receipt-modal').classList.remove('active');
-    };
-
-    // Tracking Modal Handlers
-    const openTrackBtn = document.getElementById('open-tracking-btn');
-    if (openTrackBtn) {
-      openTrackBtn.onclick = () => {
-        document.getElementById('order-receipt-modal').classList.remove('active');
-        document.getElementById('tracking-modal').classList.add('active');
-      };
-    }
-    const closeTrackBtn = document.getElementById('close-tracking-btn');
-    if (closeTrackBtn) {
-      closeTrackBtn.onclick = () => {
-        document.getElementById('tracking-modal').classList.remove('active');
-      };
-    }
-    const closeTrackDoneBtn = document.getElementById('close-tracking-done-btn');
-    if (closeTrackDoneBtn) {
-      closeTrackDoneBtn.onclick = () => {
-        document.getElementById('tracking-modal').classList.remove('active');
-      };
-    }
 
     // Backend Reservation Submission
-    const resForm = document.getElementById('reservation-form');
-    if (resForm) {
-      resForm.onsubmit = async e => {
-        e.preventDefault();
-        const name = document.getElementById('res-name').value;
-        const email = document.getElementById('res-email').value;
-        const date = document.getElementById('res-date').value;
-        const session = document.getElementById('res-session').value;
-        const notes = document.getElementById('res-notes').value;
+    document.getElementById('reservation-form').onsubmit = async e => {
+      e.preventDefault();
+      const name = document.getElementById('res-name').value;
+      const email = document.getElementById('res-email').value;
+      const date = document.getElementById('res-date').value;
+      const session = document.getElementById('res-session').value;
+      const notes = document.getElementById('res-notes').value;
 
-        try {
-          const btn = document.getElementById('res-submit-btn');
-          btn.innerHTML = '<span>Processing...</span>';
+      try {
+        const btn = document.getElementById('res-submit-btn');
+        btn.innerHTML = '<span>Processing...</span>';
 
-          const res = await fetch('/api/reserve', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, date, session, notes })
-          });
+        const res = await fetch('/api/reserve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, date, session, notes })
+        });
 
-          const data = await res.json();
-          if(data.success) {
-            document.getElementById('reservation-form').style.display = 'none';
-            const successBox = document.getElementById('reservation-success');
-            document.getElementById('res-ref-code').textContent = data.refCode;
-            successBox.style.display = 'block';
-            showToast('Reservation successfully confirmed!');
-          } else {
-            showToast(data.message || 'Error making reservation.');
-            btn.innerHTML = '<span>Confirm Reservation &rarr;</span>';
-          }
-        } catch(err) {
-          showToast('Network error submitting reservation.');
+        const data = await res.json();
+        if(data.success) {
+          document.getElementById('reservation-form').style.display = 'none';
+          const successBox = document.getElementById('reservation-success');
+          document.getElementById('res-ref-code').textContent = data.refCode;
+          successBox.style.display = 'block';
+          showToast('Reservation successfully confirmed!');
+        } else {
+          showToast(data.message || 'Error making reservation.');
+          btn.innerHTML = '<span>Confirm Reservation &rarr;</span>';
         }
-      };
-    }
+      } catch(err) {
+        showToast('Network error submitting reservation.');
+      }
+    };
 
     // Backend Newsletter Submission
-    const nlForm = document.getElementById('newsletter-form');
-    if (nlForm) {
-      nlForm.onsubmit = async e => {
-        e.preventDefault();
-        const email = document.getElementById('nl-email').value;
-        try {
-          const res = await fetch('/api/newsletter', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
-          });
-          const data = await res.json();
-          showToast(data.message);
-          document.getElementById('nl-email').value = '';
-        } catch(err) {
-          showToast('Error subscribing to journal.');
-        }
-      };
-    }
+    document.getElementById('newsletter-form').onsubmit = async e => {
+      e.preventDefault();
+      const email = document.getElementById('nl-email').value;
+      try {
+        const res = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        showToast(data.message);
+        document.getElementById('nl-email').value = '';
+      } catch(err) {
+        showToast('Error subscribing to journal.');
+      }
+    };
 
     // GSAP ScrollTrigger Animations
     function initGSAPAnimations() {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Page Transition for Nav Links
-      // Page Transition and Navigation for Links
-      document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (!href) return;
-
-          // Case 1: Simple internal hash link on the same page
-          if (href.startsWith('#') && href !== '#') {
-            const targetEl = document.querySelector(href);
-            if (targetEl) {
-              e.preventDefault();
-              const tl = gsap.timeline();
-              tl.to('#page-transition', { y: '0%', duration: 0.6, ease: 'power3.inOut' })
-                .to('#trans-logo', { opacity: 1, duration: 0.3 }, "-=0.2")
-                .call(() => {
-                  window.scrollTo(0, targetEl.offsetTop);
-                })
-                .to('#trans-logo', { opacity: 0, duration: 0.3 }, "+=0.2")
-                .to('#page-transition', { y: '100%', duration: 0.6, ease: 'power3.inOut' })
-                .set('#page-transition', { y: '-100%' });
-            }
-            return;
-          }
-
-          // Case 2: Cross-page links (or hash link on another page)
-          if (!href.startsWith('http') && href !== '#' && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
-            e.preventDefault();
-            const tl = gsap.timeline();
-            tl.to('#page-transition', { y: '0%', duration: 0.6, ease: 'power3.inOut' })
-              .to('#trans-logo', { opacity: 1, duration: 0.3 }, "-=0.2")
-              .call(() => {
-                window.location.href = href;
-              });
-          }
-        });
-      });
-
-      // Word-by-word Reveal Function
-      const splitTextReveal = () => {
-        document.querySelectorAll('.rev-text').forEach(title => {
-          // Normalize breaks with surrounding spaces
-          const htmlContent = title.innerHTML.replace(/<br\s*\/?>/gi, ' <br> ');
-          const tokens = htmlContent.split(/\s+/).filter(Boolean);
-          const words = tokens.map(token => {
-            if (token.toLowerCase() === '<br>') return '<br>';
-            return `<span style="display:inline-block; overflow:hidden; vertical-align:top;"><span class="rev-word" style="display:inline-block; transform:translateY(100%);">${token}</span></span>`;
-          });
-          title.innerHTML = words.join(' ');
-          
-          gsap.to(title.querySelectorAll('.rev-word'), {
-            y: '0%', duration: 1, ease: 'power4.out',
-            stagger: 0.06,
-            scrollTrigger: { trigger: title, start: 'top 85%' }
-          });
-        });
-      };
-      splitTextReveal();
-
-      // Fluid Hover Effect for Gallery
-      document.querySelectorAll('.gal-item').forEach(item => {
-        item.addEventListener('mouseenter', () => {
-          gsap.to('#displacementMap', { attr: { scale: 30 }, duration: 0.6, ease: 'power2.out' });
-          gsap.to(item.querySelector('img'), { scale: 1.05, filter: 'brightness(1.05) url(#fluid-hover)', duration: 0.6, ease: 'power2.out' });
-        });
-        item.addEventListener('mouseleave', () => {
-          gsap.to('#displacementMap', { attr: { scale: 0 }, duration: 0.6, ease: 'power2.out' });
-          gsap.to(item.querySelector('img'), { scale: 1, filter: 'brightness(0.85)', duration: 0.6, ease: 'power2.out' });
-        });
-      });
-
-      // Parallax Effect for Images
-      gsap.utils.toArray('.gal-item img, .img-main').forEach(img => {
-        gsap.to(img, {
-          yPercent: -15, ease: 'none',
-          scrollTrigger: { trigger: img.parentElement, scrub: true }
-        });
-      });
-
-      // Mobile Menu
-      const mobBtn = document.getElementById('mobile-menu-btn');
-      const mobMenu = document.getElementById('mobile-menu');
-      mobBtn.addEventListener('click', () => {
-        mobMenu.classList.toggle('active');
-      });
-      document.querySelectorAll('.mob-link').forEach(link => {
-        link.addEventListener('click', () => mobMenu.classList.remove('active'));
-      });
-
-      // Cart Drawer Toggle with overlay
-      const cartOverlay = document.getElementById('cart-overlay');
-      const cartDrawer = document.getElementById('cart-drawer');
-
-      function openCartDrawer() {
-        cartDrawer.classList.add('open');
-        cartDrawer.style.zIndex = '10001';
-        if (cartOverlay) { cartOverlay.style.opacity = '1'; cartOverlay.style.pointerEvents = 'auto'; }
-        updateCartUI();
-      }
-
-      function closeCartDrawer() {
-        cartDrawer.classList.remove('open');
-        if (cartOverlay) { cartOverlay.style.opacity = '0'; cartOverlay.style.pointerEvents = 'none'; }
-      }
-
-      document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
-      document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
-      if (cartOverlay) cartOverlay.addEventListener('click', closeCartDrawer);
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCartDrawer(); } });
-
-      // Sync the inline onclick handlers
-      window._openCartDrawer = openCartDrawer;
-      window._closeCartDrawer = closeCartDrawer;
-
-      // Audio Toggle
-      const audioBtn = document.getElementById('audio-toggle');
-      const audioWaves = document.getElementById('audio-waves');
-      const bgAudio = document.getElementById('bg-audio');
-      let isPlaying = false;
-      audioBtn.addEventListener('click', () => {
-        if(isPlaying) { bgAudio.pause(); audioWaves.classList.remove('playing'); }
-        else { bgAudio.play(); audioWaves.classList.add('playing'); }
-        isPlaying = !isPlaying;
-      });
-
-      // Magnetic Buttons
-      document.querySelectorAll('.mag-btn, .btn-gold, .btn-ghost').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: 'power2.out' });
-        });
-        btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
-        });
-      });
-
-      // Nav Scroll & Progress Bar
+      // Nav Scroll
       window.addEventListener('scroll', () => {
         if(window.scrollY > 80) document.getElementById('navbar').classList.add('scrolled');
         else document.getElementById('navbar').classList.remove('scrolled');
-        
-        // Scroll Progress
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById('scroll-progress').style.width = scrolled + '%';
       });
 
       // Hero Timeline
@@ -2414,30 +1426,27 @@
         snap: { innerText: 1 },
         stagger: 0.2
       });
-    }
 
-    // Process & Craft Continuous Automatic Moving Stream (Zero boxes, infinite smooth flow)
-    function initProcessStream() {
-      const track = document.getElementById('proc-track');
-      if (!track) return;
-
-      const anim = gsap.to(track, {
-        xPercent: -50,
+      // Process Horizontal Track Scroll
+      const procTrack = document.getElementById('proc-track');
+      gsap.to(procTrack, {
+        x: () => -(procTrack.scrollWidth - window.innerWidth),
         ease: 'none',
-        duration: 38,
-        repeat: -1
+        scrollTrigger: {
+          trigger: '.proc-sec',
+          pin: true,
+          scrub: 1.2,
+          start: 'top top',
+          end: () => "+=" + (procTrack.scrollWidth - window.innerWidth)
+        }
       });
-
-      track.addEventListener('mouseenter', () => anim.pause());
-      track.addEventListener('mouseleave', () => anim.play());
     }
 
     // Window Load Init
     window.onload = () => {
       initThree();
       animateThree();
-      // loadProducts(); // Removed as product cards are no longer on homepage
-      initProcessStream();
+      loadProducts();
     };
   </script>
 </body>
