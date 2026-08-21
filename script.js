@@ -23,11 +23,12 @@ const GOLD_CSS = '#D4AF37'
 function initLenis () {
   const lenis = new Lenis({
     root: document.getElementById('lenis-root'),
-    duration: 1.3,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    duration: 0.6,
+    easing: t => t, // linear easing for quick scroll
     direction: 'vertical',
     smooth: true,
     smoothTouch: false,
+    anchors: true,
   })
 
   // Wire Lenis to GSAP ticker

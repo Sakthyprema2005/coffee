@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserve - OBSIDIAN Coffee</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation (reuse same navbar) -->
+  <nav id="navbar">
+    <div class="nav-brand">
+      <a href="/" class="nav-logo">OBSIDIAN</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/about.html" class="nav-link">Story</a></li>
+      <li><a href="/process.html" class="nav-link">Process</a></li>
+      <li><a href="/gallery.html" class="nav-link">Gallery</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/#reserve" class="nav-btn mag-btn">Table Tasting</a>
+    </div>
+  </nav>
+
+  <section class="section res-sec" id="reserve">
+    <div class="container res-content">
+      <span class="eyebrow">Private Cupping &amp; Tasting</span>
+      <h2 class="sec-title rev-text">Reserve a <em>personal tasting</em></h2>
+      <p class="res-body">
+        Book a private, curated tasting for 2–6 guests. We’ll arrive with a bespoke coffee menu, premium, validated brewing gear, and a skilled barista.
+      </p>
+      <form class="reserve-form" id="reserve-form">
+        <div class="form-grid">
+          <input type="text" placeholder="Full name" required />
+          <input type="email" placeholder="Email address" required />
+        </div>
+        <div class="form-grid">
+          <input type="date" required />
+          <input type="time" required />
+        </div>
+        <textarea placeholder="Special requests / anything we should know?" rows="4"></textarea>
+        <button type="submit" class="form-btn btn-gold">
+          <span>Reserve Your Spot →</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
