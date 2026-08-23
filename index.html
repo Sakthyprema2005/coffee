@@ -1846,18 +1846,17 @@
 
     // EmailJS Live Notification Integration
     const EMAILJS_CONFIG = {
-      publicKey: 'YOUR_EMAILJS_PUBLIC_KEY', // Replace with your EmailJS Public Key
-      serviceId: 'service_obsidian',
-      templateReservation: 'template_reservation',
-      templateOrder: 'template_order'
+      publicKey: 'OBUEwt1-6IMiSOnE3',
+      serviceId: 'service_5vbgqs2',
+      templateId: 'template_77gp25l'
     };
 
-    async function sendEmailNotification(templateId, templateParams) {
-      if (window.emailjs && EMAILJS_CONFIG.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+    async function sendEmailNotification(params) {
+      if (window.emailjs && EMAILJS_CONFIG.publicKey) {
         try {
           emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-          await emailjs.send(EMAILJS_CONFIG.serviceId, templateId, templateParams);
-          console.log('Live email notification sent successfully!');
+          await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params);
+          console.log('Live email notification dispatched to sakthypremaj@gmail.com');
         } catch (err) {
           console.warn('Email notification note:', err);
         }
@@ -1883,8 +1882,13 @@
         }).catch(() => {});
       } catch(e) {}
 
-      // Dispatch Email Notification
-      sendEmailNotification(EMAILJS_CONFIG.templateOrder, {
+      // Dispatch Email Notification to sakthypremaj@gmail.com
+      sendEmailNotification({
+        title: `New Coffee Order - ${orderId}`,
+        name: 'Obsidian Coffee Order',
+        email: 'orders@obsidiancoffee.com',
+        reply_to: 'orders@obsidiancoffee.com',
+        message: `New Coffee Order Details:\n\nOrder ID: ${orderId}\nItems: ${orderSummary}\nTotal Amount: $${totalAmount}\nDate: ${new Date().toLocaleString()}`,
         order_id: orderId,
         order_summary: orderSummary,
         total_amount: `$${totalAmount}`,
@@ -1897,7 +1901,7 @@
       document.getElementById('cart-drawer').classList.remove('open');
     };
 
-    // Reservation Submission with Live Email & Fallback
+    // Reservation Submission with Live Email to sakthypremaj@gmail.com
     document.getElementById('reservation-form').onsubmit = async e => {
       e.preventDefault();
       const name = document.getElementById('res-name').value;
@@ -1919,8 +1923,13 @@
         }).catch(() => {});
       } catch(err) {}
 
-      // Dispatch Live Email to Owner Inbox
-      sendEmailNotification(EMAILJS_CONFIG.templateReservation, {
+      // Dispatch Live Email to sakthypremaj@gmail.com
+      sendEmailNotification({
+        title: `New Table Tasting Reservation - ${refCode}`,
+        name: name,
+        email: email,
+        reply_to: email,
+        message: `New Reservation Details:\n\nGuest Name: ${name}\nGuest Email: ${email}\nPreferred Date: ${date}\nTasting Session: ${session}\nSpecial Notes: ${notes || 'None'}\nReference ID: ${refCode}`,
         guest_name: name,
         guest_email: email,
         reservation_date: date,
