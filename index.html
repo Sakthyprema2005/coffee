@@ -308,22 +308,82 @@
     .badge .b-num { font-size: 2.8rem; font-weight: 400; line-height: 1; }
     .badge .b-txt { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; font-family: var(--font-sans); margin-top: 2px; }
 
-    /* COLLECTION PRODUCTS */
-    .coll-sec { background: var(--black); }
-    .coll-header { text-align: center; margin-bottom: 90px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    /* COLLECTION PRODUCTS AUTO SCROLL & MANUAL CONTROLS */
+    .coll-sec {
+      background: var(--black);
+      padding: 120px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .coll-header-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      max-width: 1280px;
+      margin: 0 auto 50px;
+      padding: 0 30px;
+    }
+    .coll-header { text-align: left; }
+    .coll-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .coll-nav-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(13, 7, 3, 0.85);
+      border: 1px solid rgba(200, 168, 75, 0.35);
+      color: var(--gold);
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      user-select: none;
+    }
+    .coll-nav-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+      transform: scale(1.08);
+    }
+    .coll-viewport {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 20px 0;
+      cursor: grab;
+      user-select: none;
+      mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    }
+    .coll-viewport.is-dragging {
+      cursor: grabbing;
+    }
+    .coll-track {
+      display: flex;
+      width: max-content;
+      gap: 36px;
+      align-items: stretch;
+      will-change: transform;
+    }
     .product {
+      width: 380px;
+      flex-shrink: 0;
       position: relative; background: var(--espresso); border: 1px solid rgba(255,255,255,0.06);
-      transition: border-color 0.5s, transform 0.6s var(--ease-out), box-shadow 0.5s;
-      transform-style: preserve-3d; perspective: 1000px;
+      transition: border-color 0.4s, transform 0.4s var(--ease-out), box-shadow 0.4s;
     }
     .product:hover {
-      border-color: rgba(200, 168, 75, 0.4);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+      border-color: rgba(200, 168, 75, 0.5);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 30px rgba(200,168,75,0.15);
+      transform: translateY(-8px);
     }
     .prod-img-wrap {
-      position: relative; width: 100%; height: 420px; display: flex; justify-content: center; align-items: center;
-      overflow: hidden; background: linear-gradient(135deg, #160c05, var(--espresso)); padding: 40px;
+      position: relative; width: 100%; height: 380px; display: flex; justify-content: center; align-items: center;
+      overflow: hidden; background: linear-gradient(135deg, #160c05, var(--espresso)); padding: 36px;
     }
     .prod-glow {
       position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -340,35 +400,124 @@
       transition: transform 0.8s var(--ease-out), filter 0.5s; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
     }
     .product:hover .prod-img { transform: scale(1.08) translateY(-8px); }
-    .prod-info { padding: 36px 32px 32px; }
-    .prod-origin { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 12px; font-weight: 400; }
-    .prod-name { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 12px; font-weight: 400; line-height: 1.1; }
-    .prod-notes { font-size: 0.85rem; color: var(--cream2); margin-bottom: 28px; line-height: 1.6; letter-spacing: 0.05em; }
-    .prod-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; }
-    .prod-price { font-family: var(--font-times); font-size: 1.8rem; color: var(--gold); font-weight: 400; }
-    .prod-actions { display: flex; gap: 12px; }
+    .prod-info { padding: 32px 28px 28px; }
+    .prod-origin { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--copper); margin-bottom: 10px; font-weight: 400; }
+    .prod-name { font-family: var(--font-times); font-size: 2.1rem; margin-bottom: 10px; font-weight: 400; line-height: 1.1; }
+    .prod-notes { font-size: 0.85rem; color: var(--cream2); margin-bottom: 24px; line-height: 1.6; letter-spacing: 0.05em; }
+    .prod-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
+    .prod-price { font-family: var(--font-times); font-size: 1.7rem; color: var(--gold); font-weight: 400; }
+    .prod-actions { display: flex; gap: 10px; }
     .btn-cart-add {
       background: transparent; border: 1px solid rgba(200, 168, 75, 0.4); color: var(--gold);
-      padding: 10px 18px; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 9px 16px; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
       transition: all 0.3s; font-family: var(--font-sans);
+      cursor: pointer;
     }
     .btn-cart-add:hover { background: var(--gold); color: var(--black); }
 
-    /* PROCESS HORIZONTAL SCROLL */
-    .proc-sec { background: var(--void); height: 100vh; overflow: hidden; position: relative; padding: 0; }
-    .proc-track { display: flex; height: 100%; width: max-content; padding-left: 8vw; padding-right: 8vw; align-items: center; }
-    .proc-intro { width: 38vw; min-width: 420px; padding-right: 80px; }
-    .proc-intro h2 { font-family: var(--font-times); font-size: clamp(3.5rem, 6vw, 6rem); margin-bottom: 24px; line-height: 1; }
-    .proc-intro p { font-size: 1.1rem; color: var(--cream2); line-height: 1.85; font-weight: 300; }
+    /* PROCESS AUTO SCROLL & CLICK-TO-PAUSE */
+    .proc-sec {
+      background: var(--void);
+      padding: 120px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .proc-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+      padding: 0 24px;
+    }
+    .proc-header p {
+      color: var(--cream2);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .proc-viewport {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 30px 0;
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+    .proc-track {
+      display: flex;
+      width: max-content;
+      gap: 30px;
+      align-items: stretch;
+      will-change: transform;
+    }
     .proc-step {
-      width: 380px; padding: 0 44px; position: relative; flex-shrink: 0; border-left: 1px solid rgba(255,255,255,0.06);
+      width: 380px;
+      padding: 44px 38px;
+      position: relative;
+      flex-shrink: 0;
+      background: rgba(13, 7, 3, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.4s, background-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    }
+    .proc-step:hover {
+      border-color: rgba(200, 168, 75, 0.4);
+      transform: translateY(-4px);
+    }
+    .proc-step.is-active {
+      border-color: var(--gold);
+      background: rgba(28, 14, 6, 0.95);
+      box-shadow: 0 16px 40px rgba(200, 168, 75, 0.22), inset 0 0 20px rgba(200, 168, 75, 0.08);
+      transform: translateY(-6px);
+    }
+    .step-active-badge {
+      display: none;
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .proc-step.is-active .step-active-badge {
+      display: inline-block;
     }
     .step-num {
-      font-family: var(--font-times); font-size: 7rem; color: rgba(200, 168, 75, 0.12); font-weight: 400; line-height: 1; margin-bottom: 20px;
+      font-family: var(--font-times);
+      font-size: 4.6rem;
+      color: rgba(200, 168, 75, 0.18);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 16px;
     }
-    .step-tag { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: block; }
-    .step-title { font-family: var(--font-times); font-size: 2.2rem; margin-bottom: 20px; line-height: 1.15; }
-    .step-desc { font-size: 0.95rem; color: var(--cream2); line-height: 1.8; font-weight: 300; }
+    .proc-step.is-active .step-num {
+      color: rgba(200, 168, 75, 0.38);
+    }
+    .step-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .step-title {
+      font-family: var(--font-times);
+      font-size: 1.9rem;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--cream2);
+      line-height: 1.75;
+      font-weight: 300;
+    }
 
     /* SPLIT BANNER */
     .split-sec { display: flex; width: 100%; background: var(--espresso); border-y: 1px solid rgba(255,255,255,0.05); }
@@ -569,14 +718,12 @@
   <nav id="navbar">
     <div class="nav-brand">
       <a href="#" class="nav-logo">OBSIDIAN</a>
-      <span class="nav-tag">EST. 2019</span>
     </div>
     <ul class="nav-links">
       <li><a href="#collection" class="nav-link">Collection</a></li>
       <li><a href="#process" class="nav-link">Process</a></li>
       <li><a href="#gallery" class="nav-link">Gallery</a></li>
       <li><a href="#about" class="nav-link">Story</a></li>
-      <li><a href="#reserve" class="nav-link">Reserve</a></li>
     </ul>
     <div class="nav-right">
       <button class="nav-cart-btn" id="open-cart-btn" aria-label="Cart">
@@ -601,10 +748,6 @@
         <a href="#collection" class="btn-gold"><span>Explore Collection &rarr;</span></a>
         <a href="#reserve" class="btn-ghost">Reserve Tasting</a>
       </div>
-    </div>
-    <div class="scroll-ind">
-      <span class="scroll-label">Scroll</span>
-      <div class="scroll-line"></div>
     </div>
   </section>
 
@@ -633,15 +776,15 @@
         <p class="phil-body">We travel to remote volcanic peaks and cloud forests, partnering directly with micro-lot farmers who cultivate rare botanical varietals with zero compromise on quality.</p>
         <div class="stats">
           <div class="stat-item">
-            <h4 class="counter" data-target="47">0</h4>
+            <h4 class="counter" data-target="47">47</h4>
             <p>Origins Sourced</p>
           </div>
           <div class="stat-item">
-            <h4 class="counter" data-target="12">0</h4>
+            <h4 class="counter" data-target="12">12</h4>
             <p>Micro-Lot Farms</p>
           </div>
           <div class="stat-item">
-            <h4 class="counter" data-target="94">0</h4>
+            <h4 class="counter" data-target="94">94+</h4>
             <p>Peak Cup Score</p>
           </div>
         </div>
@@ -658,56 +801,108 @@
     </div>
   </section>
 
-  <!-- Collection Section (Products loaded via Backend API) -->
+  <!-- Collection Section (Products Auto-Scroll Stream & Manual Controls) -->
   <section class="section coll-sec" id="collection">
-    <div class="container">
+    <div class="coll-header-wrap">
       <div class="coll-header">
         <span class="eyebrow">Current Harvest</span>
         <h2 class="sec-title">The <em>Reserve Collection</em></h2>
+        <p style="color: var(--cream2); font-size: 1.05rem; font-weight: 300; margin-top: 10px;">Six rare micro-lots sourced across the world's highest equatorial terroirs.</p>
       </div>
-      <div class="grid-3" id="products-grid">
-        <!-- Rendered dynamically from backend API -->
+      <div class="coll-controls">
+        <button class="coll-nav-btn" id="coll-prev-btn" aria-label="Previous Coffee" title="Previous Lot">&#8592;</button>
+        <button class="coll-nav-btn" id="coll-next-btn" aria-label="Next Coffee" title="Next Lot">&#8594;</button>
+      </div>
+    </div>
+    <div class="coll-viewport" id="coll-viewport">
+      <div class="coll-track" id="products-grid">
+        <!-- Rendered dynamically from backend API / catalog with continuous auto-scroll and drag -->
       </div>
     </div>
   </section>
 
-  <!-- Process Section (Horizontal Scroll) -->
+  <!-- Process Section (Automatic Smooth Flow with Click-to-Pause) -->
   <section class="proc-sec" id="process">
-    <div class="proc-track" id="proc-track">
-      <div class="proc-intro">
-        <span class="eyebrow">The Craft</span>
-        <h2>From <em>Seed</em><br/>to Transcendence</h2>
-        <p>Six uncompromising steps that elevate wild volcanic cherries into an extraordinary sensory experience.</p>
-      </div>
-      <div class="proc-step">
-        <div class="step-num">01</div>
-        <span class="step-tag">Terroir Discovery</span>
-        <h3 class="step-title">High-Altitude Sourcing</h3>
-        <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m, selecting only beans with extraordinary acidity and complex aromatics.</p>
-      </div>
-      <div class="proc-step">
-        <div class="step-num">02</div>
-        <span class="step-tag">Hand Selection</span>
-        <h3 class="step-title">Selective Harvesting</h3>
-        <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters.</p>
-      </div>
-      <div class="proc-step">
-        <div class="step-num">03</div>
-        <span class="step-tag">Fermentation</span>
-        <h3 class="step-title">Anaerobic Ferment</h3>
-        <p class="step-desc">Extended 96-hour anaerobic resting on African raised beds to unlock vivid fruit notes and floral elegance.</p>
-      </div>
-      <div class="proc-step">
-        <div class="step-num">04</div>
-        <span class="step-tag">Artisanal Roasting</span>
-        <h3 class="step-title">Precision Thermal Profile</h3>
-        <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 iterations to preserve delicate origin notes.</p>
-      </div>
-      <div class="proc-step">
-        <div class="step-num">05</div>
-        <span class="step-tag">Resting</span>
-        <h3 class="step-title">Degassing &amp; Maturation</h3>
-        <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed atmosphere to reach peak flavor harmony.</p>
+    <div class="proc-header">
+      <span class="eyebrow">The Craft</span>
+      <h2 class="sec-title" style="margin-bottom: 14px;">From <em>Seed</em> to Transcendence</h2>
+      <p>Six uncompromising steps that elevate wild volcanic cherries into an extraordinary sensory experience.</p>
+    </div>
+
+    <div class="proc-viewport">
+      <div class="proc-track" id="proc-track">
+        <div class="proc-step" data-step="1">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m, selecting only beans with extraordinary acidity and complex aromatics.</p>
+        </div>
+        <div class="proc-step" data-step="2">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters.</p>
+        </div>
+        <div class="proc-step" data-step="3">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic resting on African raised beds to unlock vivid fruit notes and floral elegance.</p>
+        </div>
+        <div class="proc-step" data-step="4">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">04</div>
+          <span class="step-tag">Artisanal Roasting</span>
+          <h3 class="step-title">Precision Thermal Profile</h3>
+          <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 iterations to preserve delicate origin notes.</p>
+        </div>
+        <div class="proc-step" data-step="5">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">05</div>
+          <span class="step-tag">Resting</span>
+          <h3 class="step-title">Degassing &amp; Maturation</h3>
+          <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed atmosphere to reach peak flavor harmony.</p>
+        </div>
+
+        <!-- Duplicated for Seamless Infinite Auto-Scroll Loop -->
+        <div class="proc-step" data-step="1">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">01</div>
+          <span class="step-tag">Terroir Discovery</span>
+          <h3 class="step-title">High-Altitude Sourcing</h3>
+          <p class="step-desc">We sample hundreds of micro-lot harvests above 1,800m, selecting only beans with extraordinary acidity and complex aromatics.</p>
+        </div>
+        <div class="proc-step" data-step="2">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">02</div>
+          <span class="step-tag">Hand Selection</span>
+          <h3 class="step-title">Selective Harvesting</h3>
+          <p class="step-desc">Only 100% ripe red cherries are hand-picked at peak Brix sweetness by master harvesters.</p>
+        </div>
+        <div class="proc-step" data-step="3">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">03</div>
+          <span class="step-tag">Fermentation</span>
+          <h3 class="step-title">Anaerobic Ferment</h3>
+          <p class="step-desc">Extended 96-hour anaerobic resting on African raised beds to unlock vivid fruit notes and floral elegance.</p>
+        </div>
+        <div class="proc-step" data-step="4">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">04</div>
+          <span class="step-tag">Artisanal Roasting</span>
+          <h3 class="step-title">Precision Thermal Profile</h3>
+          <p class="step-desc">Roasted in micro-batches on a cast-iron Loring roaster, tuned across 40 iterations to preserve delicate origin notes.</p>
+        </div>
+        <div class="proc-step" data-step="5">
+          <span class="step-active-badge">Active Step</span>
+          <div class="step-num">05</div>
+          <span class="step-tag">Resting</span>
+          <h3 class="step-title">Degassing &amp; Maturation</h3>
+          <p class="step-desc">Beans are rested for 7 to 10 days in nitrogen-sealed atmosphere to reach peak flavor harmony.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1184,23 +1379,154 @@
       });
     }
 
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 1,
+        name: 'Night Garden',
+        origin: 'Ethiopia / Yirgacheffe / Kochere',
+        price: 48,
+        unit: '200g',
+        image: 'assets/prod_eth.jpg',
+        flavorNotes: ['Blueberry', 'Jasmine', 'Dark Chocolate'],
+        badge: 'Limited Micro-Lot',
+        rating: 4.9,
+        description: 'A washed Ethiopian lot from the legendary Kochere zone. Extraordinary floral aromatics give way to vivid blueberry sweetness and a dark chocolate finish that lingers for minutes.',
+        specs: {
+          altitude: '1,800 - 2,200 masl',
+          process: 'Washed / Slow Sun Dried',
+          harvest: 'November 2024',
+          roast: 'Light Filter',
+          varietal: 'JARC 74110 & 74112',
+          cuppingScore: '91.5 pts'
+        }
+      },
+      {
+        id: 2,
+        name: 'Amber Hours',
+        origin: 'Colombia / Huila / La Plata',
+        price: 42,
+        unit: '200g',
+        image: 'assets/prod_col.jpg',
+        flavorNotes: ['Caramel', 'Red Apple', 'Brown Sugar'],
+        badge: 'Single Producer',
+        rating: 4.8,
+        description: 'A honey-processed lot from a single family farm in La Plata. Ripe caramel apple transitions to rich brown sugar sweetness with a lingering, impossibly clean finish.',
+        specs: {
+          altitude: '1,650 - 1,850 masl',
+          process: 'Yellow Honey Ferment',
+          harvest: 'October 2024',
+          roast: 'Light-Medium',
+          varietal: 'Castillo & Caturra',
+          cuppingScore: '89.5 pts'
+        }
+      },
+      {
+        id: 3,
+        name: 'Silent Peak',
+        origin: 'Panama / Boquete / Finca Lerida',
+        price: 120,
+        unit: '100g',
+        image: 'assets/prod_pan.jpg',
+        flavorNotes: ['Peach', 'Earl Grey', 'Bergamot'],
+        badge: 'Reserve Geisha',
+        rating: 5.0,
+        description: 'The Geisha variety from the historic Finca Lerida estate. Transcendent peach blossom, bergamot, and a sweetness so refined it borders on the ethereal. Our rarest lot.',
+        specs: {
+          altitude: '1,600 - 1,700 masl',
+          process: 'Natural Anaerobic 96h',
+          harvest: 'February 2025',
+          roast: 'Ultra Light Filter',
+          varietal: 'Geisha (Panama)',
+          cuppingScore: '94.2 pts'
+        }
+      },
+      {
+        id: 4,
+        name: 'Eclipse Velvet',
+        origin: 'Kenya / Nyeri / Mount Kenya',
+        price: 54,
+        unit: '200g',
+        image: 'assets/prod_eth.jpg',
+        flavorNotes: ['Blackcurrant', 'Ruby Grapefruit', 'Brown Sugar'],
+        badge: 'Highland AA Lot',
+        rating: 4.9,
+        description: 'Cultivated on the volcanic red soil of Mount Kenya. Explosive blackcurrant vibrancy backed by rich sugarcane sweetness and a sparkling, clean acidity.',
+        specs: {
+          altitude: '1,750 - 1,900 masl',
+          process: 'Double Washed',
+          harvest: 'December 2024',
+          roast: 'Light Filter',
+          varietal: 'SL28 & SL34',
+          cuppingScore: '92.0 pts'
+        }
+      },
+      {
+        id: 5,
+        name: 'Golden Terroir',
+        origin: 'Guatemala / Antigua / Volcán de Fuego',
+        price: 46,
+        unit: '200g',
+        image: 'assets/prod_col.jpg',
+        flavorNotes: ['Milk Chocolate', 'Candied Orange', 'Hazelnut'],
+        badge: 'Volcanic Estate',
+        rating: 4.8,
+        description: 'Sheltered by three majestic volcanoes in the Antigua valley. Silky milk chocolate body layered with sweet candied orange peel and delicate toasted praline.',
+        specs: {
+          altitude: '1,600 - 1,800 masl',
+          process: 'Washed / Sun Patio Dried',
+          harvest: 'January 2025',
+          roast: 'Light-Medium',
+          varietal: 'Bourbon & Caturra',
+          cuppingScore: '90.5 pts'
+        }
+      },
+      {
+        id: 6,
+        name: 'Highland Mist',
+        origin: 'Yemen / Haraz Mountains / Terrace Farm',
+        price: 88,
+        unit: '150g',
+        image: 'assets/prod_pan.jpg',
+        flavorNotes: ['Dried Fig', 'Cardamom', 'Wild Honey'],
+        badge: 'Ancient Heirloom',
+        rating: 5.0,
+        description: 'Sourced from millennia-old stepped mountain terraces in Haraz. Complex dried fig richness intertwined with exotic cardamom spice and raw golden honey sweetness.',
+        specs: {
+          altitude: '2,100 - 2,400 masl',
+          process: 'Natural Sun Dried on Rooftops',
+          harvest: 'November 2024',
+          roast: 'Light Filter',
+          varietal: 'Ancient Udaini',
+          cuppingScore: '93.8 pts'
+        }
+      }
+    ];
+
     // Backend Integration
     async function loadProducts() {
       try {
         const res = await fetch('/api/products');
-        const data = await res.json();
-        if(data.success) {
-          products = data.data;
-          renderProducts(products);
+        if (res.ok) {
+          const data = await res.json();
+          if(data.success && data.data && data.data.length > 0) {
+            products = data.data;
+            renderProducts(products);
+            return;
+          }
         }
       } catch(err) {
-        console.error('Failed to fetch products from backend:', err);
+        console.warn('Backend unavailable, using default catalog:', err);
       }
+      products = DEFAULT_PRODUCTS;
+      renderProducts(products);
     }
 
+    let collAnimId = null;
     function renderProducts(list) {
       const grid = document.getElementById('products-grid');
-      grid.innerHTML = list.map(p => `
+      // Duplicate list for infinite seamless auto-scrolling
+      const displayList = [...list, ...list];
+      grid.innerHTML = displayList.map(p => `
         <div class="product" data-id="${p.id}">
           <div class="prod-badge">${p.badge}</div>
           <div class="prod-img-wrap">
@@ -1222,18 +1548,141 @@
         </div>
       `).join('');
 
-      // Add 3D Tilt on products
-      document.querySelectorAll('.product').forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          gsap.to(card, { rotateY: x * 14, rotateX: -y * 14, duration: 0.5, ease: 'power2.out' });
-        });
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power2.out' });
-        });
+      initCollectionAutoScroll();
+    }
+
+    function initCollectionAutoScroll() {
+      const viewport = document.getElementById('coll-viewport');
+      const track = document.getElementById('products-grid');
+      const prevBtn = document.getElementById('coll-prev-btn');
+      const nextBtn = document.getElementById('coll-next-btn');
+
+      if (!viewport || !track || track.children.length === 0) return;
+      if (collAnimId) cancelAnimationFrame(collAnimId);
+
+      let isPaused = false;
+      let isDragging = false;
+      let currentX = 0;
+      let startX = 0;
+      let dragStartX = 0;
+      const speed = 0.85; // Luxurious continuous cruising speed
+      let resumeTimeout = null;
+
+      function pauseAndScheduleResume(delay = 2500) {
+        isPaused = true;
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          if (!isDragging) isPaused = false;
+        }, delay);
+      }
+
+      function wrapCurrentX() {
+        const halfWidth = track.scrollWidth / 2;
+        if (halfWidth <= 0) return;
+        if (currentX <= -halfWidth) {
+          currentX += halfWidth;
+        } else if (currentX > 0) {
+          currentX -= halfWidth;
+        }
+      }
+
+      // Mouse Hover to pause / resume
+      viewport.addEventListener('mouseenter', () => { isPaused = true; });
+      viewport.addEventListener('mouseleave', () => { 
+        if (!isDragging) isPaused = false; 
       });
+
+      // Mouse Dragging
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        isDragging = true;
+        isPaused = true;
+        viewport.classList.add('is-dragging');
+        startX = e.pageX;
+        dragStartX = currentX;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const delta = e.pageX - startX;
+        currentX = dragStartX + delta;
+        wrapCurrentX();
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          viewport.classList.remove('is-dragging');
+          pauseAndScheduleResume(2200);
+        }
+      });
+
+      // Touch Swiping for Mobile / Tablets
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        isDragging = true;
+        isPaused = true;
+        startX = e.touches[0].pageX;
+        dragStartX = currentX;
+      }, { passive: true });
+
+      viewport.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const delta = e.touches[0].pageX - startX;
+        currentX = dragStartX + delta;
+        wrapCurrentX();
+        track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', () => {
+        if (isDragging) {
+          isDragging = false;
+          pauseAndScheduleResume(2200);
+        }
+      });
+
+      // Trackpad / Shift + MouseWheel Horizontal Scroll
+      viewport.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
+          e.preventDefault();
+          const delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+          currentX -= delta * 0.9;
+          wrapCurrentX();
+          track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+          pauseAndScheduleResume(2000);
+        }
+      }, { passive: false });
+
+      // Manual Navigation Buttons (← and →)
+      const cardStep = 416; // 380px card width + 36px gap
+      if (prevBtn) {
+        prevBtn.onclick = () => {
+          currentX += cardStep;
+          wrapCurrentX();
+          track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+          pauseAndScheduleResume(3000);
+        };
+      }
+      if (nextBtn) {
+        nextBtn.onclick = () => {
+          currentX -= cardStep;
+          wrapCurrentX();
+          track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+          pauseAndScheduleResume(3000);
+        };
+      }
+
+      function stepAnimation() {
+        if (!isPaused && !isDragging && track.children.length > 0) {
+          currentX -= speed;
+          wrapCurrentX();
+          track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        }
+        collAnimId = requestAnimationFrame(stepAnimation);
+      }
+
+      collAnimId = requestAnimationFrame(stepAnimation);
     }
 
     // Modal Logic
@@ -1419,26 +1868,91 @@
       const track = document.getElementById('marquee-track');
       gsap.to(track, { xPercent: -50, ease: 'none', duration: 25, repeat: -1 });
 
-      // Stats Counter
-      gsap.fromTo('.counter', { innerText: 0 }, {
-        scrollTrigger: { trigger: '.phil-sec', start: 'top 60%' },
-        duration: 2.2, ease: 'power2.out',
-        snap: { innerText: 1 },
-        stagger: 0.2
+      // Stats Counter Animation
+      document.querySelectorAll('.counter').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
+        const suffix = el.textContent.includes('+') ? '+' : '';
+        gsap.fromTo(el, 
+          { innerText: 0 },
+          {
+            innerText: target,
+            duration: 2.2,
+            ease: 'power2.out',
+            snap: { innerText: 1 },
+            scrollTrigger: { trigger: '.phil-sec', start: 'top 80%' },
+            onUpdate: function() {
+              if(suffix) el.innerText = Math.round(el.innerText) + suffix;
+            }
+          }
+        );
       });
 
-      // Process Horizontal Track Scroll
-      const procTrack = document.getElementById('proc-track');
-      gsap.to(procTrack, {
-        x: () => -(procTrack.scrollWidth - window.innerWidth),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.proc-sec',
-          pin: true,
-          scrub: 1.2,
-          start: 'top top',
-          end: () => "+=" + (procTrack.scrollWidth - window.innerWidth)
+      // Reveal Craft Header on Scroll
+      gsap.fromTo('.proc-header', 
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
+          scrollTrigger: { trigger: '.proc-sec', start: 'top 80%' }
         }
+      );
+    }
+
+    // Auto-Scrolling & Interactive Click-to-Pause Craft Flow
+    function initCraftAutoScroll() {
+      const track = document.getElementById('proc-track');
+      const steps = document.querySelectorAll('.proc-step');
+
+      if (!track || steps.length === 0) return;
+
+      let isPaused = false;
+      let activeCard = null;
+      let currentX = 0;
+      const speed = 0.85; // Luxurious continuous cruising speed
+      let animFrameId = null;
+
+      // Calculate width of one single loop of 5 cards
+      function getHalfWidth() {
+        let total = 0;
+        for (let i = 0; i < 5; i++) {
+          if (steps[i]) {
+            total += steps[i].offsetWidth + 30; // card width + gap
+          }
+        }
+        return total || 2050;
+      }
+
+      function stepAnimation() {
+        if (!isPaused) {
+          currentX -= speed;
+          const halfWidth = getHalfWidth();
+          if (Math.abs(currentX) >= halfWidth) {
+            currentX += halfWidth; // Seamless infinite loop reset
+          }
+          track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        }
+        animFrameId = requestAnimationFrame(stepAnimation);
+      }
+
+      // Start continuous smooth auto-scroll loop
+      animFrameId = requestAnimationFrame(stepAnimation);
+
+      // Card Click Handler — Click to pause on that card
+      steps.forEach((step) => {
+        step.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (isPaused && activeCard === step) {
+            // Clicking the active card again resumes auto-scrolling
+            isPaused = false;
+            steps.forEach(s => s.classList.remove('is-active'));
+            activeCard = null;
+          } else {
+            // Stop and highlight this card
+            isPaused = true;
+            steps.forEach(s => s.classList.remove('is-active'));
+            step.classList.add('is-active');
+            activeCard = step;
+          }
+        });
       });
     }
 
@@ -1447,6 +1961,7 @@
       initThree();
       animateThree();
       loadProducts();
+      initCraftAutoScroll();
     };
   </script>
 </body>

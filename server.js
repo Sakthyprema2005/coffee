@@ -107,6 +107,84 @@ const PRODUCTS = [
       { name: 'Floral Aromatics', value: 95 },
       { name: 'Complexity', value: 98 }
     ]
+  },
+  {
+    id: 4,
+    name: 'Eclipse Velvet',
+    origin: 'Kenya / Nyeri / Mount Kenya',
+    price: 54,
+    unit: '200g',
+    image: 'assets/prod_eth.jpg',
+    flavorNotes: ['Blackcurrant', 'Ruby Grapefruit', 'Brown Sugar'],
+    badge: 'Highland AA Lot',
+    rating: 4.9,
+    description: 'Cultivated on the volcanic red soil of Mount Kenya. Explosive blackcurrant vibrancy backed by rich sugarcane sweetness and a sparkling, clean acidity.',
+    specs: {
+      altitude: '1,750 - 1,900 masl',
+      process: 'Double Washed',
+      harvest: 'December 2024',
+      roast: 'Light Filter',
+      varietal: 'SL28 & SL34',
+      cuppingScore: '92.0 pts'
+    },
+    flavors: [
+      { name: 'Blackcurrant', value: 94 },
+      { name: 'Grapefruit', value: 88 },
+      { name: 'Sugarcane', value: 85 },
+      { name: 'Vibrancy', value: 92 }
+    ]
+  },
+  {
+    id: 5,
+    name: 'Golden Terroir',
+    origin: 'Guatemala / Antigua / Volcán de Fuego',
+    price: 46,
+    unit: '200g',
+    image: 'assets/prod_col.jpg',
+    flavorNotes: ['Milk Chocolate', 'Candied Orange', 'Hazelnut'],
+    badge: 'Volcanic Estate',
+    rating: 4.8,
+    description: 'Sheltered by three majestic volcanoes in the Antigua valley. Silky milk chocolate body layered with sweet candied orange peel and delicate toasted praline.',
+    specs: {
+      altitude: '1,600 - 1,800 masl',
+      process: 'Washed / Sun Patio Dried',
+      harvest: 'January 2025',
+      roast: 'Light-Medium',
+      varietal: 'Bourbon & Caturra',
+      cuppingScore: '90.5 pts'
+    },
+    flavors: [
+      { name: 'Milk Chocolate', value: 90 },
+      { name: 'Candied Orange', value: 82 },
+      { name: 'Hazelnut', value: 86 },
+      { name: 'Balance', value: 89 }
+    ]
+  },
+  {
+    id: 6,
+    name: 'Highland Mist',
+    origin: 'Yemen / Haraz Mountains / Terrace Farm',
+    price: 88,
+    unit: '150g',
+    image: 'assets/prod_pan.jpg',
+    flavorNotes: ['Dried Fig', 'Cardamom', 'Wild Honey'],
+    badge: 'Ancient Heirloom',
+    rating: 5.0,
+    description: 'Sourced from millennia-old stepped mountain terraces in Haraz. Complex dried fig richness intertwined with exotic cardamom spice and raw golden honey sweetness.',
+    specs: {
+      altitude: '2,100 - 2,400 masl',
+      process: 'Natural Sun Dried on Rooftops',
+      harvest: 'November 2024',
+      roast: 'Light Filter',
+      varietal: 'Ancient Udaini',
+      cuppingScore: '93.8 pts'
+    },
+    flavors: [
+      { name: 'Dried Fig', value: 95 },
+      { name: 'Cardamom', value: 89 },
+      { name: 'Wild Honey', value: 92 },
+      { name: 'Complexity', value: 96 }
+    ]
   }
 ];
 
