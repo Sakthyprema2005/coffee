@@ -1502,36 +1502,40 @@
       }
     ];
 
-    // Backend Integration
+    // Catalog Integration (Static Hosting + Backend API support)
     async function loadProducts() {
       try {
         const res = await fetch('/api/products');
         if (res.ok) {
-          const data = await res.json();
-          if(data.success && data.data && data.data.length > 0) {
-            products = data.data;
-            renderProducts(products);
-            return;
+          const contentType = res.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            const data = await res.json();
+            if(data && data.success && Array.isArray(data.data) && data.data.length > 0) {
+              renderProducts(data.data);
+              return;
+            }
           }
         }
       } catch(err) {
-        console.warn('Backend unavailable, using default catalog:', err);
+        // Fallback silently for static host environments
       }
-      products = DEFAULT_PRODUCTS;
-      renderProducts(products);
+      renderProducts(DEFAULT_PRODUCTS);
     }
 
     let collAnimId = null;
     function renderProducts(list) {
+      products = (list && list.length > 0) ? list : DEFAULT_PRODUCTS;
       const grid = document.getElementById('products-grid');
+      if (!grid) return;
+
       // Duplicate list for infinite seamless auto-scrolling
-      const displayList = [...list, ...list];
+      const displayList = [...products, ...products];
       grid.innerHTML = displayList.map(p => `
         <div class="product" data-id="${p.id}">
           <div class="prod-badge">${p.badge}</div>
           <div class="prod-img-wrap">
             <div class="prod-glow"></div>
-            <img src="${p.image}" alt="${p.name}" class="prod-img" />
+            <img src="${p.image}" alt="${p.name}" class="prod-img" loading="lazy" />
           </div>
           <div class="prod-info">
             <div class="prod-origin">${p.origin}</div>
@@ -1960,6 +1964,7 @@
     window.onload = () => {
       initThree();
       animateThree();
+      renderProducts(DEFAULT_PRODUCTS);
       loadProducts();
       initCraftAutoScroll();
     };
