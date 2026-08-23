@@ -486,6 +486,225 @@
     }
     .btn-cart-add:hover { background: var(--gold); color: var(--black); }
 
+    /* TERROIR WORLD MAP & RADAR SECTION */
+    .terroir-sec {
+      background: var(--void);
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .terroir-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .map-container {
+      position: relative;
+      background: radial-gradient(circle at center, rgba(30, 16, 8, 0.6) 0%, rgba(4, 3, 2, 0.95) 75%);
+      border: 1px solid rgba(200, 168, 75, 0.25);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 0 60px rgba(0, 0, 0, 0.6);
+    }
+    .map-belt-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .map-belt-tag::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold);
+    }
+    .map-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #060402;
+    }
+    .map-real-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.9) contrast(1.1);
+      transition: transform 0.8s ease;
+    }
+    .map-frame:hover .map-real-img {
+      transform: scale(1.03);
+    }
+    .map-html-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pin-radar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      animation: pinRadar 2.2s infinite ease-out;
+      opacity: 0.8;
+    }
+    @keyframes pinRadar {
+      0% { transform: scale(0.4); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .pin-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 16px var(--gold), 0 0 30px rgba(230, 198, 96, 0.8);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .map-html-pin:hover .pin-dot,
+    .map-html-pin.active .pin-dot {
+      transform: scale(1.4);
+      background: #fff;
+    }
+    .pin-tag {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: rgba(4, 3, 2, 0.9);
+      border: 1px solid rgba(200, 168, 75, 0.5);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+      color: var(--cream);
+      font-family: var(--font-sans);
+      pointer-events: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      transition: all 0.3s;
+    }
+    .map-html-pin.active .pin-tag {
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 600;
+      border-color: var(--gold);
+    }
+    .terroir-dossier {
+      background: var(--espresso);
+      border: 1px solid rgba(200, 168, 75, 0.3);
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .origin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 16px;
+    }
+    .origin-tab {
+      background: transparent;
+      border: 1px solid rgba(200, 168, 75, 0.3);
+      color: var(--cream2);
+      padding: 8px 16px;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      font-family: var(--font-sans);
+    }
+    .origin-tab:hover,
+    .origin-tab.active {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+      font-weight: 500;
+    }
+    .dossier-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .dossier-region {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .dossier-title {
+      font-family: var(--font-times);
+      font-size: 2.3rem;
+      line-height: 1.1;
+    }
+    .dossier-score {
+      font-family: var(--font-times);
+      font-size: 2rem;
+      color: var(--gold);
+      text-align: right;
+    }
+    .dossier-score-lbl {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream2);
+      font-family: var(--font-sans);
+    }
+    .dossier-desc {
+      color: var(--cream2);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 30px;
+    }
+    .dossier-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      margin-bottom: 30px;
+    }
+    .d-spec-lbl {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream2);
+      margin-bottom: 4px;
+    }
+    .d-spec-val {
+      font-family: var(--font-times);
+      font-size: 1.15rem;
+      color: var(--cream);
+    }
+    @media (max-width: 1024px) {
+      .terroir-grid { grid-template-columns: 1fr; }
+    }
+
     /* PROCESS AUTO SCROLL & CLICK-TO-PAUSE */
     .proc-sec {
       background: var(--void);
@@ -792,6 +1011,7 @@
     </div>
     <ul class="nav-links">
       <li><a href="#collection" class="nav-link">Collection</a></li>
+      <li><a href="#terroir" class="nav-link">Terroirs</a></li>
       <li><a href="#process" class="nav-link">Process</a></li>
       <li><a href="#gallery" class="nav-link">Gallery</a></li>
       <li><a href="#about" class="nav-link">Story</a></li>
@@ -888,6 +1108,99 @@
     <div class="coll-viewport" id="coll-viewport">
       <div class="coll-track" id="products-grid">
         <!-- Rendered dynamically from backend API / catalog with continuous auto-scroll and drag -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Terroir & Global Map Section -->
+  <section class="section terroir-sec" id="terroir">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <span class="eyebrow">Micro-Lot Geography</span>
+        <h2 class="sec-title">Global <em>Terroirs</em> &amp; Origins</h2>
+        <p style="color: var(--cream2); max-width: 620px; margin: 0 auto; line-height: 1.8;">
+          Coffee flavor is sculpted by volcanic soil, equatorial altitude, and distinct micro-climates along the world’s Bean Belt.
+        </p>
+      </div>
+
+      <div class="terroir-grid">
+        <!-- Interactive Real World Map -->
+        <div class="map-container">
+          <div class="map-belt-tag">Global Single-Origin Terroirs &middot; The Bean Belt</div>
+          <div class="map-frame">
+            <img src="assets/map.jpg" alt="World Terroir Map" class="map-real-img" />
+            
+            <!-- Interactive Origin Pin 1: Panama (Boquete) -->
+            <div class="map-html-pin" id="pin-panama" data-origin="panama" style="top: 55%; left: 29.8%;">
+              <span class="pin-radar-ring"></span>
+              <span class="pin-dot"></span>
+              <span class="pin-tag">Panama &middot; 8.8&deg;N</span>
+            </div>
+
+            <!-- Interactive Origin Pin 2: Colombia (Huila) -->
+            <div class="map-html-pin" id="pin-colombia" data-origin="colombia" style="top: 61.5%; left: 32.5%;">
+              <span class="pin-radar-ring"></span>
+              <span class="pin-dot"></span>
+              <span class="pin-tag">Colombia &middot; 2.4&deg;N</span>
+            </div>
+
+            <!-- Interactive Origin Pin 3: Ethiopia (Yirgacheffe) -->
+            <div class="map-html-pin active" id="pin-ethiopia" data-origin="ethiopia" style="top: 55%; left: 56.5%;">
+              <span class="pin-radar-ring"></span>
+              <span class="pin-dot"></span>
+              <span class="pin-tag">Ethiopia &middot; 6.2&deg;N</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Origin Terroir Dossier -->
+        <div class="terroir-dossier" id="terroir-dossier">
+          <div class="origin-tabs">
+            <button class="origin-tab active" data-origin-btn="ethiopia">01 Ethiopia</button>
+            <button class="origin-tab" data-origin-btn="colombia">02 Colombia</button>
+            <button class="origin-tab" data-origin-btn="panama">03 Panama</button>
+          </div>
+
+          <div class="dossier-top">
+            <div>
+              <span class="dossier-region" id="d-region">Yirgacheffe &middot; Kochere Zone</span>
+              <h3 class="dossier-title" id="d-title">Night Garden</h3>
+            </div>
+            <div>
+              <div class="dossier-score" id="d-score">91.5</div>
+              <span class="dossier-score-lbl">Cup Score</span>
+            </div>
+          </div>
+
+          <p class="dossier-desc" id="d-desc">
+            Sourced from high-altitude volcanic slopes in Southern Ethiopia. Characterized by intense jasmine floral aromatics and vibrant blueberry fruit notes.
+          </p>
+
+          <div class="dossier-specs-grid">
+            <div>
+              <div class="d-spec-lbl">Altitude</div>
+              <div class="d-spec-val" id="d-alt">1,800 - 2,200 masl</div>
+            </div>
+            <div>
+              <div class="d-spec-lbl">Volcanic Soil</div>
+              <div class="d-spec-val" id="d-soil">Iron-Rich Clay</div>
+            </div>
+            <div>
+              <div class="d-spec-lbl">Botanical Varietal</div>
+              <div class="d-spec-val" id="d-var">JARC 74110/74112</div>
+            </div>
+            <div>
+              <div class="d-spec-lbl">Processing</div>
+              <div class="d-spec-val" id="d-proc">Slow Washed / Sun Dried</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button class="btn-gold" id="terroir-view-btn" style="width: 100%; text-align: center;">
+              <span>Explore This Lot &rarr;</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2070,6 +2383,87 @@
       });
     }
 
+    // Terroir Map Data & Interactivity
+    const TERROIR_DATA = {
+      ethiopia: {
+        id: 1,
+        title: 'Night Garden',
+        region: 'Yirgacheffe \u00b7 Kochere Zone',
+        score: '91.5',
+        altitude: '1,800 - 2,200 masl',
+        soil: 'Iron-Rich Volcanic Clay',
+        varietal: 'JARC 74110 & 74112',
+        process: 'Slow Washed / African Beds',
+        desc: 'Sourced from legendary volcanic mountain slopes in Southern Ethiopia. Characterized by intense jasmine floral aromatics and vibrant blueberry fruit notes.'
+      },
+      colombia: {
+        id: 2,
+        title: 'Amber Hours',
+        region: 'Huila \u00b7 La Plata Estate',
+        score: '89.5',
+        altitude: '1,650 - 1,850 masl',
+        soil: 'Volcanic Ash & Andesite',
+        varietal: 'Castillo & Caturra',
+        process: 'Yellow Honey Ferment',
+        desc: 'Cultivated in high Andean mountain valleys sheltered by micro-climates. Delivers rich caramel apple sweetness with a silky brown sugar finish.'
+      },
+      panama: {
+        id: 3,
+        title: 'Silent Peak',
+        region: 'Boquete \u00b7 Finca Lerida',
+        score: '94.2',
+        altitude: '1,600 - 1,700 masl',
+        soil: 'Bar\u00fa Volcanic Loam',
+        varietal: 'Geisha (Panama)',
+        process: 'Anaerobic Natural 96h',
+        desc: 'Grown on the mist-shrouded slopes of Volc\u00e1n Bar\u00fa. Extraordinary peach blossom, delicate bergamot, and an ethereal floral complexity.'
+      }
+    };
+
+    function selectTerroirOrigin(key) {
+      const data = TERROIR_DATA[key];
+      if (!data) return;
+
+      document.getElementById('d-title').textContent = data.title;
+      document.getElementById('d-region').textContent = data.region;
+      document.getElementById('d-score').textContent = data.score;
+      document.getElementById('d-desc').textContent = data.desc;
+      document.getElementById('d-alt').textContent = data.altitude;
+      document.getElementById('d-soil').textContent = data.soil;
+      document.getElementById('d-var').textContent = data.varietal;
+      document.getElementById('d-proc').textContent = data.process;
+
+      document.querySelectorAll('.origin-tab').forEach(t => {
+        t.classList.toggle('active', t.getAttribute('data-origin-btn') === key);
+      });
+      document.querySelectorAll('.map-html-pin').forEach(p => {
+        p.classList.toggle('active', p.getAttribute('data-origin') === key);
+      });
+
+      const viewBtn = document.getElementById('terroir-view-btn');
+      if (viewBtn) {
+        viewBtn.onclick = () => openProductModal(data.id);
+      }
+    }
+
+    function initTerroirMap() {
+      document.querySelectorAll('.map-html-pin').forEach(pin => {
+        pin.addEventListener('click', () => {
+          const originKey = pin.getAttribute('data-origin');
+          selectTerroirOrigin(originKey);
+        });
+      });
+
+      document.querySelectorAll('.origin-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const originKey = tab.getAttribute('data-origin-btn');
+          selectTerroirOrigin(originKey);
+        });
+      });
+
+      selectTerroirOrigin('ethiopia');
+    }
+
     // Window Load Init
     window.onload = () => {
       initThree();
@@ -2077,6 +2471,7 @@
       renderProducts(DEFAULT_PRODUCTS);
       loadProducts();
       initCraftAutoScroll();
+      initTerroirMap();
     };
   </script>
 </body>
